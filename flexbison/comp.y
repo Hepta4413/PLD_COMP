@@ -74,8 +74,8 @@ expr :    expr MUL expr
 	| var DECR 	
 	| INCR var 
 	| DECR var
-	| MINUS var
-	| NOT var;
+	| MINUS expr
+	| NOT expr;
 af : NOM OPEN args CLOSE ;
 args : argsbis 
 	| %empty ;
@@ -83,7 +83,7 @@ argsbis : expr
 	| argsbis COMA expr ;
 bloccontrole : IF condition OPENCURLYBRACKET bloc CLOSECURLYBRACKET else 
      		| WHILE condition OPENCURLYBRACKET bloc CLOSECURLYBRACKET  
-     		| FOR OPEN operation SEMICOMA expr SEMICOMA operation CLOSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET 
+     		| FOR OPEN operation SEMICOMA operation SEMICOMA operation CLOSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET 
      		;
 else : ELSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET
 	| %empty
