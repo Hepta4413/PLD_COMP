@@ -1,20 +1,20 @@
-#ifndef PROGRAMME_H
-#define PROGRAMME_H
+#ifndef VARIABLE_H
+#define VARIABLE_H
 
-#include "Fonction.h"
-#include <map>
-#include <string>
+#include "Enums.h"
 
-using namespace std;
-
-class Programme
+class Variable
 {
 	public:
-	Programme();
-	void addFonction(Fonction f);
+	Variable(Type t, int64_t val);
+	Variable(Type t, int32_t val);
+	Variable(Type t, char c);
 	
 	private:
-	map<string,Fonction> fonctions;
+	Type type;
+	int64_t valeurint64;
+	int32_t valeurint32;
+	char c;
 		
 };
 
