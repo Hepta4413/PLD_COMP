@@ -9,13 +9,10 @@ using namespace std;
 class BlocControle : public Contenu
 {
 	public:
-	BlocControle(Expression e, TypeControle t);
+	BlocControle();
 	
 	private:
 	Expression condition;
-	TypeControle type;
-	
-	
 	
 		
 };
