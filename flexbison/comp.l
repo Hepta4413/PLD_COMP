@@ -5,7 +5,7 @@
 %}
 %option noyywrap
 digit [0-9]+
-char [a-zA-Z]+
+char [a-zA-Z]
 %%
 "/*"(.|\n)*"*/" { /* ignore */ }
 "//".*$ 	{ /* ignore */ }
@@ -50,7 +50,8 @@ char [a-zA-Z]+
 "int64_t"    { return INT64; }
 "char"       { return CHAR; }
 "return"     { return RETURN; }
-({char}|"_")\w*      { return NOM; }
+"'"{char}"'" { yylval.ival = yytext[1]; return ENTIER; }
+[_a-zA-Z][_a-zA-Z0-9]*      { return NOM; }
 {digit}      { yylval.ival = atoi(yytext); return ENTIER; }
 
 
