@@ -2,11 +2,12 @@
 #define OPUNAIRE_H
 
 #include "Enums.h"
+#include "Expression.h"
 
-using namespace std;
-
-class OPUnaire {
+class OPUnaire : public Expression
+{
 	private :
+	OPUnaire();
 	OPUnaire(Expression e, Opunaire op);
 		
 	public :

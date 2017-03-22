@@ -1,14 +1,16 @@
 #ifndef EXPRESSION_H
 #define EXPRESSION_H
 
+#include "Enums.h"
 
-using namespace std;
-
-class Expression {
+class Expression : public Ligne
+{
 	private :
 	Expression();
+	Expression(Type t);
 		
 	public :
+	Type type;
 	
 };
 

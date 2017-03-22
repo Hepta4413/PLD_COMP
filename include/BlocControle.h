@@ -2,18 +2,17 @@
 #define BLOCCONTROLE_H
 
 #include "Contenu.h"
-#include "Enums.h"
-
-using namespace std;
+#include "Bloc.h"
 
 class BlocControle : public Contenu
 {
 	public:
 	BlocControle();
+	BlocControle(Bloc bparent, Bloc bfils);
 	
 	private:
-	Expression condition;
-	
+	Bloc blocParent;
+	Bloc blocFils;
 		
 };
 

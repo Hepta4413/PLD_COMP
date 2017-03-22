@@ -1,16 +1,16 @@
 #ifndef CONTENU_H
 #define CONTENU_H
 
-#include "BlocControle.h"
-
-using namespace std;
+#include "Bloc.h"
 
 class Contenu
 {
 	public:
 	Contenu();
+	Contenu(Bloc b);
 	
 	private:
+	Bloc blocParent;
 		
 };
 

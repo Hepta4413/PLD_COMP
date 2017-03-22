@@ -2,18 +2,16 @@
 #define BLOCWHILE_H
 
 #include "BlocControle.h"
-
-using namespace std;
+#include "Expression.h"
 
 class BlocWhile : public BlocControle
 {
 	public:
-	BlocControle(Expression e);
+	BlocWhile();
+	BlocWhile(Expression e);
 	
 	private:
-	Expression condition;
-	
-	
+	Expression condition;	
 		
 };
 

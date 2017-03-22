@@ -1,20 +1,17 @@
 #ifndef VARIABLE_H
 #define VARIABLE_H
 
+#include "Expression.h"
 #include "Enums.h"
 
-class Variable
+class Variable : public Expression
 {
 	public:
-	Variable(Type t, int64_t val);
-	Variable(Type t, int32_t val);
-	Variable(Type t, char c);
+	Variable();
+	Variable(Type t);
 	
 	private:
 	Type type;
-	int64_t valeurint64;
-	int32_t valeurint32;
-	char c;
 		
 };
 

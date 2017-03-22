@@ -2,17 +2,20 @@
 #define BLOC_H
 
 #include "Contenu.h"
-
-using namespace std;
+#include "Fonction.h"
+#include "Variable.h"
 
 class Bloc
 {
 	public:
 	Bloc();
-	Bloc(Contenu c);
+	Bloc(Contenu c, Fonction f,Variable[] var, Bloc bControleParent);
 	
 	private:
 	Contenu cont;
+	Fonction fonct;
+	Variable[] varbloc;
+	Bloc blocControleParent;
 		
 };
 

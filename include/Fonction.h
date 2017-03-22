@@ -1,18 +1,18 @@
 #ifndef FONCTION_H
 #define FONCTION_H
 
-#include "Argument.h"
-
-using namespace std;
+#include "Var.h"
+#include "Programme.h"
 
 class Fonction
 {
 	public:
 	Fonction();
-	Fonction(Argument a);
+	Fonction(Var[] arg, Programme p);
 	
 	private:
-	Argument arg;
+	Var[] arguments;
+	Programme prog;
 };
 
 #endif

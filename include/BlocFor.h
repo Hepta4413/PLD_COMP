@@ -2,16 +2,18 @@
 #define BLOCFOR_H
 
 #include "BlocControle.h"
-
-using namespace std;
+#include "Expression.h"
 
 class BlocFor : public BlocControle
 {
 	public:
-	BlocFor(Expression e);
+	BlocFor();
+	BlocFor(Expression c, Expression ini, Expression inc);
 	
-	private:	
-	
+	private:
+	Expression condition;
+	Expression incre;
+	Expression init;
 		
 };
 

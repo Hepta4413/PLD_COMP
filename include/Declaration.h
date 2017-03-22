@@ -2,17 +2,18 @@
 #define DECLARATION_H
 
 #include "Ligne.h"
-#include "Type.h"
-
-using namespace std;
+#include "Enums.h"
+#include <string.h>
 
 class Declaration : public Ligne
 {
 	public:
 	Declaration();
+	Declaration(Type t, std::string name);
 	
 	private:
 	Type type;
+	std::string name;
 		
 };
 
