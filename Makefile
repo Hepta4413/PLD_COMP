@@ -31,7 +31,9 @@ OBJ = \
 		obj/Return.o \
 		obj/Variable.o \
 		obj/VarS.o \
-		obj/VarTab.o
+		obj/VarTab.o \
+
+MAIN = obj/main.o
 
 REAL = $(OBJ:.o=.cpp:obj=src)
 
@@ -40,6 +42,8 @@ REAL = $(OBJ:.o=.cpp:obj=src)
 ECHO = @echo
 RM = @rm
 
+
+#Cibles
 ###############################################################################
 
 .PHONY: all
@@ -49,11 +53,18 @@ all: $(EXE)
 clean:
 	$(RM) -fv ./obj/*.o $(EXE)
 	
+#Dependances
 ###############################################################################
 
-$(EXE): $(OBJ)
+$(EXE): $(OBJ) $(MAIN)
+	$(ECHO) "[link]" $(LINK) $(EDLFLAGS) $@
 	$(LINK) -o $(EXE) $^ $(EDLFLAGS)
-	$(ECHO) $(MESSAGE)
 	
-obj/%.o:src/%.cpp
-	$(COMP) -c $(CPPFLAGS) $<
+obj/%.o:src/%.cpp include/%.h
+	$(ECHO) "[comp]" $(COMP) $(CPPFLAGS) $@
+	$(COMP) -o $@ -c $(CPPFLAGS) $<
+	
+$(MAIN):src/main.cpp
+	$(ECHO) "[comp]" $(COMP) $(CPPFLAGS) $@
+	$(COMP) -o $@ -c $(CPPFLAGS) $<
+	
