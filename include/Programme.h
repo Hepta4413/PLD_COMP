@@ -10,6 +10,7 @@ class Programme
 	public:
 	Programme();
 	Programme(map<std::string,Fonction> f);
+	AddFonction(Fonction f);
 	
 	private:
 	map<std::string,Fonction> fonctions;

@@ -11,3 +11,8 @@ Bloc::Bloc(Contenu c, Fonction f,Variable[] var, Bloc bControleParent)
 	varbloc = var;
 	blocControleParent = bControleParent;
 }
+
+Bloc::AddContenu(Contenu c)
+{
+    cont.push_back(c);
+}

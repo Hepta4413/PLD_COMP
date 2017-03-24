@@ -4,15 +4,17 @@
 #include "Contenu.h"
 #include "Fonction.h"
 #include "Variable.h"
+#include <Vector>
 
 class Bloc
 {
 	public:
 	Bloc();
 	Bloc(Contenu c, Fonction f,Variable[] var, Bloc bControleParent);
+	AddContenu(Contenu c);
 	
 	private:
-	Contenu cont;
+	Vector<Contenu> cont;
 	Fonction fonct;
 	Variable[] varbloc;
 	Bloc blocControleParent;

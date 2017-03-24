@@ -33,17 +33,17 @@ arg : 	argbis
 	| %empty ;
 argbis :  typefonction NOM 
 	| argbis COMA typefonction NOM ;
-bloc : bloc contenu 
-	| %empty ;
-contenu : ligne SEMICOMA 
-	| bloccontrole ;
-ligne : operation 
-	| declaration 
-	| return ;
-return : RETURN expr 
-	| RETURN ;
+bloc : bloc contenu {$1->add($2); $$ = $1; }
+	| %empty {$$= new Bloc();};
+contenu : ligne SEMICOMA {$$=$1;}
+	| bloccontrole {$$=$1;};
+ligne : operation {$$=$1;}
+	| declaration {$$=$1;}
+	| return {$$=$1;};
+return : RETURN expr {$$ = new Return($2);}
+	| RETURN {$$ = new Return();};
 declaration : typebase NOM declarationopt { $$ = new VarS($2,$3,$1);} ;
-declarationopt : OPENBRACKET ENTIER CLOSEBRACKET ; 
+declarationopt : OPENBRACKET ENTIER CLOSEBRACKET  
 		 | EQUAL expr 		
 		 | %empty
 		 ;
@@ -62,11 +62,12 @@ expr :    expr MUL expr {$$ = new OPBinaire($1, $3, Opbinaire.MUL); }
 	| expr NOTEQUAL expr {$$ = new OPBinaire($1, $3, Opbinaire.NOTEQUAL); }
 	| expr AND expr {$$ = new OPBinaire($1, $3, Opbinaire.AND); }
 	| expr OR expr {$$ = new OPBinaire($1, $3, Opbinaire.OR); }
+	| expr COMA expr {$$ = new OPBinaire($1, $3, Opbinaire.COMA); }
 	| var EQUAL expr {$$ = new OPBinaire($1, $3, Opbinaire.EQUAL); }
-	| expr MULEQUAL expr {$$ = new OPBinaire($1, $3, Opbinaire.MULEQUAL); }
-	| expr DIVEQUAL expr {$$ = new OPBinaire($1, $3, Opbinaire.DIVEQUAL); }
-	| expr PLUSEQUAL expr {$$ = new OPBinaire($1, $3, Opbinaire.PLUSEQUAL); }
-	| expr MINUSEQUAL expr {$$ = new OPBinaire($1, $3, Opbinaire.MINUSEQUAL); }
+	| var MULEQUAL expr {$$ = new OPBinaire($1, $3, Opbinaire.MULEQUAL); }
+	| var DIVEQUAL expr {$$ = new OPBinaire($1, $3, Opbinaire.DIVEQUAL); }
+	| var PLUSEQUAL expr {$$ = new OPBinaire($1, $3, Opbinaire.PLUSEQUAL); }
+	| var MINUSEQUAL expr {$$ = new OPBinaire($1, $3, Opbinaire.MINUSEQUAL); }
 	| val { $$ = $1; }
 	| af { $$ = $1; }
 	| OPEN expr CLOSE {$$=$2;}
@@ -74,7 +75,7 @@ expr :    expr MUL expr {$$ = new OPBinaire($1, $3, Opbinaire.MUL); }
 	| var DECR {$$ = new OPUnaire ($1, Opunaire.DECR);}	
 	| INCR var {$$ = new OPUnaire ($2, Opunaire.INCR);}
 	| DECR var {$$ = new OPUnaire ($2, Opunaire.DECR);}
-	| MINUS expr {$$ = new OPUnaire ($2, Opunaire.MINUS);}
+	| MINUS expr {$$ = new OPUnaire ($2, Opunaire.NEG);}
 	| NOT expr; {$$ = new OPUnaire ($2, Opunaire.NOT);}
 af : NOM OPEN args CLOSE ;
 args : argsbis 
