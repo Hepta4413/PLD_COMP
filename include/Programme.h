@@ -5,12 +5,14 @@
 #include <map>
 #include <string>
 
+class Fonction;
+
 class Programme
 {
 	public:
 	Programme();
 	Programme(std::map<std::string,Fonction> f);
-	AddFonction(Fonction f);
+	void AddFonction(Fonction f);
 	
 	private:
 	std::map<std::string,Fonction> fonctions;

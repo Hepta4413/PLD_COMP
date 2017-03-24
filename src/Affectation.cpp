@@ -5,20 +5,17 @@ Affectation::Affectation()
 }
 
 Affectation::Affectation(VarS vars, long value, Opbinaire op)
+
 {
-	this.vars = vars;
+	vars = var;
 	valuei = value;
-	type=t;
     operateur=op;
 }
 
 Affectation::Affectation(VarTab vartab, long value, int i, Opbinaire op)
 {
-	this.vartab = vartab;
+	vartab = var;
 	valuei = value;
 	index = i;
-	type=t;
     operateur=op;
 }
-
-

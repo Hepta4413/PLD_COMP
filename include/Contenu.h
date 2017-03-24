@@ -1,16 +1,18 @@
 #ifndef CONTENU_H
 #define CONTENU_H
 
-#include "Bloc.h"
+//#include "Bloc.h"
+
+class Bloc;
 
 class Contenu
 {
 	public:
 	Contenu();
-	Contenu(Bloc b);
+	Contenu(Bloc * b);
 	
 	private:
-	Bloc blocParent;
+	Bloc * blocParent;
 		
 };
 

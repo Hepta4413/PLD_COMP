@@ -5,7 +5,7 @@ COMP = @g++
 LINK = @g++
 
 # Options de compilation et editions de liens
-CPPFLAGS = -DYYDEBUG -Wall
+CPPFLAGS = -DYYDEBUG -Wall -std=gnu++11
 CPPFLAGS += $(INCDIR)
 EDLFLAGS =
 

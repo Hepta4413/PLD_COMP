@@ -5,17 +5,15 @@
 #include "Expression.h"
 #include <vector>
 
-
 class AppelFonct : public Expression
 {
 	public:
 	AppelFonct();
-	AppelFonct(std::string f, vector<Expression> param);
+	AppelFonct(std::string f, std::vector<Expression> param);
 	
 	private:
 	std::string fonction;
-	vector<Expression> parametres;
-		
+	std::vector<Expression> parametres;
 };
 
 #endif

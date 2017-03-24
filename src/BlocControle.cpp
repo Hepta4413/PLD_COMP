@@ -4,8 +4,7 @@ BlocControle::BlocControle()
 {
 }
 
-BlocControle::BlocControle(Bloc bparent, Bloc bfils)
+BlocControle::BlocControle(Bloc * bfils)
 {
-	blocParent = bparent;
 	blocFils = bfils;
 }

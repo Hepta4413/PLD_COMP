@@ -20,6 +20,7 @@ class Fonction
 	private:
 	std::string nom;
 	vector<Variable> arguments;
+
 	Programme prog;
 	Bloc bloc;
 	Type type;

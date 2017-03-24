@@ -4,7 +4,7 @@ Bloc::Bloc()
 {
 }
 
-Bloc::Bloc(Contenu c, Fonction f,Variable[] var, Bloc bControleParent)
+Bloc::Bloc(std::vector<Contenu> c, Fonction * f, std::map<std::string,Variable> var, BlocControle * bControleParent)
 {
 	cont = c;
 	fonct = f;
@@ -12,7 +12,7 @@ Bloc::Bloc(Contenu c, Fonction f,Variable[] var, Bloc bControleParent)
 	blocControleParent = bControleParent;
 }
 
-Bloc::AddContenu(Contenu c)
+void Bloc::AddContenu(Contenu c)
 {
     cont.push_back(c);
 }

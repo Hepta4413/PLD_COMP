@@ -4,7 +4,8 @@ AppelFonct::AppelFonct()
 {
 }
 
-AppelFonct::AppelFonct(std::string f, vector<Expression> param)
+
+AppelFonct::AppelFonct(std::string f, std::vector<Expression> param)
 {
     std::string = f;
 	parametres = param;

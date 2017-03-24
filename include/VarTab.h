@@ -14,6 +14,7 @@ class VarTab : public Variable
 	private:
 	long[] valuesint;
 	int taille;
+
 };
 
 #endif

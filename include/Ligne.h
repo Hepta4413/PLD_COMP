@@ -3,6 +3,8 @@
 
 #include "Contenu.h"
 
+class Contenu;
+
 class Ligne : public Contenu
 {
 	public:
