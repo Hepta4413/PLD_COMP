@@ -3,7 +3,7 @@
 
 #include "Ligne.h"
 #include "Enums.h"
-#include <string.h>
+#include <string>
 
 class Declaration : public Ligne
 {

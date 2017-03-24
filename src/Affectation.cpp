@@ -4,7 +4,7 @@ Affectation::Affectation()
 {
 }
 
-Affectation::Affectation(VarS vars, long value, Opbinaire op)
+Affectation::Affectation(VarS var, long value, Opbinaire op)
 
 {
 	vars = var;
@@ -12,7 +12,7 @@ Affectation::Affectation(VarS vars, long value, Opbinaire op)
     operateur=op;
 }
 
-Affectation::Affectation(VarTab vartab, long value, int i, Opbinaire op)
+Affectation::Affectation(VarTab var, long value, int i, Opbinaire op)
 {
 	vartab = var;
 	valuei = value;

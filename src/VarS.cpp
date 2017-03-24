@@ -18,5 +18,5 @@ VarS::VarS(long val)
 
 VarS::VarS(std::string n)
 {
-    valueint=val;
+    nom=n;
 }

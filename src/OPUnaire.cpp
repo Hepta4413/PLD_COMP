@@ -4,8 +4,8 @@ OPUnaire::OPUnaire()
 {
 }
 
-OPUnaire::OPUnaire(Expression e, Opunaire op)
+OPUnaire::OPUnaire(Expression e, Opunaire ope)
 {
 	exp = e;
-	this.op = op;
+	op = ope;
 }

@@ -2,13 +2,10 @@
 #define BLOC_H
 
 #include "Contenu.h"
-#include "Fonction.h"
 #include "Variable.h"
 #include <vector>
 #include <map>
 #include <string>
-//#include "BlocControle.h"
-
 
 class Variable;
 class BlocControle;

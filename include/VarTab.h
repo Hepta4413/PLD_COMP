@@ -12,10 +12,9 @@ class VarTab : public Variable
 	VarTab(int t, bool taille);
 	
 	private:
-	long[] valuesint;
+	long valuesint[];
 	int valeur;
 	bool taille;
-
 };
 
 #endif
