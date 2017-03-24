@@ -4,9 +4,9 @@ OPBinaire::OPBinaire()
 {
 }
 
-OPBinaire::OPBinaire(Expression e1, Expression e2, Opbinaire op)
+OPBinaire::OPBinaire(Expression ex1, Expression ex2, Opbinaire ope)
 {
-	this.e1 = e1;
-	this.e2 = e2;
-	this.op = op;
+	e1 = ex1;
+	e2 = ex2;
+	op = ope;
 }

@@ -3,6 +3,7 @@
 
 #include "Variable.h"
 #include <string>
+#include "Enums.h"
 
 class VarS : public Variable
 {
@@ -13,7 +14,9 @@ class VarS : public Variable
 	VarS(std::string n);
 	
 	private:
+	std::string nom;
 	long valueint;
+	Type type;
 		
 };
 

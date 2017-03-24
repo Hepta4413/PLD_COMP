@@ -4,15 +4,20 @@ Fonction::Fonction()
 {
 }
 
-Fonction::Fonction(Type t, std::string nom, vector<Variable> arg, Bloc b)
+Fonction::Fonction(Type t, std::string n, std::vector<Variable> arg, Bloc b)
 {
 	arguments = arg;
     bloc = b;
-    this.nom=nom;
+    nom=n;
     type = t;
 }
 
-Fonction::AddProg(Programme* p)
+void Fonction::AddProg(Programme* p)
 {
     prog=p;
+}
+
+std::string Fonction::getNom()
+{
+	return nom;
 }

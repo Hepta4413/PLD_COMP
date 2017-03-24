@@ -3,6 +3,7 @@
 
 #include "Expression.h"
 #include "Enums.h"
+#include <string>
 
 class Variable : public Expression
 {
@@ -11,7 +12,7 @@ class Variable : public Expression
 	Variable(Type t, std::string n);
 	void AddInfo(Type t, std::string n);
 	
-	private:
+	protected:
 	Type type;
 	std::string nom;
 		
