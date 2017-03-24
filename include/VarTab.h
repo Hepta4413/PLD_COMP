@@ -8,13 +8,13 @@ class VarTab : public Variable
 {
 	public:
 	VarTab();
-	VarTab(std::string n, int t, Type typ);
-	VarTab(int t);
+	VarTab(std::string n, int t, bool taille);
+	VarTab(int t, bool taille);
 	
 	private:
 	long valuesint[];
-	int taille;
-
+	int valeur;
+	bool taille;
 };
 
 #endif

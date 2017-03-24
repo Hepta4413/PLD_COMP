@@ -1,15 +1,74 @@
 %{
 #include <stdio.h>
+#include <Affectation.h> 
+#include <Bloc.h> 
+#include <Declaration.h> 
+#include <Ligne.h> 
+#include <Return.h> 
+#include <AppelFonct.h> 
+#include <BlocIf.h> 
+#include <Enums.h> 
+#include <OPBinaire.h> 
+#include <Variable.h> 
+#include <BlocControle.h> 
+#include <BlocWhile.h> 
+#include <Expression.h> 
+#include <OPUnaire.h> 
+#include <VarS.h> 
+#include <BlocFor.h> 
+#include <Contenu.h>    
+#include <Fonction.h>     
+#include <Programme.h>  
+#include <VarTab.h>
+
 void yyerror(int *, const char *);
 int yylex(void);
 %}
 %union {
-   int ival; 
+    int ival;
+	Affectation affectation;
+	Bloc bloc;
+	Declaration declaration; 
+	Ligne ligne;
+	Return return;
+	AppelFonct appelfonct;
+	BlocIf blocif;
+	Type type;
+	OPBinaire opbinaire;
+	Variable variable;
+	BlocControle bloccontrole;
+	BlocWhile blocwhile;
+	Expression expression;
+	OPUnaire opunaire;
+	VarS vars;
+	BlocFor blocfor;
+	Contenu contenu;
+	Fonction fonction;
+	Programme programme;
+	VarTab vartab;
+	vector<Variable> variablesliste;
+	vector<Expression> expressionsliste;	
+	bool bool;
 }
 
 %token NOM INT32 CHAR RETURN INT64 PLUS MINUS MUL DIV OPEN CLOSE EQUAL MULEQUAL PLUSEQUAL MINUSEQUAL DIVEQUAL LOWERTHAN UPPERTHAN LOWEROREQUALTHAN UPPEROREQUALTHAN DOUBLEEQUAL DOUBLEPLUS DOUBLEMINUS QUOTE NOTEQUAL CLOSEBRACKET OPENBRACKET OPENCURLYBRACKET CLOSECURLYBRACKET NOT AND OR MODULO INCR DECR  IF ELSE FOR WHILE SEMICOMA COMA VOID  
 %token <ival> ENTIER VAR
-
+%type <bloc> bloc
+%type <declaration> declaration declarationopt
+%type <ligne> ligne
+%type <return> return;
+%type <appelfonct> af
+%type <blocif> else
+%type <type> typenombre typechar typebase typefonction typereturnfonction
+%type <variable> var
+%type <bloccontrole> bloccontrole
+%type <expression> expr operation condition option val
+%type <contenu> contenu  
+%type <fonction> fonction    
+%type <programme> prog 
+%type <variablesliste> arg argbis
+%type <expressionsliste> args argsbis
+%type <bool> typebases
 
 %parse-param { int * resultat }
 %left COMA
@@ -43,7 +102,7 @@ ligne : operation {$$=$1;}
 return : RETURN expr {$$ = new Return($2);}
 	| RETURN {$$ = new Return();};
 declaration : typebase NOM declarationopt { $3->AddInfo($1,$2; $$ = $3;} ;
-declarationopt : OPENBRACKET ENTIER CLOSEBRACKET {$$= new VarTab($2);}
+declarationopt : OPENBRACKET ENTIER CLOSEBRACKET {$$= new VarTab($2,1);}
 		 | EQUAL expr { $$ = new VarS($2);}	
 		 | %empty {$$ = new VarS()};
 		 ;
@@ -76,7 +135,8 @@ expr :    expr MUL expr {$$ = new OPBinaire($1, $3, Opbinaire.MUL); }
 	| INCR var {$$ = new OPUnaire ($2, Opunaire.INCR);}
 	| DECR var {$$ = new OPUnaire ($2, Opunaire.DECR);}
 	| MINUS expr {$$ = new OPUnaire ($2, Opunaire.NEG);}
-	| NOT expr; {$$ = new OPUnaire ($2, Opunaire.NOT);}
+	| NOT expr {$$ = new OPUnaire ($2, Opunaire.NOT);}
+	;
 af : NOM OPEN args CLOSE {$$=new AppelFonct($1,$3);};
 args : argsbis {$$=$1;}
 	| %empty {$$=NULL;};
@@ -95,11 +155,11 @@ typenombre : INT32 {$$=Type.INT32;}
 typechar : CHAR {$$=Type.CHAR;};
 typebase : typenombre {$$=$1;}
 	| typechar {$$=$1;};
-typefonction : typebase typebases {$2?($1==Type.INT32?Type.INT32TAB:($1==Type.INT64?Type.INT64TAB:CHARTAB)):$1;
+typefonction : typebase typebases {$2?($1==Type.INT32?Type.INT32TAB:($1==Type.INT64?Type.INT64TAB:CHARTAB)):$1;};
 typebases : OPENBRACKET CLOSEBRACKET {$$=1;}| %empty {$$=0;};
 typereturnfonction : VOID {$$=Type.VOID;}
 	| typefonction {$$=$1;};
-var : 	NOM option {$$=($2==-1?new VarS($1):);
+var : 	NOM option {$$=($2==-1?new VarS($1): new VarTab($1,$2,0));};
 option : OPENBRACKET expr CLOSEBRACKET {$$=$2;}| %empty {$$=-1;} ;
 val : 	var {$$=$1;}
 	| ENTIER {$$=new Expression(Type.CONSTVAL,$1);};

@@ -4,14 +4,15 @@ VarTab::VarTab()
 {
 }
 
-VarTab::VarTab(std::string n, int t, Type typ)
+VarTab::VarTab(std::string n, int t, bool taille)
 {
 	nom=n;
-    taille=t;
-    type=typ;
+    valeur=t;
+	this.taille=taille;
 }
 
-VarTab::VarTab(int t)
+VarTab::VarTab(int t, bool taille)
 {
-    taille=t;
+    valeur=t;
+	this.taille=taille;
 }
