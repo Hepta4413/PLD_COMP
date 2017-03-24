@@ -6,11 +6,14 @@
 #include "Variable.h"
 #include <Vector>
 
+class Contenu;
+class Variable;
+
 class Bloc
 {
 	public:
 	Bloc();
-	Bloc(Contenu c, Fonction f,Variable[] var, Bloc bControleParent);
+	Bloc(Contenu c, Fonction f,Variable var[], Bloc bControleParent);
 	AddContenu(Contenu c);
 	
 	private:

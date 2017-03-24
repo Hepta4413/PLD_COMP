@@ -9,14 +9,17 @@ class Affectation : public Expression
 {
 	public:
 	Affectation();
-	Affectation(VarS vars, int64_t value);
+	Affectation(VarS vars, long value);
 	Affectation(VarS vars, char value);
-	Affectation(VarTab vartab, int64_t value, int i);
+	Affectation(VarTab vartab, long value, int i);
+	Affectation::Affectation(VarTab vartab, char value, int i);
+	Affectation::Affectation(VarTab vartab, long value[], Type t);
+	Affectation::Affectation(VarTab vartab, char value[]);
 	
 	private:
 	VarS vars;
-	VarTab vartab
-	int64_t valuei;
+	VarTab vartab;
+	long valuei;
 	char valuec;
 	int index;
 		

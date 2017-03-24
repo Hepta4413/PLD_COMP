@@ -1,17 +1,21 @@
 #ifndef FONCTION_H
 #define FONCTION_H
 
-#include "Var.h"
+#include "Variable.h"
 #include "Programme.h"
+#include <string>
+
+class Variable;
 
 class Fonction
 {
 	public:
 	Fonction();
-	Fonction(Var nom, Var[] arg, Programme p);
+	Fonction(std::string nom, Variable arg[], Programme p);
 	
 	private:
-	Var[] arguments;
+	std::string nom;
+	Variable[] arguments;
 	Programme prog;
 };
 

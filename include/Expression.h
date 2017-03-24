@@ -2,14 +2,15 @@
 #define EXPRESSION_H
 
 #include "Enums.h"
+#include "Ligne.h"
 
 class Expression : public Ligne
 {
-	private :
+	public :
 	Expression();
 	Expression(Type t, long v);
 		
-	public :
+	private :
 	Type type;
 	long valeur;
 	
