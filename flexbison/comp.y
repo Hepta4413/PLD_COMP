@@ -42,40 +42,40 @@ ligne : operation
 	| return ;
 return : RETURN expr 
 	| RETURN ;
-declaration : typebase NOM declarationopt
+declaration : typebase NOM declarationopt { $$ = new VarS($2,$3,$1);} ;
 declarationopt : OPENBRACKET ENTIER CLOSEBRACKET ; 
 		 | EQUAL expr 		
 		 | %empty
 		 ;
-operation : expr 
+operation : expr {$$=$1;}
 	| %empty ;
-expr :    expr MUL expr
-	| expr PLUS expr
-	| expr MINUS expr
-	| expr DIV expr
-	| expr MODULO expr
-	| expr LOWERTHAN expr
-	| expr UPPEROREQUALTHAN expr
-	| expr LOWEROREQUALTHAN expr
-	| expr UPPERTHAN expr
-	| expr DOUBLEEQUAL expr
-	| expr NOTEQUAL expr
-	| expr AND expr
-	| expr OR expr
-	| var EQUAL expr
-	| expr MULEQUAL expr
-	| expr DIVEQUAL expr
-	| expr PLUSEQUAL expr
-	| expr MINUSEQUAL expr
-	| val 
-	| af 
-	| OPEN expr CLOSE 
-	| var INCR 
-	| var DECR 	
-	| INCR var 
-	| DECR var
-	| MINUS expr
-	| NOT expr;
+expr :    expr MUL expr {$$ = new OPBinaire($1, $3, Opbinaire.MUL); }
+	| expr PLUS expr {$$ = new OPBinaire($1, $3, Opbinaire.PLUS); }
+	| expr MINUS expr {$$ = new OPBinaire($1, $3, Opbinaire.MINUS); }
+	| expr DIV expr {$$ = new OPBinaire($1, $3, Opbinaire.DIV); }
+	| expr MODULO expr {$$ = new OPBinaire($1, $3, Opbinaire.MODULO); }
+	| expr LOWERTHAN expr {$$ = new OPBinaire($1, $3, Opbinaire.LOWERTHAN); }
+	| expr UPPEROREQUALTHAN expr {$$ = new OPBinaire($1, $3, Opbinaire.UPPEROREQUALTHAN); }
+	| expr LOWEROREQUALTHAN expr {$$ = new OPBinaire($1, $3, Opbinaire.LOWEROREQUALTHAN); }
+	| expr UPPERTHAN expr {$$ = new OPBinaire($1, $3, Opbinaire.UPPERTHAN); }
+	| expr DOUBLEEQUAL expr {$$ = new OPBinaire($1, $3, Opbinaire.DOUBLEEQUAL); }
+	| expr NOTEQUAL expr {$$ = new OPBinaire($1, $3, Opbinaire.NOTEQUAL); }
+	| expr AND expr {$$ = new OPBinaire($1, $3, Opbinaire.AND); }
+	| expr OR expr {$$ = new OPBinaire($1, $3, Opbinaire.OR); }
+	| var EQUAL expr {$$ = new OPBinaire($1, $3, Opbinaire.EQUAL); }
+	| expr MULEQUAL expr {$$ = new OPBinaire($1, $3, Opbinaire.MULEQUAL); }
+	| expr DIVEQUAL expr {$$ = new OPBinaire($1, $3, Opbinaire.DIVEQUAL); }
+	| expr PLUSEQUAL expr {$$ = new OPBinaire($1, $3, Opbinaire.PLUSEQUAL); }
+	| expr MINUSEQUAL expr {$$ = new OPBinaire($1, $3, Opbinaire.MINUSEQUAL); }
+	| val { $$ = $1; }
+	| af { $$ = $1; }
+	| OPEN expr CLOSE {$$=$2;}
+	| var INCR {$$ = new OPUnaire ($1, Opunaire.INCR);}
+	| var DECR {$$ = new OPUnaire ($1, Opunaire.DECR);}	
+	| INCR var {$$ = new OPUnaire ($2, Opunaire.INCR);}
+	| DECR var {$$ = new OPUnaire ($2, Opunaire.DECR);}
+	| MINUS expr {$$ = new OPUnaire ($2, Opunaire.MINUS);}
+	| NOT expr; {$$ = new OPUnaire ($2, Opunaire.NOT);}
 af : NOM OPEN args CLOSE ;
 args : argsbis 
 	| %empty ;
@@ -89,19 +89,19 @@ else : ELSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET
 	| %empty
 	;
 condition : OPEN  expr CLOSE;
-typenombre : INT32 
-	| INT64 ;
-typechar : CHAR ;
-typebase : typenombre 
-	| typechar ;
+typenombre : INT32 {$$=Type.INT32;}
+	| INT64 {$$=Type.INT64;};
+typechar : CHAR {$$=Type.CHAR;};
+typebase : typenombre {$$=$1;}
+	| typechar {$$=$1;};
 typefonction : typebase typebases ;
 typebases : OPENBRACKET CLOSEBRACKET | %empty ;
-typereturnfonction : VOID 
-	| typefonction ;
-var : 	NOM option
+typereturnfonction : VOID {$$=Type.VOID;}
+	| typefonction {$$=$1;};
+var : 	NOM option ;
 option : OPENBRACKET expr CLOSEBRACKET | %empty ;
-val : 	var 
-	| ENTIER ;
+val : 	var {$$=$1;}
+	| ENTIER {$$=new ;};
 %%
 
 void yyerror(int * res, const char * msg) {

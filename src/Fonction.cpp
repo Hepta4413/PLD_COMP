@@ -4,7 +4,7 @@ Fonction::Fonction()
 {
 }
 
-Fonction::Fonction(Var[] arg, Programme p)
+Fonction::Fonction(Var nom, Var[] arg, Programme p)
 {
 	arguments = arg;
 	prog = p;

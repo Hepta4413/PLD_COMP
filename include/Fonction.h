@@ -8,7 +8,7 @@ class Fonction
 {
 	public:
 	Fonction();
-	Fonction(Var[] arg, Programme p);
+	Fonction(Var nom, Var[] arg, Programme p);
 	
 	private:
 	Var[] arguments;
