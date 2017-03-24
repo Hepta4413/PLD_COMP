@@ -4,7 +4,8 @@ Variable::Variable()
 {
 }
 
-Variable::Variable(Type t)
+Variable::Variable(Type t, std::string n)
 {
 	type=t;
+    nom=n;
 }

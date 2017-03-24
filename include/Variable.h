@@ -8,10 +8,11 @@ class Variable : public Expression
 {
 	public:
 	Variable();
-	Variable(Type t);
+	Variable(Type t, std::string n);
 	
 	private:
 	Type type;
+	std::string nom;
 		
 };
 

@@ -24,16 +24,16 @@ int yylex(void);
 
 %%
 
-axiome : prog //{ *resultat = $1; }
+axiome : prog { *resultat = $1; }
        ; 
-prog : 	prog fonction 
-	| %empty;
-fonction : typereturnfonction NOM OPEN arg CLOSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET ;
-arg : 	argbis 
-	| %empty ;
-argbis :  typefonction NOM 
-	| argbis COMA typefonction NOM ;
-bloc : bloc contenu {$1->add($2); $$ = $1; }
+prog : 	prog fonction {$1->Add($2); $$ = $1; }
+	| %empty {$$= new Fonction();};
+fonction : typereturnfonction NOM OPEN arg CLOSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET {$$= new Fonction($1,$2,$4,$7);};
+arg : 	argbis {$$=$1;}
+	| %empty {$$= NULL;};
+argbis :  typefonction NOM {$$=new vector<Variable>(); $$->push_back(new Variable($1,$2));}
+	| argbis COMA typefonction NOM {$$=$1; $1->push_back(new Variable($3,$4));};
+bloc : bloc contenu {$1->AddContenu($2); $$ = $1; }
 	| %empty {$$= new Bloc();};
 contenu : ligne SEMICOMA {$$=$1;}
 	| bloccontrole {$$=$1;};
@@ -78,10 +78,10 @@ expr :    expr MUL expr {$$ = new OPBinaire($1, $3, Opbinaire.MUL); }
 	| MINUS expr {$$ = new OPUnaire ($2, Opunaire.NEG);}
 	| NOT expr; {$$ = new OPUnaire ($2, Opunaire.NOT);}
 af : NOM OPEN args CLOSE ;
-args : argsbis 
-	| %empty ;
-argsbis : expr 
-	| argsbis COMA expr ;
+args : argsbis {$$=$1;}
+	| %empty {$$=NULL;};
+argsbis : expr {$$=new vector<Expression>(); $$->push_back($1);}
+	| argsbis COMA expr {$1->push_back($3); $$=$1};
 bloccontrole : IF condition OPENCURLYBRACKET bloc CLOSECURLYBRACKET else 
      		| WHILE condition OPENCURLYBRACKET bloc CLOSECURLYBRACKET  
      		| FOR OPEN operation SEMICOMA operation SEMICOMA operation CLOSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET 
