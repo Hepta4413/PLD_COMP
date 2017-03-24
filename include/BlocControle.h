@@ -4,15 +4,16 @@
 #include "Contenu.h"
 #include "Bloc.h"
 
+//class Bloc;
+
 class BlocControle : public Contenu
 {
 	public:
 	BlocControle();
-	BlocControle(Bloc bparent, Bloc bfils);
+	BlocControle(Bloc * bfils);
 	
 	private:
-	Bloc blocParent;
-	Bloc blocFils;
+	Bloc * blocFils;
 		
 };
 

@@ -4,23 +4,29 @@
 #include "Contenu.h"
 #include "Fonction.h"
 #include "Variable.h"
-#include <Vector>
+#include <vector>
+#include <map>
+#include <string>
+//#include "BlocControle.h"
 
-class Contenu;
+
 class Variable;
+class BlocControle;
+class Fonction;
+class Contenu;
 
 class Bloc
 {
 	public:
 	Bloc();
-	Bloc(Contenu c, Fonction f,Variable var[], Bloc bControleParent);
-	AddContenu(Contenu c);
+	Bloc(std::vector<Contenu> c, Fonction * f,std::map<std::string,Variable> var, BlocControle * bControleParent);
+	void AddContenu(Contenu c);
 	
 	private:
-	Vector<Contenu> cont;
-	Fonction fonct;
-	Variable[] varbloc;
-	Bloc blocControleParent;
+	std::vector<Contenu> cont;
+	Fonction * fonct;
+	std::map<std::string,Variable> varbloc;
+	BlocControle * blocControleParent;
 		
 };
 

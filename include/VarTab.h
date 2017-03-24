@@ -13,8 +13,8 @@ class VarTab : public Variable
 	
 	private:
 	std::string nom;
-	long[] valuesint;
-	char[] valueschar;
+	long valuesint[];
+	char valueschar[];
 		
 };
 
