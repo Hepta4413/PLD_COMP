@@ -42,10 +42,10 @@ ligne : operation {$$=$1;}
 	| return {$$=$1;};
 return : RETURN expr {$$ = new Return($2);}
 	| RETURN {$$ = new Return();};
-declaration : typebase NOM declarationopt { $$ = new VarS($2,$3,$1);} ;
-declarationopt : OPENBRACKET ENTIER CLOSEBRACKET  
-		 | EQUAL expr 		
-		 | %empty
+declaration : typebase NOM declarationopt { $3->AddInfo($1,$2; $$ = $3;} ;
+declarationopt : OPENBRACKET ENTIER CLOSEBRACKET {$$= new VarTab($2);}
+		 | EQUAL expr { $$ = new VarS($2);}	
+		 | %empty {$$ = new VarS()};
 		 ;
 operation : expr {$$=$1;}
 	| %empty ;
@@ -63,11 +63,11 @@ expr :    expr MUL expr {$$ = new OPBinaire($1, $3, Opbinaire.MUL); }
 	| expr AND expr {$$ = new OPBinaire($1, $3, Opbinaire.AND); }
 	| expr OR expr {$$ = new OPBinaire($1, $3, Opbinaire.OR); }
 	| expr COMA expr {$$ = new OPBinaire($1, $3, Opbinaire.COMA); }
-	| var EQUAL expr {$$ = new OPBinaire($1, $3, Opbinaire.EQUAL); }
-	| var MULEQUAL expr {$$ = new OPBinaire($1, $3, Opbinaire.MULEQUAL); }
-	| var DIVEQUAL expr {$$ = new OPBinaire($1, $3, Opbinaire.DIVEQUAL); }
-	| var PLUSEQUAL expr {$$ = new OPBinaire($1, $3, Opbinaire.PLUSEQUAL); }
-	| var MINUSEQUAL expr {$$ = new OPBinaire($1, $3, Opbinaire.MINUSEQUAL); }
+	| var EQUAL expr {$$ = new Affectation($1, $3, Opbinaire.EQUAL); }
+	| var MULEQUAL expr {$$ = new Affectation($1, $3, Opbinaire.MULEQUAL); }
+	| var DIVEQUAL expr {$$ = new Affectation($1, $3, Opbinaire.DIVEQUAL); }
+	| var PLUSEQUAL expr {$$ = new Affectation($1, $3, Opbinaire.PLUSEQUAL); }
+	| var MINUSEQUAL expr {$$ = new Affectation($1, $3, Opbinaire.MINUSEQUAL); }
 	| val { $$ = $1; }
 	| af { $$ = $1; }
 	| OPEN expr CLOSE {$$=$2;}
@@ -77,32 +77,32 @@ expr :    expr MUL expr {$$ = new OPBinaire($1, $3, Opbinaire.MUL); }
 	| DECR var {$$ = new OPUnaire ($2, Opunaire.DECR);}
 	| MINUS expr {$$ = new OPUnaire ($2, Opunaire.NEG);}
 	| NOT expr; {$$ = new OPUnaire ($2, Opunaire.NOT);}
-af : NOM OPEN args CLOSE ;
+af : NOM OPEN args CLOSE {$$=new AppelFonct($1,$3);};
 args : argsbis {$$=$1;}
 	| %empty {$$=NULL;};
 argsbis : expr {$$=new vector<Expression>(); $$->push_back($1);}
 	| argsbis COMA expr {$1->push_back($3); $$=$1};
-bloccontrole : IF condition OPENCURLYBRACKET bloc CLOSECURLYBRACKET else 
-     		| WHILE condition OPENCURLYBRACKET bloc CLOSECURLYBRACKET  
-     		| FOR OPEN operation SEMICOMA operation SEMICOMA operation CLOSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET 
+bloccontrole : IF condition OPENCURLYBRACKET bloc CLOSECURLYBRACKET else {$6->AddIf($2,$4);$$=$6;}
+     		| WHILE condition OPENCURLYBRACKET bloc CLOSECURLYBRACKET {$$= new ($2,$4);}  
+     		| FOR OPEN operation SEMICOMA operation SEMICOMA operation CLOSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET {$$=new BlocFor($3,$5,$7,$10);}
      		;
-else : ELSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET
-	| %empty
+else : ELSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET {$$=new BlocIf($3);}
+	| %empty {$$=new BlocIf();}
 	;
-condition : OPEN  expr CLOSE;
+condition : OPEN expr CLOSE {$$=$2;};
 typenombre : INT32 {$$=Type.INT32;}
 	| INT64 {$$=Type.INT64;};
 typechar : CHAR {$$=Type.CHAR;};
 typebase : typenombre {$$=$1;}
 	| typechar {$$=$1;};
-typefonction : typebase typebases ;
-typebases : OPENBRACKET CLOSEBRACKET | %empty ;
+typefonction : typebase typebases {$2?($1==Type.INT32?Type.INT32TAB:($1==Type.INT64?Type.INT64TAB:CHARTAB)):$1;
+typebases : OPENBRACKET CLOSEBRACKET {$$=1;}| %empty {$$=0;};
 typereturnfonction : VOID {$$=Type.VOID;}
 	| typefonction {$$=$1;};
-var : 	NOM option ;
-option : OPENBRACKET expr CLOSEBRACKET | %empty ;
+var : 	NOM option {$$=($2==-1?new VarS($1):);
+option : OPENBRACKET expr CLOSEBRACKET {$$=$2;}| %empty {$$=-1;} ;
 val : 	var {$$=$1;}
-	| ENTIER {$$=new ;};
+	| ENTIER {$$=new Expression(Type.CONSTVAL,$1);};
 %%
 
 void yyerror(int * res, const char * msg) {

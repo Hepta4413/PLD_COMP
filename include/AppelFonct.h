@@ -10,10 +10,10 @@ class AppelFonct : public Expression
 {
 	public:
 	AppelFonct();
-	AppelFonct(Fonction f, vector<Expression> param);
+	AppelFonct(std::string f, vector<Expression> param);
 	
 	private:
-	Fonction fonction;
+	std::string fonction;
 	vector<Expression> parametres;
 		
 };

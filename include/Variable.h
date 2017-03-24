@@ -9,6 +9,7 @@ class Variable : public Expression
 	public:
 	Variable();
 	Variable(Type t, std::string n);
+	void AddInfo(Type t, std::string n);
 	
 	private:
 	Type type;

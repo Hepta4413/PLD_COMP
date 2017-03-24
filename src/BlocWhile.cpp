@@ -4,7 +4,8 @@ BlocWhile::BlocWhile()
 {
 }
 
-BlocWhile::BlocWhile(Expression e)
+BlocWhile::BlocWhile(Expression e, Bloc bloc)
 {
 	condition = e;
+    boucle=bloc;
 }

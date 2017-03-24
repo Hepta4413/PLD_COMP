@@ -8,10 +8,13 @@ class BlocIf : public BlocControle
 {
 	public:
 	BlocIf();
-	BlocIf(Expression e);
+	BlocIf(Bloc bloc);
+	void AddIf(Expression expr, Bloc bloc);
 	
 	private:
-	Expression condition;	
+	Expression si;	
+	Bloc sinon;
+	Bloc alors;
 		
 };
 

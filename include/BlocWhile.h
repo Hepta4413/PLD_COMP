@@ -8,11 +8,11 @@ class BlocWhile : public BlocControle
 {
 	public:
 	BlocWhile();
-	BlocWhile(Expression e);
+	BlocWhile(Expression e, Bloc bloc);
 	
 	private:
 	Expression condition;	
-		
+	Bloc boucle;
 };
 
 #endif

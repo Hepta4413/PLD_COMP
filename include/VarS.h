@@ -8,13 +8,12 @@ class VarS : public Variable
 {
 	public:
 	VarS();
-	VarS(std::string n, long val);
-	VarS(std::string n, char val);
+	VarS(std::string n, long val, Type t);
+	VarS(long val);
+	VarS(std::string n);
 	
 	private:
-	std::string nom;
 	long valueint;
-	char valuechar;
 		
 };
 

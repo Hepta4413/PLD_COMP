@@ -15,3 +15,8 @@ VarS::VarS(long val)
 {
     valueint=val;
 }
+
+VarS::VarS(std::string n)
+{
+    valueint=val;
+}

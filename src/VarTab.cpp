@@ -4,16 +4,14 @@ VarTab::VarTab()
 {
 }
 
-VarTab::VarTab(std::string n, long[] val, Type t)
+VarTab::VarTab(std::string n, int t, Type typ)
 {
 	nom=n;
-	valueint=val;
-	type=t;
+    taille=t;
+    type=typ;
 }
 
-VarTab::VarTab(std::string n, char[] val)
+VarTab::VarTab(int t)
 {
-	nom=n;
-	valuechar=val;
-	type=CHAR;
+    taille=t;
 }

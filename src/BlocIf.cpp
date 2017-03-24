@@ -4,7 +4,13 @@ BlocIf::BlocIf()
 {
 }
 
-BlocIf::BlocIf(Expression e)
+BlocIf::BlocIf(Bloc bloc)
 {
-	condition = e;
+    sinon = bloc;
+}
+
+void BlocIf::AddIf(Expression expr, Bloc bloc)
+{
+    si = expr;
+    alors = bloc;
 }
