@@ -9,12 +9,12 @@ class Variable : public Expression
 {
 	public:
 	Variable();
-	Variable(Type t, std::string n);
-	void AddInfo(Type t, std::string n);
+	Variable(Type* t, std::string* n);
+	void AddInfo(Type* t, std::string* n);
 	
 	protected:
-	Type type;
-	std::string nom;
+	Type* type;
+	std::string* nom;
 		
 };
 

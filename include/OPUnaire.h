@@ -6,13 +6,13 @@
 
 class OPUnaire : public Expression
 {
-	private :
-	OPUnaire();
-	OPUnaire(Expression e, Opunaire op);
-		
 	public :
-	Expression exp;
-	Opunaire op;
+	OPUnaire();
+	OPUnaire(Expression* e, Opunaire* op);
+		
+	protected :
+	Expression* exp;
+	Opunaire* op;
 	
 };
 

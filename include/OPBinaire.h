@@ -6,14 +6,14 @@
 
 class OPBinaire : public Expression
 {
-	private :
-	OPBinaire();
-	OPBinaire(Expression e1, Expression e2, Opbinaire op);
-		
 	public :
-	Expression e1;
-	Expression e2;
-	Opbinaire op;
+	OPBinaire();
+	OPBinaire(Expression* e1, Expression* e2, Opbinaire* op);
+		
+	protected :
+	Expression* e1;
+	Expression* e2;
+	Opbinaire* op;
 	
 };
 

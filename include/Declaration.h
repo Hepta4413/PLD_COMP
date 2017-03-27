@@ -9,11 +9,11 @@ class Declaration : public Ligne
 {
 	public:
 	Declaration();
-	Declaration(Type t, std::string name);
+	Declaration(Type* t, std::string* name);
 	
-	private:
-	Type type;
-	std::string name;
+	protected:
+	Type* type;
+	std::string* name;
 		
 };
 

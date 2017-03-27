@@ -11,11 +11,11 @@ class Programme
 {
 	public:
 	Programme();
-	Programme(std::map<std::string,Fonction> f);
-	void AddFonction(Fonction f);
+	Programme(std::map<std::string,Fonction>* f);
+	void AddFonction(Fonction* f);
 	
-	private:
-	std::map<std::string,Fonction> fonctions;
+	protected:
+	std::map<std::string,Fonction>* fonctions;
 		
 };
 

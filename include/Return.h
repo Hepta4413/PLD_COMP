@@ -8,10 +8,10 @@ class Return : public Ligne
 {
 	public:
 	Return();
-	Return(Expression e);
+	Return(Expression* e);
 	
-	private:
-	Expression toReturn;
+	protected:
+	Expression* toReturn;
 		
 };
 

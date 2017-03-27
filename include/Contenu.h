@@ -11,7 +11,7 @@ class Contenu
 	Contenu();
 	Contenu(Bloc * b);
 	
-	private:
+	protected:
 	Bloc * blocParent;
 		
 };

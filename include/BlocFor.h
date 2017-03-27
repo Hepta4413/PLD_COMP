@@ -8,13 +8,13 @@ class BlocFor : public BlocControle
 {
 	public:
 	BlocFor();
-	BlocFor(Expression c, Expression ini, Expression inc, Bloc bloc);
+	BlocFor(Expression* c, Expression* ini, Expression* inc, Bloc* bloc);
 	
 	private:
-	Expression condition;
-	Expression incre;
-	Expression init;
-	Bloc boucle;
+	Expression* condition;
+	Expression* incre;
+	Expression* init;
+	Bloc* boucle;
 		
 };
 

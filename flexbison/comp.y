@@ -62,7 +62,7 @@ int yylex(void);
 %type <bloc> bloc
 %type <declaration> declaration declarationopt
 %type <ligne> ligne
-%type <retour> return;
+%type <retour> return
 %type <appelfonct> af
 %type <blocif> else
 %type <type> typenombre typechar typebase typefonction typereturnfonction

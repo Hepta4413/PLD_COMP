@@ -9,14 +9,14 @@ class VarS : public Variable
 {
 	public:
 	VarS();
-	VarS(std::string n, long val, Type t);
+	VarS(std::string* n, long val, Type* t);
 	VarS(long val);
-	VarS(std::string n);
+	VarS(std::string* n);
 	
-	private:
-	std::string nom;
+	protected:
+	std::string* nom;
 	long valueint;
-	Type type;
+	Type* type;
 		
 };
 
