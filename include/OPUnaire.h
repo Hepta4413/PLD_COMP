@@ -8,7 +8,7 @@ class OPUnaire : public Expression
 {
 	public :
 	OPUnaire();
-	OPUnaire(Expression* e, Opunaire* op);
+	OPUnaire(Expression* e, Opunaire op);
 		
 	protected :
 	Expression* exp;

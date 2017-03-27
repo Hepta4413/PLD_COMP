@@ -8,7 +8,7 @@ class OPBinaire : public Expression
 {
 	public :
 	OPBinaire();
-	OPBinaire(Expression* e1, Expression* e2, Opbinaire* op);
+	OPBinaire(Expression* e1, Expression* e2, Opbinaire op);
 		
 	protected :
 	Expression* e1;

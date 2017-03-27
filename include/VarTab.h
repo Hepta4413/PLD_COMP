@@ -8,7 +8,7 @@ class VarTab : public Variable
 {
 	public:
 	VarTab();
-	VarTab(std::string* n, int t, bool taille);
+	VarTab(std::string* n, int t, bool taille, Type t);
 	VarTab(int t, bool taille);
 	
 	private:

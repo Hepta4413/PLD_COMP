@@ -14,13 +14,13 @@ class Fonction
 {
 	public:
 	Fonction();
-	Fonction(Type* t, std::string* nom, std::vector<Variable>* arg, Bloc* b);
+	Fonction(Type t, std::string* nom, std::vector<Variable*>* arg, Bloc* b);
 	void AddProg(Programme* p);
-	std::string getNom();
+	std::string* getNom();
 	
 	protected:
 	std::string* nom;
-	std::vector<Variable>* arguments;
+	std::vector<Variable*>* arguments;
 
 	Programme * prog;
 	Bloc* bloc;
