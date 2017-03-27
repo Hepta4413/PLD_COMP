@@ -111,10 +111,10 @@ $(BISONC):$(BISONY)
 	
 #Compilation Flex
 $(FLEXOBJ):$(FLEXC) $(BISONC)
-	$(ECHO) "[comp]" $(GCC) $(CFLAGS) $<
-	$(GCC) -o $@ -c $(CFLAGS) $(FLEXC)
+	$(ECHO) "[comp]" $(GPP) $(CPPLAGS) $<
+	$(GPP) -o $@ -c $(CPPLAGS) $(FLEXC)
 	
 #Compilation Bison
 $(BISONOBJ):$(BISONC) $(BISONH)
-	$(ECHO) "[comp]" $(GCC) $(CFLAGS) $<
-	$(GCC) -o $@ -c $(CFLAGS) -I $(BISONH) $(BISONC)
+	$(ECHO) "[comp]" $(GPP) $(CPPLAGS) $<
+	$(GPP) -o $@ -c $(CPPLAGS) $(BISONC)
