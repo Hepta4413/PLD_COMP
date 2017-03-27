@@ -9,16 +9,16 @@ class Affectation : public Expression
 {
 	public:
 	Affectation();
-	Affectation(VarS* vars, long value,Opbinaire op);
-	Affectation(VarTab* vartab, long value, int i, Opbinaire op);
-	
+	Affectation(Variable* vars, Expression* value, Opbinaire op);
+	Affectation(VarTab* vartab, Expression* value, int i, Opbinaire op);
+
 	protected:
 	VarS* vars;
 	VarTab* vartab;
-	long valuei;
+	Expression valuei;
 	int index;
 	Opbinaire operateur;
-		
+
 };
 
 #endif

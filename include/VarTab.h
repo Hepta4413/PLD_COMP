@@ -8,9 +8,9 @@ class VarTab : public Variable
 {
 	public:
 	VarTab();
-	VarTab(std::string* n, int t, bool taille);
+	VarTab(std::string* n, Expression* t, bool taille);
 	VarTab(int t, bool taille);
-	
+
 	private:
 	long valuesint[];
 	int valeur;

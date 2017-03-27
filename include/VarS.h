@@ -10,13 +10,13 @@ class VarS : public Variable
 	public:
 	VarS();
 	VarS(std::string* n, long val);
-	VarS(long val);
+	VarS(Expression* val);
 	VarS(std::string* n);
-	
+
 	protected:
 	std::string* nom;
 	long valueint;
-		
+
 };
 
 #endif
