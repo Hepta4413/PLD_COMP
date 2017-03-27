@@ -4,7 +4,7 @@ Return::Return()
 {
 }
 
-Return::Return(Expression e)
+Return::Return(Expression* e)
 {
 	toReturn = e;
 }

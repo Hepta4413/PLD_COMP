@@ -4,7 +4,7 @@ OPUnaire::OPUnaire()
 {
 }
 
-OPUnaire::OPUnaire(Expression e, Opunaire ope)
+OPUnaire::OPUnaire(Expression* e, Opunaire* ope)
 {
 	exp = e;
 	op = ope;
