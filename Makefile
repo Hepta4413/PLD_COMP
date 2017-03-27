@@ -85,7 +85,7 @@ flexbison : $(FLEXOBJ) $(BISONOBJ)
 ###############################################################################
 
 #Edition des liens
-$(EXE): $(OBJ) $(MAIN) #$(FB)
+$(EXE): $(OBJ) $(MAIN) $(FLEXOBJ) $(BISONOBJ)
 	$(ECHO) "[link]" $(LINK) $(EDLFLAGS) $<
 	$(LINK) -o $(EXE) $^ $(EDLFLAGS)
 	
