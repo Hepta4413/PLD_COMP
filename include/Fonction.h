@@ -24,7 +24,7 @@ class Fonction
 
 	Programme * prog;
 	Bloc* bloc;
-	Type* type;
+	Type type;
 };
 
 #endif

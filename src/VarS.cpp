@@ -4,7 +4,7 @@ VarS::VarS()
 {
 }
 
-VarS::VarS(std::string* n, long val, Type* t)
+VarS::VarS(std::string* n, long val)
 {
 	nom=n;
 	valueint=val;

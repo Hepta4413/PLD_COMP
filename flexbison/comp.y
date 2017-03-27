@@ -1,32 +1,36 @@
+%code requires{
+	#include <stdio.h>
+	#include <string>
+	#include <vector>
+	#include "../include/Affectation.h" 
+	#include "../include/Bloc.h" 
+	#include "../include/Declaration.h" 
+	#include "../include/Ligne.h" 
+	#include "../include/Return.h" 
+	#include "../include/AppelFonct.h" 
+	#include "../include/BlocIf.h" 
+	#include "../include/Enums.h" 
+	#include "../include/OPBinaire.h" 
+	#include "../include/Variable.h" 
+	#include "../include/BlocControle.h" 
+	#include "../include/BlocWhile.h" 
+	#include "../include/Expression.h" 
+	#include "../include/OPUnaire.h" 
+	#include "../include/VarS.h" 
+	#include "../include/BlocFor.h" 
+	#include "../include/Contenu.h"    
+	#include "../include/Fonction.h"     
+	#include "../include/Programme.h"  
+	#include "../include/VarTab.h"
+
+	using namespace std;
+
+	void yyerror(Programme *, const char *);
+	int yylex(void);
+}
+
 %{
-#include <stdio.h>
-#include <string>
-#include <vector>
-#include "../include/Affectation.h" 
-#include "../include/Bloc.h" 
-#include "../include/Declaration.h" 
-#include "../include/Ligne.h" 
-#include "../include/Return.h" 
-#include "../include/AppelFonct.h" 
-#include "../include/BlocIf.h" 
-#include "../include/Enums.h" 
-#include "../include/OPBinaire.h" 
-#include "../include/Variable.h" 
-#include "../include/BlocControle.h" 
-#include "../include/BlocWhile.h" 
-#include "../include/Expression.h" 
-#include "../include/OPUnaire.h" 
-#include "../include/VarS.h" 
-#include "../include/BlocFor.h" 
-#include "../include/Contenu.h"    
-#include "../include/Fonction.h"     
-#include "../include/Programme.h"  
-#include "../include/VarTab.h"
 
-using namespace std;
-
-void yyerror(int *, const char *);
-int yylex(void);
 %}
 %union {
     int ival;
@@ -38,7 +42,7 @@ int yylex(void);
 	Return* retour;
 	AppelFonct* appelfonct;
 	BlocIf* blocif;
-	Type* type;
+	Type type;
 	OPBinaire* opbinaire;
 	Variable* variable;
 	BlocControle* bloccontrole;
@@ -53,7 +57,7 @@ int yylex(void);
 	VarTab* vartab;
 	vector<Variable*>* variablesliste;
 	vector<Expression*>* expressionsliste;	
-	bool* boolean;
+	bool boolean;
 }
 
 %token INT32 CHAR RETURN INT64 PLUS MINUS MUL DIV OPEN CLOSE EQUAL MULEQUAL PLUSEQUAL MINUSEQUAL DIVEQUAL LOWERTHAN UPPERTHAN LOWEROREQUALTHAN UPPEROREQUALTHAN DOUBLEEQUAL DOUBLEPLUS DOUBLEMINUS QUOTE NOTEQUAL CLOSEBRACKET OPENBRACKET OPENCURLYBRACKET CLOSECURLYBRACKET NOT AND OR MODULO INCR DECR  IF ELSE FOR WHILE SEMICOMA COMA VOID  
@@ -136,7 +140,7 @@ expr :    expr MUL expr {$$ = new OPBinaire($1, $3, MULT_OB); }
 	| expr AND expr {$$ = new OPBinaire($1, $3, AND_OB); }
 	| expr OR expr {$$ = new OPBinaire($1, $3, OR_OB); }
 	| var EQUAL expr {$$ = new Affectation($1, $3, EQUAL_OB); }
-	| var MULEQUAL expr {$$ = new Affectation($1, $3, MULEQUAL_OB); }
+	| var MULEQUAL expr {$$ = new Affectation($1, $3, MULTEQUAL_OB); }
 	| var DIVEQUAL expr {$$ = new Affectation($1, $3, DIVEQUAL_OB); }
 	| var PLUSEQUAL expr {$$ = new Affectation($1, $3, PLUSEQUAL_OB); }
 	| var MINUSEQUAL expr {$$ = new Affectation($1, $3, MINUSEQUAL_OB); }
@@ -175,16 +179,16 @@ typechar : CHAR {$$=CHAR_T;}
 typebase : typenombre {$$=$1;}
 	| typechar {$$=$1;}
 	;
-typefonction : typebase typebases {$2?($1==INT32_T?INT32TAB_T:($1==INT64_T?INT64TAB_T:CHARTAB)):$1;}
+typefonction : typebase typebases {$2?($1==INT32_T?INT32TAB_T:($1==INT64_T?INT64TAB_T:CHARTAB_T)):$1;}
 	;
 typebases : OPENBRACKET CLOSEBRACKET {$$=1;}| %empty {$$=0;}
 	;
 typereturnfonction : VOID {$$=VOID_T;}
 	| typefonction {$$=$1;}
 	;
-var : 	NOM option {$$=($2==-1?new VarS($1): new VarTab($1,$2,0));}
+var : 	NOM option {$$=($2==NULL?(Variable*) new VarS($1): (Variable*) new VarTab($1,$2,0));}
 	;
-option : OPENBRACKET expr CLOSEBRACKET {$$=$2;}| %empty {$$=-1;}
+option : OPENBRACKET expr CLOSEBRACKET {$$=$2;}| %empty {$$=NULL;}
 	;
 val : 	var {$$=$1;}
 	| ENTIER {$$=new Expression(CONSTVAL_T,$1);}

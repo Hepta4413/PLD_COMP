@@ -7,7 +7,7 @@ Fonction::Fonction()
     arguments = new vector<Variable*>();
 }
 
-Fonction::Fonction(Type* t, std::string* n, std::vector<Variable*>* arg, Bloc* b)
+Fonction::Fonction(Type t, std::string* n, std::vector<Variable*>* arg, Bloc* b)
 {
 	arguments = arg;
     bloc = b;

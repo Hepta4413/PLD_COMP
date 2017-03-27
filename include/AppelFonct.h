@@ -9,11 +9,11 @@ class AppelFonct : public Expression
 {
 	public:
 	AppelFonct();
-	AppelFonct(std::string f, std::vector<Expression> param);
+	AppelFonct(std::string* f, std::vector<Expression*>* param);
 	
 	private:
-	std::string fonction;
-	std::vector<Expression> parametres;
+	std::string* fonction;
+	std::vector<Expression*>* parametres;
 };
 
 #endif
