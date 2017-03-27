@@ -7,18 +7,17 @@
 EXE = Compiler_H4413
 
 # Compilateur et editeur de lien
-GPP = @g++
-GCC = @gcc
+COMP = @g++
 LINK = @g++
 FLEX = @flex
 BISON = @bison
 
 # Options de compilation et editions de liens
 CPPFLAGS = -DYYDEBUG -Wall -std=gnu++11
-CFLAGS = 
+CPPFLAGS += $(INCDIR)
 EDLFLAGS =
-BISONFLAGS =
-FLEXFLAGS = 
+BISONFLAG = -v --defines=comp.tab.h
+FLEXFLAG = 
 
 #Fichiers
 ##############################################################################
@@ -46,23 +45,15 @@ OBJ = \
 		obj/Return.o \
 		obj/Variable.o \
 		obj/VarS.o \
-		obj/VarTab.o
+		obj/VarTab.o \
 
 MAIN = obj/main.o
 
-FLEXL = flexbison/comp.l
-FLEXC = flexbison/lex.yy.c
-FLEXOBJ = obj/lex.yy.o
+FLEXSRC = flexbison/comp.l
 
-BISONY = flexbison/comp.y
-BISONH = flexbison/comp.tab.h
-BISONC = flexbison/comp.tab.c
-BISONREPORT = flexbison/comp.output
-BISONOBJ = obj/comp.tab.o
+BISONSRC = flexbison/comp.y
 
-BISONFLAGS += --defines=$(BISONH) -r state --report-file=$(BISONREPORT) -o $(BISONC)
-CPPFLAGS += $(INCDIR)
-CFLAGS += $(INCDIR)
+FB = fb
 
 ###############################################################################
 
@@ -76,45 +67,33 @@ all: $(EXE)
 
 .PHONY: clean
 clean:
-	$(RM) -fv $(OBJ) $(EXE) $(FLEXC) $(BISONC) $(BISONH) $(BISONREPORT) $(FLEXOBJ) $(BISONOBJ)
+	$(RM) -fv ./obj/*.o $(EXE)
 	
 .PHONY: flexbison
-flexbison : $(FLEXOBJ) $(BISONOBJ)
+flexbison : $(FB)
 	
-#Règles
+#Dependances
 ###############################################################################
 
 #Edition des liens
 $(EXE): $(OBJ) $(MAIN) #$(FB)
-	$(ECHO) "[link]" $(LINK) $(EDLFLAGS) $<
+	$(ECHO) "[link]" $(LINK) $(EDLFLAGS) $@
 	$(LINK) -o $(EXE) $^ $(EDLFLAGS)
 	
 #Compilation des objets
 obj/%.o:src/%.cpp include/%.h
-	$(ECHO) "[comp]" $(GPP) $(CPPFLAGS) $<
-	$(GPP) -o $@ -c $(CPPFLAGS) $<
+	$(ECHO) "[comp]" $(COMP) $(CPPFLAGS) $@
+	$(COMP) -o $@ -c $(CPPFLAGS) $<
 	
 #Compilation du main
 $(MAIN):src/main.cpp
-	$(ECHO) "[comp]" $(GPP) $(CPPFLAGS) $<
-	$(GPP) -o $@ -c $(CPPFLAGS) $<
+	$(ECHO) "[comp]" $(COMP) $(CPPFLAGS) $@
+	$(COMP) -o $@ -c $(CPPFLAGS) $<
 	
-#Génération Flex
-$(FLEXC):$(FLEXL)
-	$(ECHO) "[flex]" $(FLEX) $(FLEXFLAGS) $<
-	$(FLEX) -o $@ $(FLEXFLAGS)$(FLEXL)
-
-#Génération Bison	
-$(BISONC):$(BISONY)
-	$(ECHO) "[bison]" $(BISON) $(BISONFLAGS) $<
-	$(BISON) $(BISONFLAGS) $(BISONY)
+#Compilation Flex-Bison
+#$(FB):$(FLEXSRC) $(BISONSRC)
+#	$(ECHO) "[flex]" $(FLEX) $(FLEXFLAG) $@
+#	$(FLEX) $(FLEXSRC)
+#	$(ECHO) "[bison]" $(BISON) $(BISONFLAG) $@
+#	$(BISON) $(BISONFLAG) $(BISONSRC)
 	
-#Compilation Flex
-$(FLEXOBJ):$(FLEXC) $(BISONC)
-	$(ECHO) "[comp]" $(GCC) $(CFLAGS) $<
-	$(GCC) -o $@ -c $(CFLAGS) $(FLEXC)
-	
-#Compilation Bison
-$(BISONOBJ):$(BISONC) $(BISONH)
-	$(ECHO) "[comp]" $(GCC) $(CFLAGS) $<
-	$(GCC) -o $@ -c $(CFLAGS) -I $(BISONH) $(BISONC)
