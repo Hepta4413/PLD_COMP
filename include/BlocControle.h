@@ -2,9 +2,9 @@
 #define BLOCCONTROLE_H
 
 #include "Contenu.h"
-#include "Bloc.h"
+//#include "Bloc.h"
 
-//class Bloc;
+class Bloc;
 
 class BlocControle : public Contenu
 {

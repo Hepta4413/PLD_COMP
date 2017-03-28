@@ -1,9 +1,8 @@
 #ifndef BLOC_H
 #define BLOC_H
 
-#include "Contenu.h"
-#include "Variable.h"
-#include "Declaration.h"
+#include "OPBinaire.h"
+#include "Enums.h"
 #include <vector>
 #include <map>
 #include <string>
@@ -26,7 +25,7 @@ class Bloc
 	Declaration* RechercherDeclaration(string* nom);
 	
 
-	private:
+	protected:
 	vector<Contenu*>* cont;
 	Fonction * fonct;
 	std::map<std::string*,Declaration*>* varbloc;

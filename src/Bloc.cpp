@@ -1,4 +1,7 @@
 #include "Bloc.h"
+#include "Declaration.h"
+#include "BlocControle.h"
+#include "Fonction.h"
 
 using namespace std;
 

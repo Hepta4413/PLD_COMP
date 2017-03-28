@@ -57,7 +57,7 @@
 	Fonction* fonction;
 	Programme* programme;
 	VarTab* vartab;
-	vector<Variable*>* variablesliste;
+	vector<Declaration*>* declarationsliste;
 	vector<Expression*>* expressionsliste;
 	bool boolean;
 }
@@ -78,7 +78,7 @@
 %type <contenu> contenu
 %type <fonction> fonction
 %type <programme> prog
-%type <variablesliste> arg argbis
+%type <declarationsliste> arg argbis
 %type <expressionsliste> args argsbis
 %type <boolean> typebases
 
@@ -122,7 +122,7 @@ return : RETURN expr {$$ = new Return($2);}
 	;
 declaration : typebase NOM declarationopt { $3->AddInfos($1,$2); $$ = $3;}
 	;
-declarationopt : OPENBRACKET expr CLOSEBRACKET {$$= new Declaration($2,1);}
+declarationopt : OPENBRACKET expr CLOSEBRACKET {$$= new Declaration($2);}
 		 | EQUAL expr { $$ = new Declaration($2);}
 		 | %empty {$$ = new Declaration();}
 		 ;

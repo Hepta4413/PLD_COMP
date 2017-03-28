@@ -36,7 +36,7 @@ void Declaration::AddInfos(Type t, string* n)
 
     if(tailleTab!=NULL && (type==INT32TAB_T || type==INT64TAB_T || type==CHARTAB_T))
     {
-		blocPArent->AddContenu(new OPBinaire(new VarS(n),tailleTab, EQUAL));
+		blocParent->AddContenu(new OPBinaire(new VarS(n),tailleTab, EQUAL_OB));
 		tailleTab=NULL;
     }
 }
