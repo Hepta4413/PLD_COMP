@@ -5,16 +5,19 @@
 #include <string>
 #include "Enums.h"
 
+using namespace std;
+
 class VarS : public Variable
 {
 	public:
 	VarS();
-	VarS(std::string* n, long val);
+	VarS(long val);
+	VarS(string* n, long val);
 	VarS(Expression* val);
-	VarS(std::string* n);
+	VarS(string* n);
 
 	protected:
-	std::string* nom;
+	string* nom;
 	long valueint;
 
 };
