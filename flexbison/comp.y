@@ -22,6 +22,7 @@
 	#include "../include/Fonction.h"
 	#include "../include/Programme.h"
 	#include "../include/VarTab.h"
+	#include "../include/Const.h"
 
 	using namespace std;
 
@@ -191,7 +192,7 @@ var : 	NOM option {$$=($2==NULL?(Variable*) new VarS($1): (Variable*) new VarTab
 option : OPENBRACKET expr CLOSEBRACKET {$$=$2;}| %empty {$$=NULL;}
 	;
 val : 	var {$$=$1;}
-	| ENTIER {$$=new Expression(CONSTVAL_T,$1);}
+	| ENTIER {$$=new Const($1);}
 	;
 %%
 

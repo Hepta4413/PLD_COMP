@@ -8,11 +8,10 @@ class Expression : public Ligne
 {
 	public :
 	Expression();
-	Expression(Type t, long v);
+	Expression(Type t);
 		
 	protected :
 	Type type;
-	long valeur;
 	
 };
 
