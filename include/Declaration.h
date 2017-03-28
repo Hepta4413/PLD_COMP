@@ -14,6 +14,7 @@ class Declaration : public Ligne
 	Declaration();
 	Declaration(Expression* taille);
 	Declaration(Type t, string* name);
+	string* getName();
 	void AddInfos(Type t, string* name);
 
 	protected:

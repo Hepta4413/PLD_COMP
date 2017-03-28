@@ -24,7 +24,7 @@ void Bloc::AddDeclaration(Declaration* d)
 {
     if (varbloc->find(d->getName()) == varbloc->end())
 	{
-        //std::map<std::string*,Declaration*> map = *varbloc;
+
         *(varbloc)[d->getName()]=d;
 	}
 }

@@ -11,9 +11,11 @@ class Contenu
 	public:
 	Contenu();
 	Contenu(Bloc * b);
+	Bloc* getBloc();
+	void setBloc(Bloc*);
 	
 	protected:
-	Bloc * blocParent;
+	Bloc* blocParent;
 		
 };
 

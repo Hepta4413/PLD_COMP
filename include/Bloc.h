@@ -3,6 +3,7 @@
 
 #include "Contenu.h"
 #include "Variable.h"
+#include "Declaration.h"
 #include <vector>
 #include <map>
 #include <string>
@@ -18,7 +19,7 @@ class Bloc
 {
 	public:
 	Bloc();
-	Bloc(std::vector<Contenu*> c, Fonction * f,std::map<std::string*,Declaration*>* var, Bloc * blocParent);
+	Bloc(std::vector<Contenu*>* c, Fonction * f,std::map<std::string*,Declaration*>* var, Bloc * blocParent);
 	void AddContenu(Contenu* c);
 	void AddDeclaration(Declaration* d);
 	
