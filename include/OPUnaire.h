@@ -9,12 +9,11 @@ class OPUnaire : public Expression
 	public :
 	OPUnaire();
 	OPUnaire(Expression* e, Opunaire op);
-		
+
 	protected :
 	Expression* exp;
-	Opunaire* op;
-	
+	Opunaire op;
+
 };
 
 #endif
-

@@ -4,8 +4,7 @@ Expression::Expression()
 {
 }
 
-Expression::Expression(Type* t, long v)
+Expression::Expression(Type t)
 {
 	type = t;
-    valeur=v;
 }

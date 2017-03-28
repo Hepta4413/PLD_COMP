@@ -13,7 +13,7 @@ class OPBinaire : public Expression
 	protected :
 	Expression* e1;
 	Expression* e2;
-	Opbinaire* op;
+	Opbinaire op;
 
 };
 

@@ -5,16 +5,18 @@
 #include "Enums.h"
 #include <string>
 
+using namespace std;
+
 class Declaration : public Ligne
 {
 	public:
 	Declaration();
-	Declaration(Type t, std::string* name);
-	
+	Declaration(Type t, string* name);
+
 	protected:
 	Type type;
-	std::string* name;
-		
+	string* name;
+
 };
 
 #endif

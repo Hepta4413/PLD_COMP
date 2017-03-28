@@ -7,16 +7,18 @@
 
 class Fonction;
 
+using namespace std;
+
 class Programme
 {
 	public:
 	Programme();
-	Programme(std::map<std::string,Fonction>* f);
+	Programme(map<string,Fonction>* f);
 	void AddFonction(Fonction* f);
-	
+
 	protected:
-	std::map<std::string,Fonction>* fonctions;
-		
+	map<string,Fonction>* fonctions;
+
 };
 
 #endif

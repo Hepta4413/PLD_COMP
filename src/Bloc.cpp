@@ -1,10 +1,13 @@
 #include "Bloc.h"
 
+using namespace std;
+
 Bloc::Bloc()
 {
 }
 
 Bloc::Bloc(std::vector<Contenu*>* c, Fonction * f, std::map<std::string*,Declaration*>* var, Bloc * bParent)
+
 {
 	cont = c;
 	fonct = f;

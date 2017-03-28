@@ -1,14 +1,15 @@
 #include "VarS.h"
 
+using namespace std;
+
 VarS::VarS()
 {
 }
 
-VarS::VarS(std::string* n, long val)
+VarS::VarS(string* n, long val)
 {
 	nom=n;
 	valueint=val;
-	type=t;
 }
 
 VarS::VarS(long val)
@@ -16,7 +17,7 @@ VarS::VarS(long val)
     valueint=val;
 }
 
-VarS::VarS(std::string* n)
+VarS::VarS(string* n)
 {
     nom=n;
 }
