@@ -43,6 +43,7 @@ Declaration* Bloc::RechercherDeclaration(string* nom){
 	}
 	else
 	{
-		return varbloc[nom];
+        std::map<string*,Declaration*> map = *varbloc;
+        return map[nom];
 	}
 }
