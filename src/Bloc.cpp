@@ -18,6 +18,10 @@ void Bloc::AddContenu(Contenu* c)
     c->blocParent = this;
 }
 
-void Bloc::AddDeclaration(Declaration* d){
-	varbloc[d->name]=d;
+void Bloc::AddDeclaration(Declaration* d)
+{
+	if (varbloc.find(d->name) == varbloc.end())
+	{
+		varbloc[d->name]=d;
+	}
 }
