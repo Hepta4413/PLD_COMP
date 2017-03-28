@@ -16,14 +16,15 @@ class Bloc
 {
 	public:
 	Bloc();
-	Bloc(std::vector<Contenu*> c, Fonction * f,std::map<std::string*,Variable*>* var, BlocControle * bControleParent);
+	Bloc(std::vector<Contenu*> c, Fonction * f,std::map<std::string*,Variable*>* var, Bloc * blocParent);
 	void AddContenu(Contenu* c);
+	void AddDeclaration(Declaration* d);
 	
 	private:
 	std::vector<Contenu*>* cont;
 	Fonction * fonct;
-	std::map<std::string*,Variable*>* varbloc;
-	BlocControle * blocControleParent;
+	std::map<std::string*,Declaration*>* varbloc;
+	Bloc * blocParent;
 		
 };
 

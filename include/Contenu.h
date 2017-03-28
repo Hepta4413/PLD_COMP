@@ -4,6 +4,7 @@
 //#include "Bloc.h"
 
 class Bloc;
+class Declaration;
 
 class Contenu
 {
