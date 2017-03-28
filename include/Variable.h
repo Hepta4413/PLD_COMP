@@ -5,17 +5,20 @@
 #include "Enums.h"
 #include <string>
 
+using namespace std;
+
 class Variable : public Expression
 {
 	public:
 	Variable();
-	Variable(Type t, std::string* n);
-	void AddInfo(Type t, std::string* n);
+	Variable(Type t, string* n);
+	void AddInfo(Type t, string* n);
 	
 	protected:
 	Type type;
-	std::string* nom;
-		
+	string* nom;
+	bool declaration;
+			
 };
 
 #endif

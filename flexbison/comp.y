@@ -71,7 +71,8 @@
 %type <appelfonct> af
 %type <blocif> else
 %type <type> typenombre typechar typebase typefonction typereturnfonction
-%type <variable> var declaration declarationopt
+%type <variable> var 
+%type <declaration> declaration declarationopt
 %type <bloccontrole> bloccontrole
 %type <expression> expr operation condition option val
 %type <contenu> contenu
@@ -119,11 +120,11 @@ ligne : operation {$$=$1;}
 return : RETURN expr {$$ = new Return($2);}
 	| RETURN {$$ = new Return();}
 	;
-declaration : typebase NOM declarationopt { $3->AddInfo($1,$2); $$ = $3;}
+declaration : typebase NOM declarationopt { $3->AddInfos($1,$2); $$ = $3;}
 	;
-declarationopt : OPENBRACKET ENTIER CLOSEBRACKET {$$= new VarTab(new Const($2),1);}
-		 | EQUAL expr { $$ = new VarS($2);}
-		 | %empty {$$ = new VarS();}
+declarationopt : OPENBRACKET expr CLOSEBRACKET {$$= new Declaration($2,1);}
+		 | EQUAL expr { $$ = new Declaration($2);}
+		 | %empty {$$ = new Declaration();}
 		 ;
 operation : expr {$$=$1;}
 	| %empty {$$= NULL;}
