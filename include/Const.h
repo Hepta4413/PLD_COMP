@@ -10,10 +10,11 @@ class Const : public Expression
 	public:
 	Const();
 	Const(long value);
-	
+	long getValue();
+
 	protected:
 	long value;
-		
+
 };
 
 #endif

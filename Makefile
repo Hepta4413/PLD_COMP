@@ -15,10 +15,10 @@ BISON = @bison
 
 # Options de compilation et editions de liens
 CPPFLAGS = -DYYDEBUG -Wall -std=gnu++11
-CFLAGS = 
+CFLAGS =
 EDLFLAGS =
 BISONFLAGS =
-FLEXFLAGS = 
+FLEXFLAGS =
 
 #Fichiers
 ##############################################################################
@@ -36,6 +36,7 @@ OBJ = \
 		obj/BlocIf.o \
 		obj/BlocWhile.o \
 		obj/Contenu.o \
+		obj/Const.o \
 		obj/Declaration.o \
 		obj/Expression.o \
 		obj/Fonction.o \
@@ -47,8 +48,6 @@ OBJ = \
 		obj/Variable.o \
 		obj/VarS.o \
 		obj/VarTab.o
-
-MAIN = obj/main.o
 
 FLEXL = flexbison/comp.l
 FLEXC = flexbison/lex.yy.c
@@ -77,43 +76,38 @@ all: $(EXE)
 .PHONY: clean
 clean:
 	$(RM) -fv $(OBJ) $(EXE) $(FLEXC) $(BISONC) $(BISONH) $(BISONREPORT) $(FLEXOBJ) $(BISONOBJ)
-	
+
 .PHONY: flexbison
 flexbison : $(FLEXOBJ) $(BISONOBJ)
-	
+
 #Règles
 ###############################################################################
 
 #Edition des liens
-$(EXE): $(OBJ) $(MAIN) $(FLEXOBJ) $(BISONOBJ)
+$(EXE): $(OBJ) $(FLEXOBJ) $(BISONOBJ)
 	$(ECHO) "[link]" $(LINK) $(EDLFLAGS) $<
 	$(LINK) -o $(EXE) $^ $(EDLFLAGS)
-	
+
 #Compilation des objets
 obj/%.o:src/%.cpp include/%.h
 	$(ECHO) "[comp]" $(GPP) $(CPPFLAGS) $<
 	$(GPP) -o $@ -c $(CPPFLAGS) $<
-	
-#Compilation du main
-$(MAIN):src/main.cpp
-	$(ECHO) "[comp]" $(GPP) $(CPPFLAGS) $<
-	$(GPP) -o $@ -c $(CPPFLAGS) $<
-	
+
 #Génération Flex
 $(FLEXC):$(FLEXL)
 	$(ECHO) "[flex]" $(FLEX) $(FLEXFLAGS) $<
 	$(FLEX) -o $@ $(FLEXFLAGS)$(FLEXL)
 
-#Génération Bison	
+#Génération Bison
 $(BISONC):$(BISONY)
 	$(ECHO) "[bison]" $(BISON) $(BISONFLAGS) $<
 	$(BISON) $(BISONFLAGS) $(BISONY)
-	
+
 #Compilation Flex
 $(FLEXOBJ):$(FLEXC) $(BISONC)
 	$(ECHO) "[comp]" $(GPP) $(CPPLAGS) $<
 	$(GPP) -o $@ -c $(CPPLAGS) $(FLEXC)
-	
+
 #Compilation Bison
 $(BISONOBJ):$(BISONC) $(BISONH)
 	$(ECHO) "[comp]" $(GPP) $(CPPLAGS) $<

@@ -9,12 +9,12 @@ VarS::VarS()
 VarS::VarS(string* n, long val)
 {
 	nom=n;
-	valueint=val;
+	value=val;
 }
 
 VarS::VarS(long val)
 {
-    valueint=val;
+    value=val;
 }
 
 VarS::VarS(string* n)

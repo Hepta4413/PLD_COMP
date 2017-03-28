@@ -11,14 +11,13 @@ class VarS : public Variable
 {
 	public:
 	VarS();
-	VarS(long val);
-	VarS(string* n, long val);
+	VarS(string* n, Expression* val);
 	VarS(Expression* val);
 	VarS(string* n);
 
 	protected:
 	string* nom;
-	long valueint;
+	Expression* value;
 
 };
 

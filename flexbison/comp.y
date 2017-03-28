@@ -28,6 +28,7 @@
 
 	void yyerror(Programme *, const char *);
 	int yylex(void);
+
 }
 
 %{
@@ -120,7 +121,7 @@ return : RETURN expr {$$ = new Return($2);}
 	;
 declaration : typebase NOM declarationopt { $3->AddInfo($1,$2); $$ = $3;}
 	;
-declarationopt : OPENBRACKET ENTIER CLOSEBRACKET {$$= new VarTab($2,1);}
+declarationopt : OPENBRACKET ENTIER CLOSEBRACKET {$$= new VarTab(new Const($2),1);}
 		 | EQUAL expr { $$ = new VarS($2);}
 		 | %empty {$$ = new VarS();}
 		 ;
@@ -164,7 +165,7 @@ argsbis : expr {$$=new vector<Expression*>(); $$->push_back($1);}
 	| argsbis COMA expr {$1->push_back($3); $$=$1;}
 	;
 bloccontrole : IF condition OPENCURLYBRACKET bloc CLOSECURLYBRACKET else {$6->AddIf($2,$4);$$=$6;}
-     		| WHILE condition OPENCURLYBRACKET bloc CLOSECURLYBRACKET {$$= new BlocWhile($2,$4);}  
+     		| WHILE condition OPENCURLYBRACKET bloc CLOSECURLYBRACKET {$$= new BlocWhile($2,$4);}
      		| FOR OPEN operation SEMICOMA operation SEMICOMA operation CLOSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET {$$=new BlocFor($3,$5,$7,$10);}
      		;
 else : ELSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET {$$=new BlocIf($3);}
@@ -201,7 +202,7 @@ void yyerror(int * res, const char * msg) {
 }
 
 int main(void) {
-   yydebug=1;
+   //yydebug=1;
    int res = 0;
    Programme prog;
    res = yyparse(&prog);
