@@ -9,10 +9,10 @@ class Expression : public Ligne
 	public :
 	Expression();
 	Expression(Type t);
-		
+
 	protected :
 	Type type;
-	
+
 };
 
 #endif
