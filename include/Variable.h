@@ -11,8 +11,7 @@ class Variable : public Expression
 {
 	public:
 	Variable();
-	Variable(Type t, string* n);
-	void AddInfo(Type t, string* n);
+	void AddInfo(Type t);
 	
 	protected:
 	Type type;

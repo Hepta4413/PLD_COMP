@@ -4,15 +4,8 @@ VarTab::VarTab()
 {
 }
 
-VarTab::VarTab(string* n, Expression* t, bool size)
+VarTab::VarTab(string* n, Expression* t)
 {
 	nom=n;
-  valeur=t;
-	taille=size;
-}
-
-VarTab::VarTab(Expression* t, bool size)
-{
-  valeur=t;
-	taille=size;
+	indice=t;
 }
