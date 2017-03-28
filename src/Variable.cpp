@@ -4,7 +4,13 @@ Variable::Variable()
 {
 }
 
-void Variable::AddInfo(Type t)
+void Variable::VerifDeclaration(string* nom)
 {
-    type=t;
+	Declaration* decl = RechercherDeclaration(nom);
+    if(decl==NULL){
+		cerr<<"Erreur la variable "<<*n<<" n'est pas déclarée"<<endl;
+	}else{
+		type=decl->getDeclarationType();
+	}
 }
+

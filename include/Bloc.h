@@ -12,6 +12,7 @@ class Variable;
 class BlocControle;
 class Fonction;
 class Contenu;
+class Declaration;
 
 using namespace std;
 
@@ -22,6 +23,7 @@ class Bloc
 	Bloc(std::vector<Contenu*>* c, Fonction * f,std::map<std::string*,Declaration*>* var, Bloc * blocParent);
 	void AddContenu(Contenu* c);
 	void AddDeclaration(Declaration* d);
+	Declaration* RechercherDeclaration(string* nom);
 	
 
 	private:

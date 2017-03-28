@@ -11,7 +11,7 @@ class Variable : public Expression
 {
 	public:
 	Variable();
-	void AddInfo(Type t);
+	void VerifDeclaration(string* nom);
 	
 	protected:
 	Type type;
