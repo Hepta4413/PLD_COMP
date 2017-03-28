@@ -4,18 +4,18 @@ Affectation::Affectation()
 {
 }
 
-Affectation::Affectation(VarS* var, long value, Opbinaire op)
+Affectation::Affectation(Variable* var, Expression* value, Opbinaire op)
 
 {
 	vars = var;
 	valuei = value;
-    operateur=op;
+  operateur=op;
 }
 
-Affectation::Affectation(VarTab* var, long value, int i, Opbinaire op)
+Affectation::Affectation(VarTab* var, Expression* value, int i, Opbinaire op)
 {
 	vartab = var;
 	valuei = value;
 	index = i;
-    operateur=op;
+  operateur=op;
 }

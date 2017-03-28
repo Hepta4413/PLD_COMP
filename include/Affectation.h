@@ -13,9 +13,9 @@ class Affectation : public Expression
 	Affectation(VarTab* vartab, Expression* value, int i, Opbinaire op);
 
 	protected:
-	VarS* vars;
+	Variable* vars;
 	VarTab* vartab;
-	Expression valuei;
+	Expression* valuei;
 	int index;
 	Opbinaire operateur;
 
