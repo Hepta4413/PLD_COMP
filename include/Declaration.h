@@ -12,6 +12,7 @@ class Declaration : public Ligne
 	public:
 	Declaration();
 	Declaration(Type t, string* name);
+	string* getName();
 
 	protected:
 	Type type;

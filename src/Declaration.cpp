@@ -12,3 +12,8 @@ Declaration::Declaration(Type t, string* n)
 	name = n;
 	blocParent->AddDeclaration(this);
 }
+
+string* Declaration::getName()
+{
+    return name;
+}
