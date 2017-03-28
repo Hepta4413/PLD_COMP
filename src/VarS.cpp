@@ -6,13 +6,13 @@ VarS::VarS()
 {
 }
 
-VarS::VarS(string* n, long val)
+VarS::VarS(string* n, Expression* val)
 {
 	nom=n;
 	value=val;
 }
 
-VarS::VarS(long val)
+VarS::VarS(Expression* val)
 {
     value=val;
 }
