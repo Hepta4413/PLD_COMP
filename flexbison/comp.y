@@ -189,7 +189,7 @@ typebases : OPENBRACKET CLOSEBRACKET {$$=1;}| %empty {$$=0;}
 typereturnfonction : VOID {$$=VOID_T;}
 	| typefonction {$$=$1;}
 	;
-var : 	NOM option {$$=($2==NULL?(Variable*) new VarS($1): (Variable*) new VarTab($1,$2,0));}
+var : 	NOM option {$$=($2==NULL?(Variable*) new VarS($1): (Variable*) new VarTab($1,$2));}
 	;
 option : OPENBRACKET expr CLOSEBRACKET {$$=$2;}| %empty {$$=NULL;}
 	;

@@ -11,12 +11,10 @@ class VarTab : public Variable
 {
 	public:
 	VarTab();
-	VarTab(string* n, Expression* t, bool taille);
-	VarTab(Expression* t, bool taille);
+	VarTab(string* n, Expression* t);
 
 	private:
-	Expression* valeur;
-	bool taille;
+	Expression* indice;
 };
 
 #endif
