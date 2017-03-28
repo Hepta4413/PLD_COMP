@@ -1,0 +1,6 @@
+#exclude .o files
+*.o
+flexbison/comp.output
+flexbison/comp.tab.c
+flexbison/comp.tab.h
+flexbison/lex.yy.c
