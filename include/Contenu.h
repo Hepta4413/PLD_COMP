@@ -10,9 +10,9 @@ class Contenu
 {
 	public:
 	Contenu();
-	Contenu(Bloc * b);
+	Contenu(Bloc* b);
 	Bloc* getBloc();
-	void setBloc(Bloc*);
+	void setBloc(Bloc* blc);
 	
 	protected:
 	Bloc* blocParent;

@@ -5,6 +5,8 @@
 #include "Enums.h"
 #include "Expression.h"
 #include <string>
+#include "Bloc.h"
+#include "VarS.h"
 
 using namespace std;
 

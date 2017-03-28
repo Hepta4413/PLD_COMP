@@ -29,7 +29,7 @@ void Declaration::AddInfos(Type t, string* n)
 	name = n;
     if(tailleTab!=NULL && (type==INT32TAB_T || type==INT64TAB_T || type==CHARTAB_T))
     {
-		blocPArent->AddContenu(new VarS(n,tailleTab));
+        blocParent->AddContenu(new VarS(n,tailleTab));
 		tailleTab=NULL;
     }
 }

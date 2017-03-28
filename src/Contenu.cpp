@@ -6,15 +6,15 @@ Contenu::Contenu()
 
 Contenu::Contenu(Bloc * b)
 {
-	blocParent = b;
+    blocParent = b;
 }
 
-Bloc* getBloc()
+Bloc* Contenu::getBloc()
 {
     return blocParent;
 }
 
-void setBloc(Bloc* blc)
+void Contenu::setBloc(Bloc* blc)
 {
     blocParent = blc;
 }
