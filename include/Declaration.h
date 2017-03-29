@@ -19,7 +19,7 @@ class Declaration : public Ligne
 	string* getName();
 	Type getDeclarationType();
 	void AddInfos(Type t, string* name);
-
+	void setBlocDeclaration(Bloc* b);
 	protected:
 	Type type;
 	string* name;

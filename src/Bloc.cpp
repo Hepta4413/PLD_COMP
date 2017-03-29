@@ -15,17 +15,15 @@ Bloc::Bloc()
 
 void Bloc::AddContenu(Contenu* c)
 {
-    cont->push_back(c);
-    c->setBloc(this);
+	cont->push_back(c);
+	c->setBloc(this);
 }
 
 void Bloc::AddDeclaration(Declaration* d)
 {
-		cout << *(d->getName()) << endl;
-
-    if (varbloc->find(d->getName()) == varbloc->end())
+	if (varbloc->find(d->getName()) == varbloc->end())
 	{
-        varbloc->insert ( pair<string*,Declaration*>(d->getName(),d));
+		varbloc->insert ( pair<string*,Declaration*>(d->getName(),d));
 	}
 }
 
@@ -42,7 +40,7 @@ Declaration* Bloc::RechercherDeclaration(string* nom){
 	}
 	else
 	{
-        map<string*,Declaration*> map = *varbloc;
-        return map[nom];
+		map<string*,Declaration*> map = *varbloc;
+		return map[nom];
 	}
 }

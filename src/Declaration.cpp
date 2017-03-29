@@ -17,7 +17,10 @@ Declaration::Declaration(Type t, string* n)
 {
 	type = t;
 	name = n;
-	blocParent->AddDeclaration(this);
+	if(blocParent != NULL) {
+		blocParent->AddDeclaration(this);
+	}
+
 }
 
 string* Declaration::getName()
@@ -28,6 +31,11 @@ string* Declaration::getName()
 Type Declaration::getDeclarationType()
 {
 	return type;
+}
+
+void Declaration::setBlocDeclaration(Bloc* b) {
+	b->AddDeclaration(this);
+	blocParent = b;
 }
 
 void Declaration::AddInfos(Type t, string* n)

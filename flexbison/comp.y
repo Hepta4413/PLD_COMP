@@ -71,7 +71,7 @@
 %type <appelfonct> af
 %type <blocif> else
 %type <type> typenombre typechar typebase typefonction typereturnfonction
-%type <variable> var 
+%type <variable> var
 %type <declaration> declaration declarationopt
 %type <bloccontrole> bloccontrole
 %type <expression> expr operation condition option val
@@ -108,7 +108,7 @@ argbis :  typefonction NOM {$$=new vector<Declaration*>(); $$->push_back(new Dec
 	| argbis COMA typefonction NOM {$$=$1; $1->push_back(new Declaration($3,$4));}
 	;
 bloc : bloc contenu {$1->AddContenu($2); $$ = $1; }
-	| %empty {$$= new Bloc();}
+	| %empty {printf("Create new bloc"); $$= new Bloc();}
 	;
 contenu : ligne SEMICOMA {$$=$1;}
 	| bloccontrole {$$=$1;}
@@ -124,10 +124,10 @@ declaration : typebase NOM declarationopt { $3->AddInfos($1,$2); $$ = $3;}
 	;
 declarationopt : OPENBRACKET expr CLOSEBRACKET {$$= new Declaration($2);}
 		 | EQUAL expr { $$ = new Declaration($2);}
-		 | %empty {$$ = new Declaration();}
+		 | %empty {printf("Create new declaration"); $$ = new Declaration();}
 		 ;
 operation : expr {$$=$1;}
-	| %empty {$$= NULL;}
+	| %empty {printf("Create new operation"); $$= NULL;}
 	;
 expr :    expr MUL expr {$$ = new OPBinaire($1, $3, MULT_OB); }
 	| expr PLUS expr {$$ = new OPBinaire($1, $3, PLUS_OB); }
