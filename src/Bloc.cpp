@@ -2,20 +2,15 @@
 #include "Declaration.h"
 #include "BlocControle.h"
 #include "Fonction.h"
+#include <iostream>
 
 using namespace std;
 
 Bloc::Bloc()
 {
 	blocParent=NULL;
-}
-
-Bloc::Bloc(std::vector<Contenu*>* c, Fonction * f, std::map<string*,Declaration*>* var, Bloc * bParent)
-{
-	cont = c;
-	fonct = f;
-	varbloc = var;
-	blocParent = bParent;
+	cont = new vector<Contenu*>();
+	varbloc = new map<string*, Declaration*>();
 }
 
 void Bloc::AddContenu(Contenu* c)
@@ -26,10 +21,11 @@ void Bloc::AddContenu(Contenu* c)
 
 void Bloc::AddDeclaration(Declaration* d)
 {
+		cout << *(d->getName()) << endl;
+
     if (varbloc->find(d->getName()) == varbloc->end())
 	{
-        varbloc->insert ( std::pair<string*,Declaration*>(d->getName(),d));
-        //*(varbloc[d->getName()]=d;
+        varbloc->insert ( pair<string*,Declaration*>(d->getName(),d));
 	}
 }
 
@@ -46,7 +42,7 @@ Declaration* Bloc::RechercherDeclaration(string* nom){
 	}
 	else
 	{
-        std::map<string*,Declaration*> map = *varbloc;
+        map<string*,Declaration*> map = *varbloc;
         return map[nom];
 	}
 }
