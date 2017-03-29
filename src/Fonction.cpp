@@ -4,10 +4,10 @@ using namespace std;
 
 Fonction::Fonction()
 {
-    arguments = new vector<Variable*>();
+    arguments = new vector<Declaration*>();
 }
 
-Fonction::Fonction(Type t, std::string* n, std::vector<Variable*>* arg, Bloc* b)
+Fonction::Fonction(Type t, std::string* n, std::vector<Declaration*>* arg, Bloc* b)
 {
 	arguments = arg;
     bloc = b;
@@ -18,7 +18,7 @@ Fonction::Fonction(Type t, std::string* n, std::vector<Variable*>* arg, Bloc* b)
 void Fonction::AddProg(Programme* p)
 {
     if(arguments==NULL){
-        arguments = new vector<Variable*>();
+        arguments = new vector<Declaration*>();
     }
     prog=p;
 }

@@ -104,7 +104,7 @@ fonction : typereturnfonction NOM OPEN arg CLOSE OPENCURLYBRACKET bloc CLOSECURL
 arg : 	argbis {$$=$1;}
 	| %empty {$$= NULL;}
 	;
-argbis :  typefonction NOM {$$=new vector<Variable*>(); $$->push_back(new Declaration($1,$2));}
+argbis :  typefonction NOM {$$=new vector<Declaration*>(); $$->push_back(new Declaration($1,$2));}
 	| argbis COMA typefonction NOM {$$=$1; $1->push_back(new Declaration($3,$4));}
 	;
 bloc : bloc contenu {$1->AddContenu($2); $$ = $1; }
@@ -198,7 +198,7 @@ val : 	var {$$=$1;}
 	;
 %%
 
-void yyerror(int * res, const char * msg) {
+void yyerror(Programme * res, const char * msg) {
    printf("Syntax error : %s\n",msg);
 }
 
