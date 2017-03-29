@@ -35,7 +35,7 @@
 
 %}
 %union {
-    int ival;
+    	int ival;
 	string* stringval;
 	Affectation* affectation;
 	Bloc* bloc;
@@ -100,7 +100,7 @@ axiome : prog { resultat = $1; }
        ;
 prog : 	prog fonction {$1->AddFonction($2); $$ = $1; }
 	| %empty {$$= new Programme();};
-fonction : typereturnfonction NOM OPEN arg CLOSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET {$$= new Fonction($1,$2,$4,$7);};
+fonction : typereturnfonction NOM OPEN arg CLOSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET { $$= new Fonction($1,$2,$4,$7);};
 arg : 	argbis {$$=$1;}
 	| %empty {$$= NULL;}
 	;

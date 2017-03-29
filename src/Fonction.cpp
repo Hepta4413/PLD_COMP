@@ -1,4 +1,5 @@
 #include "Fonction.h"
+#include <iostream>
 
 using namespace std;
 
@@ -13,6 +14,7 @@ Fonction::Fonction(Type t, std::string* n, std::vector<Declaration*>* arg, Bloc*
     bloc = b;
     nom=n;
     type = t;
+
 }
 
 void Fonction::AddProg(Programme* p)

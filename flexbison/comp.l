@@ -51,5 +51,5 @@ char [a-zA-Z]
 "char"       { return CHAR; }
 "return"     { return RETURN; }
 "'"{char}"'" { yylval.ival = yytext[1]; return ENTIER; }
-[_a-zA-Z][_a-zA-Z0-9]*      { yylval.stringval = (std::string*) yytext; return NOM; }
+[_a-zA-Z][_a-zA-Z0-9]*      {yylval.stringval = new string(yytext); return NOM; }
 {digit}      { yylval.ival = atoi(yytext); return ENTIER; }

@@ -1,4 +1,5 @@
 #include "Programme.h"
+#include <iostream>
 
 using namespace std;
 
@@ -19,4 +20,5 @@ void Programme::AddFonction(Fonction* f)
 	}
     f->AddProg(this);
     fonctions->insert ( pair<string,Fonction>(*(f->getNom()),*f) );
+
 }
