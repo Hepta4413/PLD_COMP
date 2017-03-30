@@ -26,7 +26,7 @@ Fonction::Fonction(Type t, string* n, vector<Declaration*>* arg, Bloc* b)
 	  for(auto d = arguments->begin(); d != arguments->end(); d++) {
 		(*d)->setBlocDeclaration(bloc);
 	  }
-	}  
+	}   
 }
 
 void Fonction::AddProg(Programme* p)
