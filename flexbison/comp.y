@@ -98,16 +98,16 @@
 
 axiome : prog { resultat = $1; }
        ;
-prog : 	prog fonction {$1->AddFonction($2); $$ = $1; }
-	| %empty {$$= new Programme();};
-fonction : typereturnfonction NOM OPEN arg CLOSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET { $$= new Fonction($1,$2,$4,$7);};
-arg : 	argbis {$$=$1;}
-	| %empty {$$= NULL;}
+prog : 	prog fonction {printf("prog "); $1->AddFonction($2); $$ = $1; }
+	| %empty {printf("prog empty "); $$= new Programme();};
+fonction : typereturnfonction NOM OPEN arg CLOSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET {printf("Fonction "); $$= new Fonction($1,$2,$4,$7);};
+arg : 	argbis {printf("arg ");$$=$1;}
+	| %empty {printf("arg null ");$$= NULL;}
 	;
-argbis :  typefonction NOM {$$=new vector<Declaration*>(); $$->push_back(new Declaration($1,$2));}
-	| argbis COMA typefonction NOM {$$=$1; $1->push_back(new Declaration($3,$4));}
+argbis :  typefonction NOM {printf("argbis1 ");$$=new vector<Declaration*>(); $$->push_back(new Declaration($1,$2));}
+	| argbis COMA typefonction NOM {printf("argbis 2 "); $$=$1; $1->push_back(new Declaration($3,$4));}
 	;
-bloc : bloc contenu {$1->AddContenu($2); $$ = $1; }
+bloc : bloc contenu {printf("add contenu bloc");$1->AddContenu($2); $$ = $1; }
 	| %empty {printf("Create new bloc"); $$= new Bloc();}
 	;
 contenu : ligne SEMICOMA {$$=$1;}
@@ -126,11 +126,11 @@ declarationopt : OPENBRACKET expr CLOSEBRACKET {$$= new Declaration($2);}
 		 | EQUAL expr { $$ = new Declaration($2);}
 		 | %empty {printf("Create new declaration"); $$ = new Declaration();}
 		 ;
-operation : expr {$$=$1;}
+operation : expr {printf("Expression create");$$=$1;}
 	| %empty {printf("Create new operation"); $$= NULL;}
 	;
 expr :    expr MUL expr {$$ = new OPBinaire($1, $3, MULT_OB); }
-	| expr PLUS expr {$$ = new OPBinaire($1, $3, PLUS_OB); }
+	| expr PLUS expr {printf("Create new plus"); $$ = new OPBinaire($1, $3, PLUS_OB); }
 	| expr MINUS expr {$$ = new OPBinaire($1, $3, MINUS_OB); }
 	| expr DIV expr {$$ = new OPBinaire($1, $3, DIV_OB); }
 	| expr MODULO expr {$$ = new OPBinaire($1, $3, MODULO_OB); }
@@ -170,7 +170,7 @@ bloccontrole : IF condition OPENCURLYBRACKET bloc CLOSECURLYBRACKET else {$6->Ad
      		| FOR OPEN operation SEMICOMA operation SEMICOMA operation CLOSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET {$$=new BlocFor($3,$5,$7,$10);}
      		;
 else : ELSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET {$$=new BlocIf($3);}
-	| %empty {$$=new BlocIf();}
+	| %empty {printf("Create new blocIF"); $$=new BlocIf();}
 	;
 condition : OPEN expr CLOSE {$$=$2;}
 	;
@@ -194,7 +194,7 @@ var : 	NOM option {$$=($2==NULL?(Variable*) new VarS($1): (Variable*) new VarTab
 option : OPENBRACKET expr CLOSEBRACKET {$$=$2;}| %empty {$$=NULL;}
 	;
 val : 	var {$$=$1;}
-	| ENTIER {$$=new Const($1);}
+	| ENTIER {printf("Create new const"); $$=new Const($1);}
 	;
 %%
 

@@ -1,15 +1,27 @@
 #include "Const.h"
+#include <iostream>
+
+using namespace std;
 
 Const::Const()
 {
+	#ifdef MAP
+		cout << "Appel au constructeur vide de Const" << endl;
+	#endif
 }
 
 Const::Const(long value)
 {
+	#ifdef MAP
+		cout << "Appel au constructeur de Const(long value)" << endl;
+	#endif
 	this->value=value;
 }
 
 long Const::getValue()
 {
+	#ifdef MAP
+		cout << "Appel a la fonction getValue de Const" << endl;
+	#endif
 	return value;
 }
