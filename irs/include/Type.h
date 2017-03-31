@@ -1,1 +1,1 @@
-enum Type {INT64, INT32, CHAR}
+enum Type {INT64, INT32, CHAR};

@@ -3,13 +3,18 @@
 
 #include <string>
 #include <vector>
-#include "Type.h"
 #include <iostream>
-#include "BasicBlock.h"
+#include "Enums.h"
+//#include "BasicBlock.h"
 
 using namespace std;
 
-enum Mnemo{	ldconst,
+class BasicBlock;
+
+class IRInstr
+{
+	public:
+	enum Mnemo{	ldconst,
 			add,
 			sub,
 			mul,
@@ -19,20 +24,17 @@ enum Mnemo{	ldconst,
 			cmp_eq,
 			cmp_lt,
 			cmp_le };
-
-class IRInstr
-{
-	public:
+	
 	IRInstr();
-	IRInstr(BasicBlock* bb_, Mnemo mn, Type t, Vector<string> params);
+	IRInstr(BasicBlock* bb_, Mnemo mn, Type t, vector<string> params);
 	void gen_asm(ostream &o);
 	
 	private:
 	BasicBlock* bb; /**< The BB this instruction belongs to, which provides a pointer to the CFG this instruction belong to */
 	Mnemo mnemo;
 	long cons;
-	Vector<string> regs;
+	vector<string> regs;
 	Type t;
-}
+};
 
 #endif

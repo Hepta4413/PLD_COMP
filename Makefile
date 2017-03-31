@@ -24,7 +24,8 @@ FLEXFLAGS =
 ##############################################################################
 
 #HEADERS
-INCDIR = -I ./include
+INCDIR = -I ./include -I ./irs/include
+	
 
 #OBJETS
 OBJ = \
@@ -47,7 +48,10 @@ OBJ = \
 		obj/Return.o \
 		obj/Variable.o \
 		obj/VarS.o \
-		obj/VarTab.o
+		obj/VarTab.o \
+		irs/obj/BasicBlock.o \
+		irs/obj/CFG.o \
+		irs/obj/IRInstr.o
 
 FLEXL = flexbison/comp.l
 FLEXC = flexbison/lex.yy.c
@@ -90,6 +94,10 @@ $(EXE): $(OBJ) $(FLEXOBJ) $(BISONOBJ)
 
 #Compilation des objets
 obj/%.o:src/%.cpp include/%.h
+	$(ECHO) "[comp]" $(GPP) $(CPPFLAGS) $<
+	$(GPP) -o $@ -c $(CPPFLAGS) $<
+
+irs/obj/%.o:irs/src/%.cpp irs/include/%.h
 	$(ECHO) "[comp]" $(GPP) $(CPPFLAGS) $<
 	$(GPP) -o $@ -c $(CPPFLAGS) $<
 

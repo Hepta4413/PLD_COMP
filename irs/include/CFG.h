@@ -5,12 +5,16 @@
 #include <string>
 #include <iostream>
 #include "Fonction.h"
+#include "Enums.h"
+
+class BasicBlock;
 
 using namespace std;
 
 class CFG
 {
 	public:
+	CFG();
 	CFG(Fonction* ast);
 
 	Fonction* ast; /**< The AST this CFG comes from */
@@ -34,13 +38,13 @@ class CFG
 	BasicBlock* current_bb;
 
 	protected:
-	map <string, Type> SymbolType; /**< part of the symbol table  */
-	map <string, int> SymbolIndex; /**< part of the symbol table  */
+	map <string, Type> symbolType; /**< part of the symbol table  */
+	map <string, int> symbolIndex; /**< part of the symbol table  */
 	int nextFreeSymbolIndex; /**< to allocate new symbols in the symbol table */
 	int nextBBnumber; /**< just for naming */
 	
 	vector <BasicBlock*> bbs; /**< all the basic blocks of this CFG*/
 	
-}
+};
 
 #endif
