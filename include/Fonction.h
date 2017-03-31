@@ -17,6 +17,7 @@ class Fonction
 	Fonction(Type t, std::string* nom,std::vector<Declaration*>* arg, Bloc* b);
 	void AddProg(Programme* p);
 	std::string* getNom();
+	int getSize();
 	
 	protected:
 	std::string* nom;

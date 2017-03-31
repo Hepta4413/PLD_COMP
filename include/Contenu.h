@@ -1,9 +1,9 @@
 #ifndef CONTENU_H
 #define CONTENU_H
 
-//#include "Bloc.h"
+#include "Bloc.h"
 
-class Bloc;
+//class Bloc;
 class Declaration;
 
 class Contenu
@@ -13,6 +13,7 @@ class Contenu
 	Contenu(Bloc* b);
 	Bloc* getBloc();
 	void setBloc(Bloc* blc);
+	virtual int getSize() =0;
 	
 	protected:
 	Bloc* blocParent;

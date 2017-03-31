@@ -19,3 +19,7 @@ void Ligne::AddLigneColonne(int ligne,int colonne)
 	this->colonne=colonne;
 }
 
+int Ligne::getSize()
+{
+	return 0;
+}

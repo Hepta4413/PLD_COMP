@@ -2,15 +2,13 @@
 #define BLOCCONTROLE_H
 
 #include "Contenu.h"
-//#include "Bloc.h"
-
-class Bloc;
 
 class BlocControle : public Contenu
 {
 	public:
 	BlocControle();
 	BlocControle(Bloc * bfils);
+	int getSize();
 	
 	private:
 	Bloc * blocFils;

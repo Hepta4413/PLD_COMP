@@ -56,3 +56,13 @@ Declaration* Bloc::RechercherDeclaration(string* nom){
 		return map[nom];
 	}
 }
+
+int Bloc::getSize()
+{
+	int size = varbloc->size();
+	for(unsigned int i=0; i<cont->size(); i++)
+	{
+		size += cont->at(i)->getSize();
+	}
+	return size;
+}

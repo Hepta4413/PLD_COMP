@@ -1,7 +1,7 @@
 #ifndef BLOC_H
 #define BLOC_H
 
-#include "OPBinaire.h"
+//#include "OPBinaire.h"
 #include "Enums.h"
 #include <vector>
 #include <map>
@@ -22,6 +22,7 @@ class Bloc
 	void AddContenu(Contenu* c);
 	void AddDeclaration(Declaration* d);
 	Declaration* RechercherDeclaration(string* nom);
+	int getSize();
 
 
 	protected:

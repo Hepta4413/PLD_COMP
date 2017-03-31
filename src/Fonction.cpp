@@ -48,3 +48,11 @@ string* Fonction::getNom()
 	#endif
   return nom;
 }
+
+int Fonction::getSize()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction getNom de Fonction" << endl;
+	#endif
+  return bloc->getSize() + arguments->size();
+}

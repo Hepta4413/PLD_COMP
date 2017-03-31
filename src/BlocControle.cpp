@@ -17,3 +17,8 @@ BlocControle::BlocControle(Bloc * bfils)
 	#endif
 	blocFils = bfils;
 }
+
+int BlocControle::getSize()
+{
+	return blocFils->getSize();
+}

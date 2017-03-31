@@ -1,4 +1,4 @@
-#ifndef DECLARATION_H
+ #ifndef DECLARATION_H
 #define DECLARATION_H
 
 #include "Ligne.h"
@@ -7,6 +7,7 @@
 #include <string>
 #include "Bloc.h"
 #include "VarS.h"
+#include "OPBinaire.h"
 
 using namespace std;
 
