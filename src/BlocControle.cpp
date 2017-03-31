@@ -8,6 +8,7 @@ BlocControle::BlocControle()
 	#ifdef MAP
 		cout << "Appel au constructeur vide de BlocControle" << endl;
 	#endif
+	typeContenu = _BLOCCONTROLE;
 }
 
 BlocControle::BlocControle(Bloc * bfils)
@@ -16,4 +17,5 @@ BlocControle::BlocControle(Bloc * bfils)
 		cout << "Appel au constructeur de BlocControle(Bloc * bfils)" << endl;
 	#endif
 	blocFils = bfils;
+	typeContenu = _BLOCCONTROLE;
 }

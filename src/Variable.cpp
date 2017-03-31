@@ -24,5 +24,6 @@ void Variable::VerifDeclaration(string* nom)
 	}else{
 		type=decl->getDeclarationType();
 	}
+	typeContenu = _VAR;
 }
 

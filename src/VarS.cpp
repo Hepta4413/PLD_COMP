@@ -18,4 +18,5 @@ VarS::VarS(string* n)
 	#endif
     nom=n;
     VerifDeclaration(nom);
+	typeContenu = _VARS;
 }
