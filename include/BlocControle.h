@@ -11,6 +11,7 @@ class BlocControle : public Contenu
 	public:
 	BlocControle();
 	BlocControle(Bloc * bfils);
+	Bloc* getBlocFils();
 	
 	private:
 	Bloc * blocFils;

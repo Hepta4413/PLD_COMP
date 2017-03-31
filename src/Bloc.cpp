@@ -37,13 +37,30 @@ void Bloc::AddDeclaration(Declaration* d)
 	}
 }
 
-Declaration* Bloc::RechercherDeclaration(string* nom){
+Declaration* Bloc::RechercherDeclaration(){
 	#ifdef MAP
 		cout << "Appel a la fonction RechercherDeclaration de bloc" << endl;
-		cout << *nom << endl;
-		varbloc->find(nom);
-		cout << "Find varbloc OK" << endl;
 	#endif
+	for(auto contenu = cont->begin(); contenu != cont->end(); d++) {
+		switch(contenu->getTypeContenu())
+		{
+			case _VAR : 
+			case _VARS :
+			case _VARTAB :
+				nom = (Variable*)contenu->nom;
+				RechercherDeclaration(nom);
+			break;
+			case _BLOCCONTROLE :
+			case _BLOCIF :
+			case _BLOCFOR :
+			case _BLOCWHILE :
+				(BlocControle*)contenu->getBlocFils()->RechercherDeclaration();
+			break;
+		}	 
+	}
+}
+
+Declaration* Bloc::RechercherDeclaration(string* nom){
 	if(varbloc->find(nom) == varbloc->end())
 	{
 		if(blocParent!=NULL)
@@ -61,3 +78,5 @@ Declaration* Bloc::RechercherDeclaration(string* nom){
 		return map[nom];
 	}
 }
+
+

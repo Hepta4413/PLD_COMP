@@ -17,3 +17,11 @@ BlocControle::BlocControle(Bloc * bfils)
 	#endif
 	blocFils = bfils;
 }
+
+Bloc* BlocControle::getBlocFils()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction get blocFils BlocControle(Bloc * bfils)" << endl;
+	#endif
+	return blocFils;
+}

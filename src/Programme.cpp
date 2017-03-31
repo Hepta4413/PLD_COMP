@@ -32,5 +32,7 @@ void Programme::AddFonction(Fonction* f)
 }
 
 	void VerifVariable(){
-		
+	  for(auto fonct = fonctions->begin(); fonct != foncts->end(); d++) {
+		(*fonct)->bloc->RechercherDeclaration();
+	  }
 	}
