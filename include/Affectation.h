@@ -4,6 +4,7 @@
 #include "VarTab.h"
 #include "VarS.h"
 #include "Expression.h"
+#include "Enums.h"
 
 class Affectation : public Expression
 {

@@ -8,6 +8,7 @@ VarS::VarS()
 	#ifdef MAP
 		cout << "Appel au constructeur vide de VarS" << endl;
 	#endif
+	typeContenu = _VARS;
 }
 
 VarS::VarS(string* n)

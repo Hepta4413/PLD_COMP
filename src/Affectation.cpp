@@ -8,6 +8,7 @@ Affectation::Affectation()
 	#ifdef MAP
 		cout << "Appel au constructeur vide de Affectation" << endl;
 	#endif
+	typeContenu = _AFFECTATION;
 }
 
 Affectation::Affectation(Variable* var, Expression* value, Opbinaire op)

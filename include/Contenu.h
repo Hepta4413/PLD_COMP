@@ -3,6 +3,8 @@
 
 //#include "Bloc.h"
 
+#include "Enums.h"
+
 class Bloc;
 class Declaration;
 
@@ -11,12 +13,15 @@ class Contenu
 	public:
 	Contenu();
 	Contenu(Bloc* b);
+
 	Bloc* getBloc();
-	void setBloc(Bloc* blc);
-	
+  void setBloc(Bloc* blc);
+
 	protected:
 	Bloc* blocParent;
-		
+	TypeContenu typeContenu;
+
+
 };
 
 #endif

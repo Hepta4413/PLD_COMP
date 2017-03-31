@@ -8,6 +8,7 @@ VarTab::VarTab()
 	#ifdef MAP
 		cout << "Appel au constructeur vide de VarTab" << endl;
 	#endif
+	typeContenu = _VARTAB;
 }
 
 VarTab::VarTab(string* n, Expression* t)
