@@ -115,9 +115,9 @@ bloc : bloc contenu {printf("add contenu bloc");$1->AddContenu($2); $$ = $1; }
 contenu : ligne SEMICOMA {$$=$1;}
 	| bloccontrole {$$=$1;}
 	;
-ligne : operation {$$=$1;}
-	| declaration {$$=$1;}
-	| return {$$=$1;}
+ligne : operation {$$=$1; $1->AddLigneColonne(@1.first_line,@1.first_column);}
+	| declaration {$$=$1; $1->AddLigneColonne(@1.first_line,@1.first_column);}
+	| return {$$=$1; $1->AddLigneColonne(@1.first_line,@1.first_column);}
 	;
 return : RETURN expr {$$ = new Return($2);}
 	| RETURN {$$ = new Return();}

@@ -9,8 +9,11 @@ class Ligne : public Contenu
 {
 	public:
 	Ligne();
+	void AddLigneColonne(int ligne,int colonne);
 	
 	private:
+	int ligne;
+	int colonne;
 		
 };
 
