@@ -15,6 +15,7 @@ class Programme
 	Programme();
 	Programme(map<string,Fonction>* f);
 	void AddFonction(Fonction* f);
+	void VerifVariable();
 
 	protected:
 	map<string,Fonction>* fonctions;

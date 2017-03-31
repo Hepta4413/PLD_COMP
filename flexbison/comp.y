@@ -209,6 +209,7 @@ int main(void) {
    int res = 0;
    Programme prog;
    res = yyparse(&prog);
+   cout<<"c'est fini"<<endl;
    printf("Résutlat : %d\n",res);
    return 0;
 }
