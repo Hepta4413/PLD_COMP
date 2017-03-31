@@ -29,5 +29,8 @@ void Programme::AddFonction(Fonction* f)
 	}
     f->AddProg(this);
     fonctions->insert ( pair<string,Fonction>(*(f->getNom()),*f) );
-
 }
+
+	void VerifVariable(){
+		
+	}
