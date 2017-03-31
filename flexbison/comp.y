@@ -2,6 +2,7 @@
 	#include <stdio.h>
 	#include <string>
 	#include <vector>
+	#include <iostream>
 	#include "../include/Affectation.h"
 	#include "../include/Bloc.h"
 	#include "../include/Declaration.h"
@@ -34,6 +35,7 @@
 %{
 
 %}
+%locations
 %union {
     	int ival;
 	string* stringval;
@@ -98,9 +100,9 @@
 
 axiome : prog { resultat = $1; }
        ;
-prog : 	prog fonction {printf("prog "); $1->AddFonction($2); $$ = $1; }
+prog : 	prog fonction { $1->AddFonction($2); $$ = $1; }
 	| %empty {printf("prog empty "); $$= new Programme();};
-fonction : typereturnfonction NOM OPEN arg CLOSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET {printf("Fonction "); $$= new Fonction($1,$2,$4,$7);};
+fonction : typereturnfonction NOM OPEN arg CLOSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET {cout<<@2.first_line<<endl; $$= new Fonction($1,$2,$4,$7);};
 arg : 	argbis {printf("arg ");$$=$1;}
 	| %empty {printf("arg null ");$$= NULL;}
 	;
