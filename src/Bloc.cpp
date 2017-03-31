@@ -3,6 +3,7 @@
 #include "BlocControle.h"
 #include "Fonction.h"
 #include <iostream>
+#include <typeinfo>
 
 using namespace std;
 
@@ -21,8 +22,11 @@ void Bloc::AddContenu(Contenu* c)
 	#ifdef MAP
 		cout << "Appel a la fonction AddContenu de bloc" << endl;
 	#endif
-	cont->push_back(c);
 	c->setBloc(this);
+
+	cout << typeid(c).name() << endl;
+
+	cont->push_back(c);
 }
 
 void Bloc::AddDeclaration(Declaration* d)
@@ -39,13 +43,17 @@ void Bloc::AddDeclaration(Declaration* d)
 Declaration* Bloc::RechercherDeclaration(string* nom){
 	#ifdef MAP
 		cout << "Appel a la fonction RechercherDeclaration de bloc" << endl;
+		cout << *nom << endl;
+		varbloc->find(nom);
+		cout << "Find varbloc OK" << endl;
 	#endif
 	if(varbloc->find(nom) == varbloc->end())
 	{
 		if(blocParent!=NULL)
 		{
 			return blocParent->RechercherDeclaration(nom);
-		}else
+		}
+		else
 		{
 			return NULL;
 		}

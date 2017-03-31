@@ -8,6 +8,7 @@ Ligne::Ligne()
 	#ifdef MAP
 		cout << "Appel au constructeur vide de Ligne" << endl;
 	#endif
+	typeContenu = _LIGNE;
 }
 
 void Ligne::AddLigneColonne(int ligne,int colonne)

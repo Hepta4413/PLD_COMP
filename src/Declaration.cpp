@@ -9,6 +9,7 @@ Declaration::Declaration()
 		cout << "Appel au constructeur vide de Declaration" << endl;
 	#endif
 	tailleTab=NULL;
+	typeContenu = _DECLARATION;
 }
 
 Declaration::Declaration(Expression* taille)
@@ -17,6 +18,7 @@ Declaration::Declaration(Expression* taille)
 		cout << "Appel au constructeur de Declaration(Expression* taille)" << endl;
 	#endif
 	tailleTab = taille;
+	typeContenu = _DECLARATION;
 }
 
 Declaration::Declaration(Type t, string* n)
@@ -26,6 +28,7 @@ Declaration::Declaration(Type t, string* n)
 	#endif
 	type = t;
 	name = n;
+	typeContenu = _DECLARATION;
 	if(blocParent != NULL) {
 		printf("declaration blocparent null");
 		blocParent->AddDeclaration(this);
@@ -65,9 +68,16 @@ void Declaration::AddInfos(Type t, string* n)
 	type = t;
 	name = n;
 
+	#ifdef MAP
+		cout << "Infos added : " << endl;
+		cout << type << endl;
+		cout << *name << endl;
+	#endif
+
 	if(tailleTab!=NULL && (type==INT32TAB_T || type==INT64TAB_T || type==CHARTAB_T))
 	{
 		blocParent->AddContenu(new OPBinaire(new VarS(n),tailleTab, EQUAL_OB));
 		tailleTab=NULL;
 	}
+
 }

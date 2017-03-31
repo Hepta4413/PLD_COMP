@@ -1,4 +1,5 @@
 #include "Contenu.h"
+#include "../include/Contenu.h"
 #include <iostream>
 
 using namespace std;
