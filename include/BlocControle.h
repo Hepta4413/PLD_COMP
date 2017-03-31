@@ -2,6 +2,7 @@
 #define BLOCCONTROLE_H
 
 #include "Contenu.h"
+#include "Enums.h"
 //#include "Bloc.h"
 
 class Bloc;

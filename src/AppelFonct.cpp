@@ -19,4 +19,5 @@ AppelFonct::AppelFonct(std::string* f, std::vector<Expression*>* param)
 	#endif
     fonction = f;
 	parametres = param;
+	typeContenu = _APPELFONCT;
 }

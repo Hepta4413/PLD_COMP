@@ -8,6 +8,7 @@ BlocWhile::BlocWhile()
 		#ifdef MAP
 		cout << "Appel au constructeur vide de BlocWhile" << endl;
 	#endif
+	typeContenu = _BLOCWHILE;
 }
 
 BlocWhile::BlocWhile(Expression* e, Bloc* bloc)
@@ -17,4 +18,5 @@ BlocWhile::BlocWhile(Expression* e, Bloc* bloc)
 	#endif
 	condition = e;
     boucle=bloc;
+	typeContenu = _BLOCWHILE;
 }

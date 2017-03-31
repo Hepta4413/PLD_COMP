@@ -19,6 +19,7 @@ Affectation::Affectation(Variable* var, Expression* value, Opbinaire op)
 	vars = var;
 	valuei = value;
   operateur=op;
+	typeContenu = _AFFECTATION;
 }
 
 Affectation::Affectation(VarTab* var, Expression* value, int i, Opbinaire op)
@@ -30,4 +31,5 @@ Affectation::Affectation(VarTab* var, Expression* value, int i, Opbinaire op)
 	valuei = value;
 	index = i;
   operateur=op;
+	typeContenu = _AFFECTATION;
 }

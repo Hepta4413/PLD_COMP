@@ -3,6 +3,7 @@
 
 #include "BlocControle.h"
 #include "Expression.h"
+#include "Enums.h"
 
 class BlocFor : public BlocControle
 {
