@@ -4,6 +4,7 @@
 #include "Variable.h"
 #include "Const.h"
 #include <string>
+#include "Enums.h"
 
 using namespace std;
 

@@ -4,6 +4,7 @@
 #include "Fonction.h"
 #include "Expression.h"
 #include <vector>
+#include "Enums.h"
 
 class AppelFonct : public Expression
 {
