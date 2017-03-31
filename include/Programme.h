@@ -13,12 +13,12 @@ class Programme
 {
 	public:
 	Programme();
-	Programme(map<string,Fonction>* f);
+	Programme(map<string*,Fonction*>* f);
 	void AddFonction(Fonction* f);
 	void VerifVariable();
 
 	protected:
-	map<string,Fonction>* fonctions;
+	map<string*,Fonction*>* fonctions;
 
 };
 

@@ -40,7 +40,7 @@ void Bloc::AddDeclaration(Declaration* d)
 
 void Bloc::ParcoursContenu(){
 	#ifdef MAP
-		cout << "Appel a la fonction RechercherDeclaration de bloc" << endl;
+		cout << "Appel a la fonction ParcoursBloc de bloc" << endl;
 	#endif
 	string* nom;
 	Declaration* declarat;
