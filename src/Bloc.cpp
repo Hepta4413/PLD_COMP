@@ -23,9 +23,6 @@ void Bloc::AddContenu(Contenu* c)
 		cout << "Appel a la fonction AddContenu de bloc" << endl;
 	#endif
 	c->setBloc(this);
-
-	cout << typeid(c).name() << endl;
-
 	cont->push_back(c);
 }
 

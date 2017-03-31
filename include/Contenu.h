@@ -16,6 +16,7 @@ class Contenu
 
 	Bloc* getBloc();
   void setBloc(Bloc* blc);
+	TypeContenu getTypeContenu();
 
 	protected:
 	Bloc* blocParent;

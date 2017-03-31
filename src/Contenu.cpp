@@ -34,3 +34,10 @@ void Contenu::setBloc(Bloc* blc)
 	#endif
     blocParent = blc;
 }
+
+TypeContenu Contenu::getTypeContenu() {
+	#ifdef MAP
+		cout << "Appel a la fonction getTypeContenu de Contenu" << endl;
+	#endif
+	return typeContenu;
+}
