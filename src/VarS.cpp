@@ -14,9 +14,9 @@ VarS::VarS()
 VarS::VarS(string* n)
 {
 	#ifdef MAP
-		cout << "Appel au constructeur vide de VarS(string* n)" << endl;
+		cout << "Appel au constructeur de VarS(string* n)" << endl;
 	#endif
     nom=n;
-    VerifDeclaration(nom);
+    //VerifDeclaration(nom);
 	typeContenu = _VARS;
 }

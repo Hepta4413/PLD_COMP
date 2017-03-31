@@ -31,8 +31,11 @@ void Programme::AddFonction(Fonction* f)
     fonctions->insert ( pair<string,Fonction>(*(f->getNom()),*f) );
 }
 
-	void VerifVariable(){
-	  for(auto fonct = fonctions->begin(); fonct != foncts->end(); d++) {
-		(*fonct)->bloc->RechercherDeclaration();
+void Programme::VerifVariable(){
+	#ifdef MAP
+		cout << "Appel a la fonction Verifvariable de programme" << endl;
+	#endif
+	  for(auto fonct = fonctions->begin(); fonct != fonctions->end(); fonct++) {
+		fonct->second.getBloc()->ParcoursContenu();
 	  }
-	}
+}

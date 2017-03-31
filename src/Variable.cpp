@@ -27,3 +27,8 @@ void Variable::VerifDeclaration(string* nom)
 	typeContenu = _VAR;
 }
 
+string* Variable::getNom()
+{
+	return nom;
+}
+

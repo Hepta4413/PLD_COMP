@@ -21,7 +21,7 @@ class Bloc
 	Bloc();
 	void AddContenu(Contenu* c);
 	void AddDeclaration(Declaration* d);
-	Declaration* ParcoursContenu();
+	void ParcoursContenu();
 	Declaration* RechercherDeclaration(string* nom);
 
 

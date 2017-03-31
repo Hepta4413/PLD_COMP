@@ -210,6 +210,7 @@ int main(void) {
    Programme prog;
    res = yyparse(&prog);
    cout<<"c'est fini"<<endl;
+   prog.VerifVariable();
    printf("Résutlat : %d\n",res);
    return 0;
 }

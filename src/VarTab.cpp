@@ -18,6 +18,6 @@ VarTab::VarTab(string* n, Expression* t)
 	#endif
 	nom=n;
 	indice=t;
-	VerifDeclaration(nom);
+	//VerifDeclaration(nom);
 	typeContenu = _VARTAB;
 }

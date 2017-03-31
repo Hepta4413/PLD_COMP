@@ -20,3 +20,19 @@ void Ligne::AddLigneColonne(int ligne,int colonne)
 	this->colonne=colonne;
 }
 
+int Ligne::getLigne()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction getLigne de Ligne" << endl;
+	#endif
+	return ligne;
+}
+
+int Ligne::getColonne()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction getColonne de Ligne" << endl;
+	#endif
+	return colonne;
+}
+

@@ -12,6 +12,7 @@ class Variable : public Expression
 	public:
 	Variable();
 	void VerifDeclaration(string* nom);
+	string* getNom();
 	
 	protected:
 	Type type;

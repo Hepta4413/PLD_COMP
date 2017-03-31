@@ -10,8 +10,10 @@ class Ligne : public Contenu
 	public:
 	Ligne();
 	void AddLigneColonne(int ligne,int colonne);
+	int getLigne();
+	int getColonne();
 	
-	private:
+	protected:
 	int ligne;
 	int colonne;
 		

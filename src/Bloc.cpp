@@ -2,6 +2,7 @@
 #include "Declaration.h"
 #include "BlocControle.h"
 #include "Fonction.h"
+#include "Enums.h"
 #include <iostream>
 #include <typeinfo>
 
@@ -37,25 +38,38 @@ void Bloc::AddDeclaration(Declaration* d)
 	}
 }
 
-Declaration* Bloc::RechercherDeclaration(){
+void Bloc::ParcoursContenu(){
 	#ifdef MAP
 		cout << "Appel a la fonction RechercherDeclaration de bloc" << endl;
 	#endif
-	for(auto contenu = cont->begin(); contenu != cont->end(); d++) {
-		switch(contenu->getTypeContenu())
+	string* nom;
+	Declaration* declarat;
+	Ligne* ligne;
+	for(auto contenu = cont->begin(); contenu != cont->end(); cont++) {
+		switch((*contenu)->getTypeContenu())
 		{
 			case _VAR : 
 			case _VARS :
 			case _VARTAB :
-				nom = (Variable*)contenu->nom;
-				RechercherDeclaration(nom);
+				 nom = ((Variable*)(*contenu))->getNom();
+				 declarat=RechercherDeclaration(nom);
+				 ligne = ((Ligne*)(*contenu));
+				if(declarat != NULL && (declarat->getLigne()> ligne->getLigne() ||
+				(declarat->getLigne()== ligne->getLigne() && 
+				declarat->getColonne()> ligne->getColonne()))){
+					
+				}else{
+					cerr<<"Erreur ligne "<<ligne->getLigne()<<" : "
+					<<ligne->getColonne()<<" la variable n'est pas déclarée"<<endl;
+				}
 			break;
 			case _BLOCCONTROLE :
 			case _BLOCIF :
 			case _BLOCFOR :
 			case _BLOCWHILE :
-				(BlocControle*)contenu->getBlocFils()->RechercherDeclaration();
+				((BlocControle*)(*contenu))->getBlocFils()->ParcoursContenu();
 			break;
+			default : break;
 		}	 
 	}
 }

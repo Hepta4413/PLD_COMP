@@ -48,3 +48,11 @@ string* Fonction::getNom()
 	#endif
   return nom;
 }
+
+Bloc* Fonction::getBloc()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction getBloc de Fonction" << endl;
+	#endif
+  return bloc;
+}
