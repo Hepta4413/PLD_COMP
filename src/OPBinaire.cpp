@@ -8,6 +8,7 @@ OPBinaire::OPBinaire()
 	#ifdef MAP
 		cout << "Appel au constructeur vide de OPBinaire" << endl;
 	#endif
+	typeContenu = _OPBINAIRE;
 }
 
 OPBinaire::OPBinaire(Expression* ex1, Expression* ex2, Opbinaire ope)

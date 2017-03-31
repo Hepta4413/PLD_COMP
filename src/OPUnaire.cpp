@@ -8,6 +8,7 @@ OPUnaire::OPUnaire()
 	#ifdef MAP
 		cout << "Appel au constructeur vide de OPUnaire" << endl;
 	#endif
+	//typeContenu = _OPUNAIRE;
 }
 
 OPUnaire::OPUnaire(Expression* e, Opunaire ope)

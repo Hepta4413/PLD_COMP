@@ -10,6 +10,7 @@ Variable::Variable()
 	#ifdef MAP
 		cout << "Appel au constructeur vide de Variable" << endl;
 	#endif
+	typeContenu = _VAR;
 }
 
 void Variable::VerifDeclaration(string* nom)

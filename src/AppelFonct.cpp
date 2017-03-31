@@ -8,6 +8,7 @@ AppelFonct::AppelFonct()
 	#ifdef MAP
 		cout << "Appel au constructeur vide de AppelFonct" << endl;
 	#endif
+	typeContenu = _APPELFONCT;
 }
 
 
