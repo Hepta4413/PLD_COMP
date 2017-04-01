@@ -9,6 +9,7 @@ VarTab::VarTab()
 		cout << "Appel au constructeur vide de VarTab" << endl;
 	#endif
 	typeContenu = _VARTAB;
+	lvalue=false;
 }
 
 VarTab::VarTab(string* n, Expression* t)
@@ -18,6 +19,6 @@ VarTab::VarTab(string* n, Expression* t)
 	#endif
 	nom=n;
 	indice=t;
-	//VerifDeclaration(nom);
 	typeContenu = _VARTAB;
+	lvalue=false;
 }

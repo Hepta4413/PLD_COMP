@@ -84,8 +84,18 @@ void Bloc::ParcoursContenu(){
 					if(declarat != NULL && (declarat->getLigne()< ligne->getLigne() ||
 					(declarat->getLigne()== ligne->getLigne() && 
 					declarat->getColonne()< ligne->getColonne()))){
-						cout<<"pas d'erreur"<<endl;
-					}else{
+						if(declarat->getLvalue())
+						{
+							if(!(*var)->getLvalue())
+							{
+								declarat->setRvalue(true);
+							}
+							cout<<"pas d'erreur"<<endl;
+						}else{
+							cerr<<"Erreur ligne "<<ligne->getLigne()<<" : "
+						<<ligne->getColonne()<<" la variable "<<(*nom)<<" n'est pas affectée"<<endl;
+						}
+					}else{						
 						cerr<<"Erreur ligne "<<ligne->getLigne()<<" : "
 						<<ligne->getColonne()<<" la variable "<<(*nom)<<" n'est pas déclarée"<<endl;
 					}
@@ -110,6 +120,16 @@ void Bloc::ParcoursContenu(){
 			break;
 			default : break;
 		}	 
+	}
+	for(auto mapElem = varbloc->begin(); mapElem != varbloc->end(); mapElem++) 
+	{
+		Declaration* decl = (mapElem->second);
+		if(!decl->getRvalue())
+		{
+			Ligne * ligne = (Ligne*)(decl);
+			cerr<<"Warning ligne "<<ligne->getLigne()<<" : "
+			<<ligne->getColonne()<<" la variable "<<*(decl->getName())<<" est déclarée mais jamais utilisée"<<endl;
+		}
 	}
 }
 

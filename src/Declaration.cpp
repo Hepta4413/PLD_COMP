@@ -10,6 +10,8 @@ Declaration::Declaration()
 	#endif
 	tailleTab=NULL;
 	typeContenu = _DECLARATION;
+	lvalue=false;
+	rvalue=false;
 }
 
 Declaration::Declaration(Expression* taille)
@@ -19,6 +21,8 @@ Declaration::Declaration(Expression* taille)
 	#endif
 	tailleTab = taille;
 	typeContenu = _DECLARATION;
+	lvalue=false;
+	rvalue=false;
 }
 
 Declaration::Declaration(Type t, string* n)
@@ -33,7 +37,8 @@ Declaration::Declaration(Type t, string* n)
 		printf("declaration blocparent null");
 		blocParent->AddDeclaration(this);
 	}
-
+	lvalue=false;
+	rvalue=false;
 }
 
 string* Declaration::getName()
@@ -58,6 +63,34 @@ void Declaration::setBlocDeclaration(Bloc* b) {
 	#endif
 	b->AddDeclaration(this);
 	blocParent = b;
+}
+
+void Declaration::setLvalue(bool b) {
+	#ifdef MAP
+		cout << "Appel a la fonction setLvalue de Declaration" << endl;
+	#endif
+	lvalue=b;
+}
+
+bool Declaration::getLvalue() {
+	#ifdef MAP
+		cout << "Appel a la fonction getLvalue de Declaration" << endl;
+	#endif
+	return lvalue;
+}
+
+void Declaration::setRvalue(bool b) {
+	#ifdef MAP
+		cout << "Appel a la fonction setRvalue de Declaration" << endl;
+	#endif
+	rvalue=b;
+}
+
+bool Declaration::getRvalue() {
+	#ifdef MAP
+		cout << "Appel a la fonction getRvalue de Declaration" << endl;
+	#endif
+	return rvalue;
 }
 
 void Declaration::AddInfos(Type t, string* n)

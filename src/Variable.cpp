@@ -44,3 +44,18 @@ string* Variable::getNom()
 	return nom;
 }
 
+bool Variable::getLvalue()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction getLvalue de variable" << endl;
+	#endif
+	return lvalue;
+}
+
+void Variable::setLvalue(bool lval)
+{
+	#ifdef MAP
+		cout << "Appel a la fonction setLvalue de variable" << endl;
+	#endif
+	lvalue=lval;
+}

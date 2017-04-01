@@ -9,6 +9,7 @@ VarS::VarS()
 		cout << "Appel au constructeur vide de VarS " <<this << endl;
 	#endif
 	typeContenu = _VARS;
+	lvalue=false;
 }
 
 VarS::VarS(string* n)
@@ -18,4 +19,5 @@ VarS::VarS(string* n)
 	#endif
     nom=n;
 	typeContenu = _VARS;
+	lvalue=false;
 }

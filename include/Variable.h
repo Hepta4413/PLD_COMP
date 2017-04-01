@@ -14,11 +14,13 @@ class Variable : public Expression
 	void VerifDeclaration(string* nom);
 	string* getNom();
 	vector<Variable*> variableUtilise();
+	bool getLvalue();
+	void setLvalue(bool lval);
 	
 	protected:
 	Type type;
 	string* nom;
-	bool declaration;
+	bool lvalue;
 			
 };
 

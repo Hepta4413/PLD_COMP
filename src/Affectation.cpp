@@ -18,9 +18,10 @@ Affectation::Affectation(Variable* var, Expression* value, Opbinaire op)
 	#ifdef MAP
 		cout << "Appel au constructeur de Affectation(Variable* var, Expression* value, Opbinaire op)" << endl;
 	#endif
+	var->setLvalue(true);
 	vars = var;
 	valuei = value;
-  operateur=op;
+	operateur=op;
 	typeContenu = _AFFECTATION;
 }
 
