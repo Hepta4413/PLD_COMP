@@ -38,10 +38,7 @@ void Programme::VerifVariable(){
 	#ifdef MAP
 		cout << "Appel a la fonction Verifvariable de programme" << endl;
 	#endif
-	    cout<<fonctions<<endl;
-		cout<< "taille "<<fonctions->size() << endl;
 	  for(auto fonct = fonctions->begin(); fonct != fonctions->end(); fonct++) {
-		 cout << "Dans le for" << endl;
 		fonct->second->getBloc()->ParcoursContenu();
 	  }
 }

@@ -6,7 +6,7 @@ using namespace std;
 VarS::VarS()
 {
 	#ifdef MAP
-		cout << "Appel au constructeur vide de VarS" << endl;
+		cout << "Appel au constructeur vide de VarS " <<this << endl;
 	#endif
 	typeContenu = _VARS;
 }
@@ -17,6 +17,5 @@ VarS::VarS(string* n)
 		cout << "Appel au constructeur de VarS(string* n)" << endl;
 	#endif
     nom=n;
-    //VerifDeclaration(nom);
 	typeContenu = _VARS;
 }

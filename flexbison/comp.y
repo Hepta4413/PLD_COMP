@@ -102,7 +102,7 @@ axiome : prog { *resultat = $1; }
        ;
 prog : 	prog fonction { $1->AddFonction($2); $$ = $1; }
 	| %empty { $$= new Programme();};
-fonction : typereturnfonction NOM OPEN arg CLOSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET {cout<<@2.first_line<<endl; $$= new Fonction($1,$2,$4,$7);};
+fonction : typereturnfonction NOM OPEN arg CLOSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET { $$= new Fonction($1,$2,$4,$7);};
 arg : 	argbis {printf("arg ");$$=$1;}
 	| %empty {printf("arg null ");$$= NULL;}
 	;

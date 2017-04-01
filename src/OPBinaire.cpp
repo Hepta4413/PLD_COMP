@@ -21,3 +21,15 @@ OPBinaire::OPBinaire(Expression* ex1, Expression* ex2, Opbinaire ope)
 	op = ope;
 	typeContenu = _OPBINAIRE;
 }
+
+vector<Variable*> OPBinaire::variableUtilise(){
+	#ifdef MAP
+		cout << "Appel a la fonction variableUtilise de opBinaire" << endl;
+	#endif
+	vector<Variable*> result;
+	vector<Variable*> vector1=e1->variableUtilise();
+	vector<Variable*> vector2=e2->variableUtilise();
+	result.insert( result.end(), vector1.begin(), vector1.end() );
+	result.insert( result.end(), vector2.begin(), vector2.end() );
+	return result;
+}

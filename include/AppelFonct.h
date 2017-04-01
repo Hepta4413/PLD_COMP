@@ -11,6 +11,7 @@ class AppelFonct : public Expression
 	public:
 	AppelFonct();
 	AppelFonct(std::string* f, std::vector<Expression*>* param);
+	vector<Variable*> variableUtilise();
 	
 	private:
 	std::string* fonction;

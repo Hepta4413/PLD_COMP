@@ -20,3 +20,10 @@ OPUnaire::OPUnaire(Expression* e, Opunaire ope)
 	op = ope;
 	typeContenu = _OPUNAIRE;
 }
+
+vector<Variable*> OPUnaire::variableUtilise(){
+	#ifdef MAP
+		cout << "Appel a la fonction variableUtilise de opUnaire" << endl;
+	#endif
+	return exp->variableUtilise();
+}

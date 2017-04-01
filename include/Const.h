@@ -11,6 +11,7 @@ class Const : public Expression
 	Const();
 	Const(long value);
 	long getValue();
+	vector<Variable*> variableUtilise();
 
 	protected:
 	long value;

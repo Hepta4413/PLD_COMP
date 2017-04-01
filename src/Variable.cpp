@@ -27,8 +27,20 @@ void Variable::VerifDeclaration(string* nom)
 	typeContenu = _VAR;
 }
 
+vector<Variable*> Variable::variableUtilise(){
+	#ifdef MAP
+		cout << "Appel a la fonction variableUtilise de variable" << endl;
+	#endif
+	vector<Variable*> result;
+	result.push_back(this);
+	return result;
+}
+
 string* Variable::getNom()
 {
+	#ifdef MAP
+		cout << "Appel a la fonction getNom de variable" << endl;
+	#endif
 	return nom;
 }
 

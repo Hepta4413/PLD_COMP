@@ -15,7 +15,7 @@ Bloc::Bloc()
 	#endif
 	blocParent=NULL;
 	cont = new vector<Contenu*>();
-	varbloc = new map<string*, Declaration*>();
+	varbloc = new map<string, Declaration*>();
 }
 
 void Bloc::AddContenu(Contenu* c)
@@ -25,6 +25,9 @@ void Bloc::AddContenu(Contenu* c)
 	#endif
 	c->setBloc(this);
 	cont->push_back(c);
+	if(c->getTypeContenu()==_DECLARATION){
+		AddDeclaration((Declaration*)c);
+	}
 }
 
 void Bloc::AddDeclaration(Declaration* d)
@@ -32,9 +35,9 @@ void Bloc::AddDeclaration(Declaration* d)
 	#ifdef MAP
 		cout << "Appel a la fonction AddDeclaration de bloc" << endl;
 	#endif
-	if (varbloc->find(d->getName()) == varbloc->end())
+	if (varbloc->find(*(d->getName())) == varbloc->end())
 	{
-		varbloc->insert ( pair<string*,Declaration*>(d->getName(),d));
+		varbloc->insert ( pair<string,Declaration*>(*(d->getName()),d));
 	}
 }
 
@@ -45,23 +48,36 @@ void Bloc::ParcoursContenu(){
 	string* nom;
 	Declaration* declarat;
 	Ligne* ligne;
-	for(auto contenu = cont->begin(); contenu != cont->end(); contenu++) {
-		
+	vector<Variable*> variables;
+	for(auto contenu = cont->begin(); contenu != cont->end(); contenu++) 
+	{		
 		switch((*contenu)->getTypeContenu())
 		{
 			case _VAR : 
 			case _VARS :
 			case _VARTAB :
-				 nom = ((Variable*)(*contenu))->getNom();
-				 declarat=RechercherDeclaration(nom);
-				 ligne = ((Ligne*)(*contenu));
-				if(declarat != NULL && (declarat->getLigne()> ligne->getLigne() ||
-				(declarat->getLigne()== ligne->getLigne() && 
-				declarat->getColonne()> ligne->getColonne()))){
-					cout<<"pas d'erreur"<<endl;
-				}else{
-					cerr<<"Erreur ligne "<<ligne->getLigne()<<" : "
-					<<ligne->getColonne()<<" la variable n'est pas déclarée"<<endl;
+			case _EXPR :
+			case _OPUNAIRE :
+			case _OPBINAIRE :
+			case _AFFECTATION :
+			case _APPELFONCT :
+				variables = ((Expression*)(*contenu))->variableUtilise();
+				for(auto var = variables.begin(); var != variables.end(); var++) 
+				{		
+					 nom = (*var)->getNom();
+					 declarat=RechercherDeclaration(nom);
+					 ligne = ((Ligne*)(*contenu));
+					 cout<<(bool)(declarat != NULL)<<endl;
+					 cout<<declarat->getLigne()<<endl;
+					 cout<<ligne->getLigne()<<endl;
+					if(declarat != NULL && (declarat->getLigne()< ligne->getLigne() ||
+					(declarat->getLigne()== ligne->getLigne() && 
+					declarat->getColonne()< ligne->getColonne()))){
+						cout<<"pas d'erreur"<<endl;
+					}else{
+						cerr<<"Erreur ligne "<<ligne->getLigne()<<" : "
+						<<ligne->getColonne()<<" la variable "<<(*nom)<<" n'est pas déclarée"<<endl;
+					}
 				}
 			break;
 			case _BLOCCONTROLE :
@@ -76,7 +92,12 @@ void Bloc::ParcoursContenu(){
 }
 
 Declaration* Bloc::RechercherDeclaration(string* nom){
-	if(varbloc->find(nom) == varbloc->end())
+	#ifdef MAP
+		cout << "Appel a la fonction RechercherDeclaration de bloc" << endl;
+	#endif
+	cout <<" nb de var declarée " << varbloc->size()<<endl;
+	cout << *nom<<endl;
+	if(varbloc->find(*nom) == varbloc->end())
 	{
 		if(blocParent!=NULL)
 		{
@@ -89,8 +110,8 @@ Declaration* Bloc::RechercherDeclaration(string* nom){
 	}
 	else
 	{
-		map<string*,Declaration*> map = *varbloc;
-		return map[nom];
+		map<string,Declaration*> map = *varbloc;
+		return map[*nom];
 	}
 }
 

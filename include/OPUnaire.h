@@ -9,6 +9,7 @@ class OPUnaire : public Expression
 	public :
 	OPUnaire();
 	OPUnaire(Expression* e, Opunaire op);
+	vector<Variable*> variableUtilise();
 
 	protected :
 	Expression* exp;

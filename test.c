@@ -1,4 +1,4 @@
-void fe(){
-	a=5;
+void fe(int32_t a;){
+    a=5;
 }
 

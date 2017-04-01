@@ -28,7 +28,7 @@ class Bloc
 	protected:
 	vector<Contenu*>* cont;
 	Fonction * fonct;
-	map<string*,Declaration*>* varbloc;
+	map<string,Declaration*>* varbloc;
 	Bloc * blocParent;
 
 };

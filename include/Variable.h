@@ -13,6 +13,7 @@ class Variable : public Expression
 	Variable();
 	void VerifDeclaration(string* nom);
 	string* getNom();
+	vector<Variable*> variableUtilise();
 	
 	protected:
 	Type type;

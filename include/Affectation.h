@@ -12,6 +12,7 @@ class Affectation : public Expression
 	Affectation();
 	Affectation(Variable* vars, Expression* value, Opbinaire op);
 	Affectation(VarTab* vartab, Expression* value, int i, Opbinaire op);
+	vector<Variable*> variableUtilise();
 
 	protected:
 	Variable* vars;

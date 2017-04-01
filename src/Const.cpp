@@ -18,6 +18,14 @@ Const::Const(long value)
 	this->value=value;
 }
 
+vector<Variable*> Const::variableUtilise(){
+	#ifdef MAP
+		cout << "Appel a la fonction variableUtilise de Const" << endl;
+	#endif
+	vector<Variable*> result;
+	return result;
+}
+
 long Const::getValue()
 {
 	#ifdef MAP
@@ -25,3 +33,4 @@ long Const::getValue()
 	#endif
 	return value;
 }
+
