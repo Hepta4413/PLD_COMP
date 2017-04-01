@@ -26,12 +26,9 @@ void Programme::AddFonction(Fonction* f)
 	#endif
 	if(fonctions==NULL){
 		fonctions = new map<string*,Fonction*>();
-		cout<<"if fonctions==NULL"<<endl;
 	}
     f->AddProg(this);
     fonctions->insert ( pair<string*,Fonction*>(f->getNom(),f) );
-    cout << "taille "<<fonctions->size() << endl;
-    cout<<fonctions<<endl;
 }
 
 void Programme::VerifVariable(){

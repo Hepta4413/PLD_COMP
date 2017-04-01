@@ -20,3 +20,11 @@ BlocWhile::BlocWhile(Expression* e, Bloc* bloc)
     boucle=bloc;
 	typeContenu = _BLOCWHILE;
 }
+
+Bloc* BlocWhile::getBlocBoucle()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction getBlocBoucle de BlocWhile" << endl;
+	#endif
+	return boucle;
+}

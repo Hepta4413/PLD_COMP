@@ -23,7 +23,7 @@ BlocControle::BlocControle(Bloc * bfils)
 Bloc* BlocControle::getBlocFils()
 {
 	#ifdef MAP
-		cout << "Appel a la fonction get blocFils BlocControle(Bloc * bfils)" << endl;
+		cout << "Appel a la fonction get blocFils BlocControle" << endl;
 	#endif
 	return blocFils;
 }

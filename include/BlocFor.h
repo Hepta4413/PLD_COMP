@@ -10,6 +10,7 @@ class BlocFor : public BlocControle
 	public:
 	BlocFor();
 	BlocFor(Expression* c, Expression* ini, Expression* inc, Bloc* bloc);
+	Bloc* getBlocBoucle();
 	
 	private:
 	Expression* condition;

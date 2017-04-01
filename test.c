@@ -1,4 +1,6 @@
-void fe(int32_t a;){
-    a=5;
+void fe(){
+    if(1 == 1){
+		5;
+	}
 }
 

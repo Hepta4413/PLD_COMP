@@ -209,7 +209,7 @@ int main(void) {
    int res = 0;
    Programme* prog;
    res = yyparse(&prog);
-   cout<<"c'est fini"<<endl;
+   //cout<<"c'est fini"<<endl;
    prog->VerifVariable();
    printf("Résutlat : %d\n",res);
    return 0;

@@ -11,6 +11,9 @@ class BlocIf : public BlocControle
 	BlocIf();
 	BlocIf(Bloc* bloc);
 	void AddIf(Expression* expr, Bloc* bloc);
+	Bloc* getBlocAlors();
+	Bloc* getBlocSinon();
+	bool elsePresent();
 	
 	private:
 	Expression* si;	

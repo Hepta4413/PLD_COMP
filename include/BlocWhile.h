@@ -10,6 +10,7 @@ class BlocWhile : public BlocControle
 	public:
 	BlocWhile();
 	BlocWhile(Expression* e, Bloc* bloc);
+	Bloc* getBlocBoucle();
 	
 	protected:
 	Expression* condition;	

@@ -1,4 +1,7 @@
 #include "Bloc.h"
+#include "BlocIf.h"
+#include "BlocFor.h"
+#include "BlocWhile.h"
 #include "Declaration.h"
 #include "BlocControle.h"
 #include "Fonction.h"
@@ -21,7 +24,7 @@ Bloc::Bloc()
 void Bloc::AddContenu(Contenu* c)
 {
 	#ifdef MAP
-		cout << "Appel a la fonction AddContenu de bloc" << endl;
+		cout << "Appel a la fonction AddContenu de bloc " << this<<endl;
 	#endif
 	c->setBloc(this);
 	cont->push_back(c);
@@ -49,8 +52,10 @@ void Bloc::ParcoursContenu(){
 	Declaration* declarat;
 	Ligne* ligne;
 	vector<Variable*> variables;
+	cout<<"avant for"<<endl;
 	for(auto contenu = cont->begin(); contenu != cont->end(); contenu++) 
 	{		
+		cout<<"dans for"<<endl;
 		switch((*contenu)->getTypeContenu())
 		{
 			case _VAR : 
@@ -67,9 +72,6 @@ void Bloc::ParcoursContenu(){
 					 nom = (*var)->getNom();
 					 declarat=RechercherDeclaration(nom);
 					 ligne = ((Ligne*)(*contenu));
-					 cout<<(bool)(declarat != NULL)<<endl;
-					 cout<<declarat->getLigne()<<endl;
-					 cout<<ligne->getLigne()<<endl;
 					if(declarat != NULL && (declarat->getLigne()< ligne->getLigne() ||
 					(declarat->getLigne()== ligne->getLigne() && 
 					declarat->getColonne()< ligne->getColonne()))){
@@ -80,11 +82,18 @@ void Bloc::ParcoursContenu(){
 					}
 				}
 			break;
-			case _BLOCCONTROLE :
 			case _BLOCIF :
+				((BlocIf*)(*contenu))->getBlocAlors()->ParcoursContenu();
+				if(((BlocIf*)(*contenu))->elsePresent())
+				{
+					((BlocIf*)(*contenu))->getBlocSinon()->ParcoursContenu();
+				}
+			break;
 			case _BLOCFOR :
+				((BlocFor*)(*contenu))->getBlocBoucle()->ParcoursContenu();
+			break;				
 			case _BLOCWHILE :
-				((BlocControle*)(*contenu))->getBlocFils()->ParcoursContenu();
+				((BlocWhile*)(*contenu))->getBlocBoucle()->ParcoursContenu();
 			break;
 			default : break;
 		}	 
@@ -95,8 +104,6 @@ Declaration* Bloc::RechercherDeclaration(string* nom){
 	#ifdef MAP
 		cout << "Appel a la fonction RechercherDeclaration de bloc" << endl;
 	#endif
-	cout <<" nb de var declarée " << varbloc->size()<<endl;
-	cout << *nom<<endl;
 	if(varbloc->find(*nom) == varbloc->end())
 	{
 		if(blocParent!=NULL)

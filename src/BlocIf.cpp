@@ -8,6 +8,7 @@ BlocIf::BlocIf()
 	#ifdef MAP
 		cout << "Appel au constructeur vide de BlocIf" << endl;
 	#endif
+	sinon=NULL;
 	typeContenu = _BLOCIF;
 }
 
@@ -28,3 +29,28 @@ void BlocIf::AddIf(Expression* expr, Bloc* bloc)
     si = expr;
     alors = bloc;
 }
+
+Bloc* BlocIf::getBlocAlors()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction getBlocAlors de BlocIf" << endl;
+	#endif
+	return alors;
+}
+
+Bloc* BlocIf::getBlocSinon()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction getBlocSinon de BlocIf" << endl;
+	#endif
+	return sinon;
+}
+
+bool BlocIf::elsePresent()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction elsePresent de BlocIf" << endl;
+	#endif
+	return sinon!=NULL;
+}
+

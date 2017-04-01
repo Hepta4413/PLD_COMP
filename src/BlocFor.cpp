@@ -22,3 +22,11 @@ BlocFor::BlocFor(Expression* c, Expression* ini, Expression* inc, Bloc* bloc)
     boucle=bloc;
 	typeContenu = _BLOCFOR;
 }
+
+Bloc* BlocFor::getBlocBoucle()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction getBlocBoucle de BlocFor" << endl;
+	#endif
+	return boucle;
+}

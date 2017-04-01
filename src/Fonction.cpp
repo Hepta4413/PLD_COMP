@@ -21,7 +21,6 @@ Fonction::Fonction(Type t, string* n, vector<Declaration*>* arg, Bloc* b)
   bloc = b;   
   nom=n;
   type = t;
-  cout<<arg<<endl;
   if(arg!=NULL && arg->size()>0){  
 	  for(auto d = arguments->begin(); d != arguments->end(); d++) {
 		(*d)->setBlocDeclaration(bloc);
