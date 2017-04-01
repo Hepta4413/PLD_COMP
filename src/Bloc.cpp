@@ -40,12 +40,13 @@ void Bloc::AddDeclaration(Declaration* d)
 
 void Bloc::ParcoursContenu(){
 	#ifdef MAP
-		cout << "Appel a la fonction ParcoursBloc de bloc" << endl;
+		cout << "Appel a la fonction ParcoursContenu de bloc" << endl;
 	#endif
 	string* nom;
 	Declaration* declarat;
 	Ligne* ligne;
-	for(auto contenu = cont->begin(); contenu != cont->end(); cont++) {
+	for(auto contenu = cont->begin(); contenu != cont->end(); contenu++) {
+		
 		switch((*contenu)->getTypeContenu())
 		{
 			case _VAR : 
@@ -57,7 +58,7 @@ void Bloc::ParcoursContenu(){
 				if(declarat != NULL && (declarat->getLigne()> ligne->getLigne() ||
 				(declarat->getLigne()== ligne->getLigne() && 
 				declarat->getColonne()> ligne->getColonne()))){
-					
+					cout<<"pas d'erreur"<<endl;
 				}else{
 					cerr<<"Erreur ligne "<<ligne->getLigne()<<" : "
 					<<ligne->getColonne()<<" la variable n'est pas déclarée"<<endl;

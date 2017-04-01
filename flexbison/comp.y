@@ -27,7 +27,7 @@
 
 	using namespace std;
 
-	void yyerror(Programme *, const char *);
+	void yyerror(Programme **, const char *);
 	int yylex(void);
 
 }
@@ -94,14 +94,14 @@
 %left INCR DECR NOT
 %left OPEN CLOSE OPENBRACKET CLOSEBRACKET
 
-%parse-param {Programme * resultat}
+%parse-param {Programme ** resultat}
 
 %%
 
-axiome : prog { resultat = $1; }
+axiome : prog { *resultat = $1; }
        ;
 prog : 	prog fonction { $1->AddFonction($2); $$ = $1; }
-	| %empty { $$= new Programme(); cout<<"ICI UNE PUTAIN D'ERREUR"<<endl;};
+	| %empty { $$= new Programme();};
 fonction : typereturnfonction NOM OPEN arg CLOSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET {cout<<@2.first_line<<endl; $$= new Fonction($1,$2,$4,$7);};
 arg : 	argbis {printf("arg ");$$=$1;}
 	| %empty {printf("arg null ");$$= NULL;}
@@ -200,17 +200,17 @@ val : 	var {$$=$1;}
 	;
 %%
 
-void yyerror(Programme * res, const char * msg) {
+void yyerror(Programme ** res, const char * msg) {
    printf("Syntax error : %s\n",msg);
 }
 
 int main(void) {
    //yydebug=1;
    int res = 0;
-   Programme prog;
+   Programme* prog;
    res = yyparse(&prog);
    cout<<"c'est fini"<<endl;
-   prog.VerifVariable();
+   prog->VerifVariable();
    printf("Résutlat : %d\n",res);
    return 0;
 }
