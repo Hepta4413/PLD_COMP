@@ -23,6 +23,7 @@ class Bloc
 	void AddDeclaration(Declaration* d);
 	void ParcoursContenu();
 	Declaration* RechercherDeclaration(string* nom);
+	void setBlocParent(Bloc* bloc);
 
 
 	protected:

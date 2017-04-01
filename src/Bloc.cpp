@@ -25,6 +25,7 @@ void Bloc::AddContenu(Contenu* c)
 {
 	#ifdef MAP
 		cout << "Appel a la fonction AddContenu de bloc " << this<<endl;
+		cout << "Ajout du contenu "<<c<<" de type "<<c->getTypeContenu()<<" dans le bloc "<<this<<endl;
 	#endif
 	c->setBloc(this);
 	cont->push_back(c);
@@ -44,6 +45,14 @@ void Bloc::AddDeclaration(Declaration* d)
 	}
 }
 
+void Bloc::setBlocParent(Bloc* bloc)
+{
+	#ifdef MAP
+		cout << "Appel a la fonction setBloc de bloc" << endl;
+	#endif
+	blocParent=bloc;
+}
+
 void Bloc::ParcoursContenu(){
 	#ifdef MAP
 		cout << "Appel a la fonction ParcoursContenu de bloc" << endl;
@@ -52,10 +61,8 @@ void Bloc::ParcoursContenu(){
 	Declaration* declarat;
 	Ligne* ligne;
 	vector<Variable*> variables;
-	cout<<"avant for"<<endl;
 	for(auto contenu = cont->begin(); contenu != cont->end(); contenu++) 
 	{		
-		cout<<"dans for"<<endl;
 		switch((*contenu)->getTypeContenu())
 		{
 			case _VAR : 
@@ -70,8 +77,10 @@ void Bloc::ParcoursContenu(){
 				for(auto var = variables.begin(); var != variables.end(); var++) 
 				{		
 					 nom = (*var)->getNom();
+					 cout<<"this "<<this<< " et le parent "<<blocParent<<endl;
 					 declarat=RechercherDeclaration(nom);
 					 ligne = ((Ligne*)(*contenu));
+					 cout<<"declaration "<<declarat<<endl;
 					if(declarat != NULL && (declarat->getLigne()< ligne->getLigne() ||
 					(declarat->getLigne()== ligne->getLigne() && 
 					declarat->getColonne()< ligne->getColonne()))){
@@ -83,16 +92,20 @@ void Bloc::ParcoursContenu(){
 				}
 			break;
 			case _BLOCIF :
+				((BlocIf*)(*contenu))->getBlocAlors()->setBlocParent(this);
 				((BlocIf*)(*contenu))->getBlocAlors()->ParcoursContenu();
 				if(((BlocIf*)(*contenu))->elsePresent())
 				{
+					((BlocIf*)(*contenu))->getBlocSinon()->setBlocParent(this);
 					((BlocIf*)(*contenu))->getBlocSinon()->ParcoursContenu();
 				}
 			break;
 			case _BLOCFOR :
+				((BlocFor*)(*contenu))->getBlocBoucle()->setBlocParent(this);
 				((BlocFor*)(*contenu))->getBlocBoucle()->ParcoursContenu();
 			break;				
 			case _BLOCWHILE :
+				((BlocWhile*)(*contenu))->getBlocBoucle()->setBlocParent(this);
 				((BlocWhile*)(*contenu))->getBlocBoucle()->ParcoursContenu();
 			break;
 			default : break;
@@ -106,8 +119,11 @@ Declaration* Bloc::RechercherDeclaration(string* nom){
 	#endif
 	if(varbloc->find(*nom) == varbloc->end())
 	{
+		cout<<"Pas trouvé dans le bloc "<<this<<endl;
+		cout<<blocParent<<endl;
 		if(blocParent!=NULL)
 		{
+			cout<<"il y a un parent "<<this<<endl;
 			return blocParent->RechercherDeclaration(nom);
 		}
 		else
