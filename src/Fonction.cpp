@@ -17,8 +17,16 @@ Fonction::Fonction(Type t, string* n, vector<Declaration*>* arg, Bloc* b)
 	#ifdef MAP
 		cout << "Appel au constructeur de Fonction(Type t, string* n, vector<Declaration*>* arg, Bloc* b)" << endl;
 	#endif
-  arguments = arg;
+	cout<<"fonction "<<this<<" argument "<<arg<<endl;
+	if(arguments==NULL){
+		arguments = new vector<Declaration*>();
+	}
+	else
+	{
+		arguments = arg;
+	}
   bloc = b;   
+  b->setFonction(this);
   nom=n;
   type = t;
   if(arg!=NULL && arg->size()>0){  
@@ -31,13 +39,9 @@ Fonction::Fonction(Type t, string* n, vector<Declaration*>* arg, Bloc* b)
 void Fonction::AddProg(Programme* p)
 {
 	#ifdef MAP
-		cout << "Appel a la fonction AddProg de Fonction" << endl;
+		cout << "Appel a la fonction AddProg de Fonction  " <<this<< endl;
 	#endif
-  printf("add prog");
-  if(arguments==NULL){
-    arguments = new vector<Declaration*>();
-  }
-  prog=p;
+	prog=p;
 }
 
 string* Fonction::getNom()
@@ -51,7 +55,24 @@ string* Fonction::getNom()
 Bloc* Fonction::getBloc()
 {
 	#ifdef MAP
-		cout << "Appel a la fonction getBloc de Fonction" << endl;
+		cout << "Appel a la fonction getBloc de Fonction " << endl;
 	#endif
   return bloc;
 }
+
+Programme* Fonction::getProgramme()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction getProgramme de Fonction "<<this << endl;
+	#endif
+	return prog;
+}
+
+vector<Declaration*>* Fonction::getArguments()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction getArguments de Fonction" << endl;
+	#endif
+  return arguments;
+}
+	

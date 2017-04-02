@@ -5,6 +5,8 @@
 #include "Declaration.h"
 #include "BlocControle.h"
 #include "Fonction.h"
+#include "AppelFonct.h"
+#include "Programme.h"
 #include "Enums.h"
 #include <iostream>
 #include <typeinfo>
@@ -53,6 +55,14 @@ void Bloc::setBlocParent(Bloc* bloc)
 	blocParent=bloc;
 }
 
+void Bloc::setFonction(Fonction* fonction)
+{
+	#ifdef MAP
+		cout << "Appel a la fonction setBloc de bloc" << endl;
+	#endif
+	fonct=fonction;
+}
+
 void Bloc::ParcoursContenu(){
 	#ifdef MAP
 		cout << "Appel a la fonction ParcoursContenu de bloc" << endl;
@@ -65,6 +75,19 @@ void Bloc::ParcoursContenu(){
 	{		
 		switch((*contenu)->getTypeContenu())
 		{
+			case _APPELFONCT :
+			cout<<"CECI EST UN APPEL FONCTION"<<endl;
+				if(!fonct->getProgramme()->verifFonction(((AppelFonct*)(*contenu))))
+				{
+					nom = ((AppelFonct*)(*contenu))->getNom();
+					ligne = ((Ligne*)(*contenu));
+					cerr<<"Erreur ligne "<<ligne->getLigne()<<" : "
+						<<ligne->getColonne()<<" pas de fonction correspondante à la fonction "<<(*nom)<<" ne correspond pas"<<endl;
+				}else{
+					#ifdef MAP
+						cout<<"Appel correct de fonction"<<endl;
+					#endif
+				}
 			case _VAR : 
 			case _VARS :
 			case _VARTAB :
@@ -72,7 +95,6 @@ void Bloc::ParcoursContenu(){
 			case _OPUNAIRE :
 			case _OPBINAIRE :
 			case _AFFECTATION :
-			case _APPELFONCT :
 				variables = ((Expression*)(*contenu))->variableUtilise();
 				for(auto var = variables.begin(); var != variables.end(); var++) 
 				{		
@@ -90,7 +112,9 @@ void Bloc::ParcoursContenu(){
 							{
 								declarat->setRvalue(true);
 							}
-							cout<<"pas d'erreur"<<endl;
+							#ifdef MAP
+								cout<<"pas d'erreur"<<endl;
+							#endif
 						}else{
 							cerr<<"Erreur ligne "<<ligne->getLigne()<<" : "
 						<<ligne->getColonne()<<" la variable "<<(*nom)<<" n'est pas affectée"<<endl;

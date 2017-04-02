@@ -24,7 +24,7 @@ class Bloc
 	void ParcoursContenu();
 	Declaration* RechercherDeclaration(string* nom);
 	void setBlocParent(Bloc* bloc);
-
+	void setFonction(Fonction* fonction);
 
 	protected:
 	vector<Contenu*>* cont;

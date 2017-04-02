@@ -29,6 +29,31 @@ AppelFonct::AppelFonct(std::string* f, std::vector<Expression*>* param)
 		cout << "Appel au constructeur de AppelFonct(std::string* f, std::vector<Expression*>* param)" << endl;
 	#endif
     fonction = f;
-	parametres = param;
+    if(param==NULL)
+    {
+		parametres = new vector<Expression*>();
+	}
+	else
+	{
+		parametres = param;
+	}
+	
 	typeContenu = _APPELFONCT;
 }
+
+vector<Expression*>* AppelFonct::getParam()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction getParam de AppelFonct" << endl;
+	#endif
+	return parametres;
+}
+
+string* AppelFonct::getNom()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction getNom de AppelFonct" << endl;
+	#endif
+	return fonction;
+}
+

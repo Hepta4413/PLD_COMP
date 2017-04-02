@@ -18,6 +18,8 @@ class Fonction
 	void AddProg(Programme* p);
 	std::string* getNom();
 	Bloc* getBloc();
+	Programme* getProgramme();
+	vector<Declaration*>* getArguments();
 	
 	protected:
 	std::string* nom;
