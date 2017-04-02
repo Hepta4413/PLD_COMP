@@ -27,3 +27,12 @@ vector<Variable*> OPUnaire::variableUtilise(){
 	#endif
 	return exp->variableUtilise();
 }
+
+Type OPUnaire::calculType()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction calculType de OPUnaire" << endl;
+	#endif
+	type=exp->calculType();
+	return type;
+}

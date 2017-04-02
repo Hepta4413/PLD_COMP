@@ -10,6 +10,7 @@ class OPBinaire : public Expression
 	OPBinaire();
 	OPBinaire(Expression* e1, Expression* e2, Opbinaire op);
 	vector<Variable*> variableUtilise();
+	Type calculType ();
 
 	protected :
 	Expression* e1;

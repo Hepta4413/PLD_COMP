@@ -59,3 +59,19 @@ void Variable::setLvalue(bool lval)
 	#endif
 	lvalue=lval;
 }
+
+void Variable::setType(Type t)
+{
+	#ifdef MAP
+		cout << "Appel a la fonction setType de variable" << endl;
+	#endif
+	type=t;
+}
+
+Type Variable::calculType()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction calculType de OPUnaire" << endl;
+	#endif
+	return type;
+}

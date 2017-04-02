@@ -12,6 +12,7 @@ class Const : public Expression
 	Const(long value);
 	long getValue();
 	vector<Variable*> variableUtilise();
+	Type calculType ();
 
 	protected:
 	long value;

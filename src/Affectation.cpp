@@ -25,6 +25,19 @@ Affectation::Affectation(Variable* var, Expression* value, Opbinaire op)
 	typeContenu = _AFFECTATION;
 }
 
+Affectation::Affectation(VarTab* var, Expression* value, int i, Opbinaire op)
+{
+	#ifdef MAP
+		cout << "Appel au constructeur de Affectation(VarTab* var, Expression* value, int i, Opbinaire op)" << endl;
+	#endif
+	var->setLvalue(true);
+	vars = var;
+	valuei = value;
+	index = i;
+	operateur=op;
+	typeContenu = _AFFECTATION;
+}
+
 vector<Variable*> Affectation::variableUtilise(){
 	#ifdef MAP
 		cout << "Appel a la fonction variableUtilise de Affectation" << endl;
@@ -36,14 +49,23 @@ vector<Variable*> Affectation::variableUtilise(){
 	return result;
 }
 
-Affectation::Affectation(VarTab* var, Expression* value, int i, Opbinaire op)
+
+Type Affectation::calculType()
 {
 	#ifdef MAP
-		cout << "Appel au constructeur de Affectation(VarTab* var, Expression* value, int i, Opbinaire op)" << endl;
+		cout << "Appel a la fonction calculType de Affectation" << endl;
 	#endif
-	vartab = var;
-	valuei = value;
-	index = i;
-  operateur=op;
-	typeContenu = _AFFECTATION;
+	Type typeVar = vars->getType();
+	Type typeExpr = valuei->calculType(); 
+	if(typeExpr==CONSTVAL_T || typeVar == typeExpr){
+		type=typeVar;
+		return typeVar;
+	}
+	else
+	{	
+		cerr<<"Warning ligne "<<getLigne()<<" : "<<getColonne()
+			<<" affectation d'un type différent "<<*(vars->getNom())<<" est de type "<<typeVar<<" pas du type "<<typeExpr<<endl;
+		return typeVar;
+	}
 }
+

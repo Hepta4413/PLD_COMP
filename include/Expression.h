@@ -15,6 +15,8 @@ class Expression : public Ligne
 	Expression();
 	Expression(Type t);
 	virtual vector<Variable*> variableUtilise() =0; //attention le vector peut être vide
+	virtual Type calculType() =0;
+	Type getType();
 
 	protected :
 	Type type;

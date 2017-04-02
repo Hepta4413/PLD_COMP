@@ -8,7 +8,6 @@ Fonction::Fonction()
 	#ifdef MAP
 		cout << "Appel au constructeur vide de Fonction" << endl;
 	#endif
-  printf("new empty fonction");
   arguments = new vector<Declaration*>();
 }
 
@@ -17,7 +16,6 @@ Fonction::Fonction(Type t, string* n, vector<Declaration*>* arg, Bloc* b)
 	#ifdef MAP
 		cout << "Appel au constructeur de Fonction(Type t, string* n, vector<Declaration*>* arg, Bloc* b)" << endl;
 	#endif
-	cout<<"fonction "<<this<<" argument "<<arg<<endl;
 	if(arguments==NULL){
 		arguments = new vector<Declaration*>();
 	}
@@ -58,6 +56,14 @@ Bloc* Fonction::getBloc()
 		cout << "Appel a la fonction getBloc de Fonction " << endl;
 	#endif
   return bloc;
+}
+
+Type Fonction::getTypeRetour()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction getTypeRetour de Fonction " <<endl;
+	#endif
+  return type;
 }
 
 Programme* Fonction::getProgramme()

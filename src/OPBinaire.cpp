@@ -33,3 +33,23 @@ vector<Variable*> OPBinaire::variableUtilise(){
 	result.insert( result.end(), vector2.begin(), vector2.end() );
 	return result;
 }
+
+Type OPBinaire::calculType()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction calculType de OPBinaire" << endl;
+	#endif
+	Type typeE1 = e1->calculType();
+	Type typeE2 = e2->calculType();
+	if(typeE1==CONSTVAL_T || typeE2==CONSTVAL_T || typeE1==typeE2)
+	{
+		type=(typeE1==CONSTVAL_T?typeE2:typeE1);
+		return type;
+	}
+	else
+	{
+		return INT32_T;
+		cerr<<"Warning ligne "<<getLigne()<<" : "
+			<<getColonne()<<" opération sur des types différents "<<typeE1<<" "<<typeE2<<endl;
+	}
+}

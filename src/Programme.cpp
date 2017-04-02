@@ -53,6 +53,7 @@ bool Programme::verifFonction(AppelFonct* af){
 		cout<<param<<" "<<paramAttendu<<endl;
 		if(param->size()==paramAttendu->size())
 		{
+			af->setFonctionAssocie(fonct);
 			return true;
 		}
 	}

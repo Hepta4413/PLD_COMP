@@ -14,10 +14,14 @@ class AppelFonct : public Expression
 	vector<Variable*> variableUtilise();
 	vector<Expression*>* getParam();
 	string* getNom();
+	Type calculType ();
+	Fonction* getFonctionAssocie();
+	void setFonctionAssocie(Fonction* f);
 	
 	private:
 	std::string* fonction;
 	std::vector<Expression*>* parametres;
+	Fonction* fonctionAssocie;
 };
 
 #endif

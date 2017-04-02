@@ -19,3 +19,11 @@ Expression::Expression(Type t)
 	type = t;
 	typeContenu = _EXPR;
 }
+
+Type Expression::getType()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction getType de Expression" << endl;
+	#endif
+	return type;
+}

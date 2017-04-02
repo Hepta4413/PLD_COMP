@@ -13,10 +13,10 @@ class Affectation : public Expression
 	Affectation(Variable* vars, Expression* value, Opbinaire op);
 	Affectation(VarTab* vartab, Expression* value, int i, Opbinaire op);
 	vector<Variable*> variableUtilise();
+	Type calculType ();
 
 	protected:
 	Variable* vars;
-	VarTab* vartab;
 	Expression* valuei;
 	int index;
 	Opbinaire operateur;

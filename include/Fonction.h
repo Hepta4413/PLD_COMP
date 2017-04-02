@@ -20,6 +20,7 @@ class Fonction
 	Bloc* getBloc();
 	Programme* getProgramme();
 	vector<Declaration*>* getArguments();
+	Type getTypeRetour();
 	
 	protected:
 	std::string* nom;

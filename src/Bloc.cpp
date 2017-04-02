@@ -99,19 +99,19 @@ void Bloc::ParcoursContenu(){
 				for(auto var = variables.begin(); var != variables.end(); var++) 
 				{		
 					 nom = (*var)->getNom();
-					 cout<<"this "<<this<< " et le parent "<<blocParent<<endl;
 					 declarat=RechercherDeclaration(nom);
 					 ligne = ((Ligne*)(*contenu));
-					 cout<<"declaration "<<declarat<<endl;
 					if(declarat != NULL && (declarat->getLigne()< ligne->getLigne() ||
 					(declarat->getLigne()== ligne->getLigne() && 
 					declarat->getColonne()< ligne->getColonne()))){
-						if(declarat->getLvalue())
+						if(declarat->getLvalue() || (*var)->getLvalue())
 						{
+							declarat->setLvalue(true);
 							if(!(*var)->getLvalue())
 							{
 								declarat->setRvalue(true);
 							}
+							(*var)->setType(declarat->getDeclarationType());
 							#ifdef MAP
 								cout<<"pas d'erreur"<<endl;
 							#endif
@@ -124,6 +124,7 @@ void Bloc::ParcoursContenu(){
 						<<ligne->getColonne()<<" la variable "<<(*nom)<<" n'est pas déclarée"<<endl;
 					}
 				}
+				((Expression*)(*contenu))->calculType();
 			break;
 			case _BLOCIF :
 				((BlocIf*)(*contenu))->getBlocAlors()->setBlocParent(this);

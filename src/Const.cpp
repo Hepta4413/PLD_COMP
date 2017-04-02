@@ -34,3 +34,12 @@ long Const::getValue()
 	return value;
 }
 
+Type Const::calculType()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction AppelFonct de Const" << endl;
+	#endif
+	type = CONSTVAL_T;
+	return CONSTVAL_T;
+}
+
