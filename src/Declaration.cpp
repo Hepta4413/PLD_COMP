@@ -114,3 +114,16 @@ void Declaration::AddInfos(Type t, string* n)
 	}
 
 }
+
+void Declaration::AddName(string* n) {
+	#ifdef MAP
+		cout << "Appel a la fonction AddName de Declaration" << endl;
+	#endif
+
+	name = n;
+
+	#ifdef MAP
+		cout << "Infos added : " << endl;
+		cout << *name << endl;
+	#endif
+}

@@ -24,6 +24,7 @@
 	#include "../include/Programme.h"
 	#include "../include/VarTab.h"
 	#include "../include/Const.h"
+	#include "../include/ListeDeclaration.h"
 
 	using namespace std;
 
@@ -59,6 +60,7 @@
 	Fonction* fonction;
 	Programme* programme;
 	VarTab* vartab;
+	ListeDeclaration* listedeclarationstmp;
 	vector<Declaration*>* declarationsliste;
 	vector<Expression*>* expressionsliste;
 	bool boolean;
@@ -74,13 +76,13 @@
 %type <blocif> else
 %type <type> typenombre typechar typebase typefonction typereturnfonction
 %type <variable> var
-%type <declaration> declaration declarationopt
+%type <declaration> declarationopt
 %type <bloccontrole> bloccontrole
 %type <expression> expr operation condition option val
 %type <contenu> contenu
 %type <fonction> fonction
 %type <programme> prog
-%type <declarationsliste> arg argbis
+%type <declarationsliste> arg argbis multdeclaration declaration
 %type <expressionsliste> args argsbis
 %type <boolean> typebases
 
@@ -103,45 +105,58 @@ axiome : prog { *resultat = $1; }
 prog : 	prog fonction { $1->addFonction($2); $$ = $1; }
 	| %empty { $$= new Programme();};
 fonction : typereturnfonction NOM OPEN arg CLOSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET { $$= new Fonction($1,$2,$4,$7);};
-arg : 	argbis {printf("arg ");$$=$1;}
-	| %empty {printf("arg null ");$$= NULL;}
+arg : 	argbis {printf("arg \n");$$=$1;}
+	| %empty {printf("arg null \n");$$= NULL;}
 	;
-argbis :  typebase NOM typebases {  	printf("argbis1 ");
+argbis :  typebase NOM typebases {  	printf("argbis1 \n");
 					$$=new vector<Declaration*>();
-					$3?printf(" tab "):printf(" "); 
+					$3?printf(" tab \n"):printf(" "); 
 					$3?($1==INT32_T?INT32TAB_T:($1==INT64_T?INT64TAB_T:CHARTAB_T)):$1; 
 					$$->push_back(new Declaration($1,$2));
 				 }
-	| argbis COMA typebase NOM typebases {  printf("argbis 2 "); 
+	| argbis COMA typebase NOM typebases {  printf("argbis 2 \n"); 
 						$$=$1; 
 						$5?($3==INT32_T?INT32TAB_T:($3==INT64_T?INT64TAB_T:CHARTAB_T)):$3;
 						$1->push_back(new Declaration($3,$4));
 					     }
 	;
-bloc : bloc contenu {printf("add contenu bloc");$1->AddContenu($2); $$ = $1; }
-	| %empty {printf("Create new bloc"); $$= new Bloc();}
+bloc : bloc contenu {printf("add contenu bloc\n");$1->AddContenu($2); $$ = $1; }
+	| %empty {printf("Create new bloc\n"); $$= new Bloc();}
 	;
 contenu : ligne SEMICOMA {$$=$1;}
 	| bloccontrole {$$=$1; $1->AddLigneColonne(@1.first_line,@1.first_column);}
 	;
 ligne : operation {$$=$1; $1->AddLigneColonne(@1.first_line,@1.first_column);}
-	| declaration {$$=$1; $1->AddLigneColonne(@1.first_line,@1.first_column);}
+	| declaration {$$ = new ListeDeclaration($1);  $$->AddLigneColonne(@1.first_line,@1.first_column);}
 	| return {$$=$1; $1->AddLigneColonne(@1.first_line,@1.first_column);}
 	;
 return : RETURN expr {$$ = new Return($2);}
 	| RETURN {$$ = new Return();}
 	;
-declaration : typebase NOM declarationopt { $3->AddInfos($1,$2); $$ = $3;}
-	;
+declaration : typebase NOM declarationopt multdeclaration{ for (vector<Declaration*>::iterator it = $4->begin() ; it != $4->end(); ++it){
+																(*it)->AddInfos($1, (*it)->getName());
+															}
+															$3->AddInfos($1,$2);
+															$4->push_back($3);
+															$$ = $4;
+														}
+			;
+multdeclaration: COMA NOM declarationopt multdeclaration { 
+															$3->AddName($2);
+															$4->push_back($3);
+															$$ = $4;
+														}
+				| %empty { $$ = new vector<Declaration*>();}
+				;
 declarationopt : OPENBRACKET expr CLOSEBRACKET {$$= new Declaration($2);}
 		 | EQUAL expr { $$ = new Declaration($2);}
-		 | %empty {printf("Create new declaration"); $$ = new Declaration();}
+		 | %empty {printf("Create new declaration\n"); $$ = new Declaration();}
 		 ;
-operation : expr {printf("Expression create");$$=$1;}
-	| %empty {printf("Create new operation"); $$= NULL;}
+operation : expr {printf("Expression create\n");$$=$1;}
+	| %empty {printf("Create new operation\n"); $$= NULL;}
 	;
 expr :    expr MUL expr {$$ = new OPBinaire($1, $3, MULT_OB); }
-	| expr PLUS expr {printf("Create new plus"); $$ = new OPBinaire($1, $3, PLUS_OB); }
+	| expr PLUS expr {printf("Create new plus\n"); $$ = new OPBinaire($1, $3, PLUS_OB); }
 	| expr MINUS expr {$$ = new OPBinaire($1, $3, MINUS_OB); }
 	| expr DIV expr {$$ = new OPBinaire($1, $3, DIV_OB); }
 	| expr MODULO expr {$$ = new OPBinaire($1, $3, MODULO_OB); }
@@ -181,7 +196,7 @@ bloccontrole : IF condition OPENCURLYBRACKET bloc CLOSECURLYBRACKET else {$6->Ad
      		| FOR OPEN operation SEMICOMA operation SEMICOMA operation CLOSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET {$$=new BlocFor($3,$5,$7,$10);}
      		;
 else : ELSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET {$$=new BlocIf($3);}
-	| %empty {printf("Create new blocIF"); $$=new BlocIf();}
+	| %empty {printf("Create new blocIF\n"); $$=new BlocIf();}
 	;
 condition : OPEN expr CLOSE {$$=$2;}
 	;
@@ -205,7 +220,7 @@ var : 	NOM option {$$=($2==NULL?(Variable*) new VarS($1): (Variable*) new VarTab
 option : OPENBRACKET expr CLOSEBRACKET {$$=$2;}| %empty {$$=NULL;}
 	;
 val : 	var {$$=$1;}
-	| ENTIER {printf("Create new const"); $$=new Const($1);}
+	| ENTIER {printf("Create new const\n"); $$=new Const($1);}
 	;
 %%
 

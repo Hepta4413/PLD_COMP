@@ -47,7 +47,8 @@ OBJ = \
 		obj/Return.o \
 		obj/Variable.o \
 		obj/VarS.o \
-		obj/VarTab.o
+		obj/VarTab.o \
+		obj/ListeDeclaration.o
 
 FLEXL = flexbison/comp.l
 FLEXC = flexbison/lex.yy.c
