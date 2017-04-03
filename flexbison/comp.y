@@ -106,8 +106,17 @@ fonction : typereturnfonction NOM OPEN arg CLOSE OPENCURLYBRACKET bloc CLOSECURL
 arg : 	argbis {printf("arg ");$$=$1;}
 	| %empty {printf("arg null ");$$= NULL;}
 	;
-argbis :  typefonction NOM {printf("argbis1 ");$$=new vector<Declaration*>(); $$->push_back(new Declaration($1,$2));}
-	| argbis COMA typefonction NOM {printf("argbis 2 "); $$=$1; $1->push_back(new Declaration($3,$4));}
+argbis :  typebase NOM typebases {  	printf("argbis1 ");
+					$$=new vector<Declaration*>();
+					$3?printf(" tab "):printf(" "); 
+					$3?($1==INT32_T?INT32TAB_T:($1==INT64_T?INT64TAB_T:CHARTAB_T)):$1; 
+					$$->push_back(new Declaration($1,$2));
+				 }
+	| argbis COMA typebase NOM typebases {  printf("argbis 2 "); 
+						$$=$1; 
+						$5?($3==INT32_T?INT32TAB_T:($3==INT64_T?INT64TAB_T:CHARTAB_T)):$3;
+						$1->push_back(new Declaration($3,$4));
+					     }
 	;
 bloc : bloc contenu {printf("add contenu bloc");$1->AddContenu($2); $$ = $1; }
 	| %empty {printf("Create new bloc"); $$= new Bloc();}
