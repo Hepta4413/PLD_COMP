@@ -27,3 +27,11 @@ Bloc* BlocControle::getBlocFils()
 	#endif
 	return blocFils;
 }
+
+void BlocControle::setBloc(Bloc* blc)
+{
+	#ifdef MAP
+		cout << "Appel a la fonction setBloc de BlocControle" << endl;
+	#endif
+    blocParent = blc;
+}

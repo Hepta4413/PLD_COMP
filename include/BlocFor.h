@@ -14,6 +14,7 @@ class BlocFor : public BlocControle
 	Expression* getCondition();
 	Expression* getInit();
 	Expression* getIncre();
+	void setBloc(Bloc* blc);
 	
 	private:
 	Expression* condition;

@@ -96,21 +96,24 @@ void Bloc::ParcoursContenu(){
 				analyseExpression(*contenu);
 			break;
 			case _BLOCIF :
-				//((BlocIf*)(*contenu))->getExpr
-				((BlocIf*)(*contenu))->getBlocAlors()->setBlocParent(this);
+				((BlocIf*)(*contenu))->setBloc(this);
+				analyseExpression(((BlocIf*)(*contenu))->getCondition());
 				((BlocIf*)(*contenu))->getBlocAlors()->ParcoursContenu();
 				if(((BlocIf*)(*contenu))->elsePresent())
 				{
-					((BlocIf*)(*contenu))->getBlocSinon()->setBlocParent(this);
 					((BlocIf*)(*contenu))->getBlocSinon()->ParcoursContenu();
 				}
 			break;
 			case _BLOCFOR :
-				((BlocFor*)(*contenu))->getBlocBoucle()->setBlocParent(this);
+				((BlocFor*)(*contenu))->setBloc(this);
+				analyseExpression(((BlocFor*)(*contenu))->getCondition());
+				analyseExpression(((BlocFor*)(*contenu))->getInit());
+				analyseExpression(((BlocFor*)(*contenu))->getIncre());
 				((BlocFor*)(*contenu))->getBlocBoucle()->ParcoursContenu();
 			break;				
-			case _BLOCWHILE :
-				((BlocWhile*)(*contenu))->getBlocBoucle()->setBlocParent(this);
+			case _BLOCWHILE :				
+				((BlocWhile*)(*contenu))->setBloc(this);
+				analyseExpression(((BlocWhile*)(*contenu))->getCondition());
 				((BlocWhile*)(*contenu))->getBlocBoucle()->ParcoursContenu();
 			break;
 			default : break;
@@ -130,19 +133,21 @@ void Bloc::ParcoursContenu(){
 
 void Bloc::analyseExpression(Contenu* contenu)
 {
+	#ifdef MAP
+		cout << "Appel a la fonction analyseExpression de bloc" << endl;
+	#endif
+	
 	string* nom;
 	Declaration* declarat;
 	Ligne* ligne;
 	vector<Variable*> variables;
-	#ifdef MAP
-		cout << "Appel a la fonction analyseExpression de bloc" << endl;
-	#endif
 	variables = ((Expression*)contenu)->variableUtilise();
 	for(auto var = variables.begin(); var != variables.end(); var++) 
 	{		
 		 nom = (*var)->getNom();
 		 declarat=RechercherDeclaration(nom);
 		 ligne = ((Ligne*)contenu);
+		 cout<<"ligne "<<declarat->getLigne()<<" "<<ligne->getLigne()<<endl;
 		if(declarat != NULL && (declarat->getLigne()< ligne->getLigne() ||
 		(declarat->getLigne()== ligne->getLigne() && 
 		declarat->getColonne()< ligne->getColonne()))){
@@ -175,7 +180,7 @@ Declaration* Bloc::RechercherDeclaration(string* nom){
 	#endif
 	if(varbloc->find(*nom) == varbloc->end())
 	{
-		cout<<"Pas trouvé dans le bloc "<<this<<endl;
+		cout<<*nom<<" Pas trouvé dans le bloc "<<this<<endl;
 		cout<<blocParent<<endl;
 		if(blocParent!=NULL)
 		{
@@ -189,6 +194,7 @@ Declaration* Bloc::RechercherDeclaration(string* nom){
 	}
 	else
 	{
+		cout<<*nom<<"  trouvé dans le bloc "<<this<<endl;
 		map<string,Declaration*> map = *varbloc;
 		return map[*nom];
 	}

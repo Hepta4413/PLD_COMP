@@ -13,6 +13,7 @@ class BlocControle : public Contenu
 	BlocControle();
 	BlocControle(Bloc * bfils);
 	Bloc* getBlocFils();
+	virtual void setBloc(Bloc* blc);
 	
 	private:
 	Bloc * blocFils;

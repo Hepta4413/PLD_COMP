@@ -15,7 +15,7 @@ class Contenu
 	Contenu(Bloc* b);
 
 	Bloc* getBloc();
-  void setBloc(Bloc* blc);
+	virtual void setBloc(Bloc* blc);
 	TypeContenu getTypeContenu();
 
 	protected:

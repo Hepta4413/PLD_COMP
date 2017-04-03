@@ -3,4 +3,5 @@ void fe(){
     int64_t b;
     b=2;
     a=a+b;
+    if(c==a){}
 }

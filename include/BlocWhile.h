@@ -11,6 +11,8 @@ class BlocWhile : public BlocControle
 	BlocWhile();
 	BlocWhile(Expression* e, Bloc* bloc);
 	Bloc* getBlocBoucle();
+	Expression* getCondition();
+	void setBloc(Bloc* blc);
 	
 	protected:
 	Expression* condition;	

@@ -14,6 +14,8 @@ class BlocIf : public BlocControle
 	Bloc* getBlocAlors();
 	Bloc* getBlocSinon();
 	bool elsePresent();
+	Expression* getCondition();
+	void setBloc(Bloc* blc);
 	
 	private:
 	Expression* si;	

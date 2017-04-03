@@ -1,4 +1,5 @@
 #include "BlocIf.h"
+#include "Bloc.h"
 #include <iostream>
 
 using namespace std;
@@ -52,5 +53,27 @@ bool BlocIf::elsePresent()
 		cout << "Appel a la fonction elsePresent de BlocIf" << endl;
 	#endif
 	return sinon!=NULL;
+}
+
+Expression* BlocIf::getCondition()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction getCondition de BlocIf" << endl;
+	#endif
+	return si;
+}
+
+void BlocIf::setBloc(Bloc* blc)
+{
+	#ifdef MAP
+		cout << "Appel a la fonction setBloc de BlocIf" << endl;
+	#endif
+    blocParent = blc;
+    alors->setBlocParent(blc);
+    si->setBloc(blc);
+    if(elsePresent())
+    {
+		sinon->setBlocParent(blc);
+	}
 }
 

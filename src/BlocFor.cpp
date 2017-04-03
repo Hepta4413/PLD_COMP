@@ -1,4 +1,5 @@
 #include "BlocFor.h"
+#include "Bloc.h"
 #include <iostream>
 
 using namespace std;
@@ -53,4 +54,15 @@ Expression* BlocFor::getCondition()
 		cout << "Appel a la fonction getCondition de BlocFor" << endl;
 	#endif
 	return condition;
+}
+
+void BlocFor::setBloc(Bloc* blc)
+{
+	#ifdef MAP
+		cout << "Appel a la fonction setBloc de Contenu" << endl;
+	#endif
+    blocParent = blc;
+    boucle->setBlocParent(blc);
+    init->setBloc(blc);
+    incre->setBloc(blc);
 }
