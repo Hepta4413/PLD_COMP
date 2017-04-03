@@ -53,6 +53,8 @@ OBJ = \
 		irs/obj/CFG.o \
 		irs/obj/IRInstr.o
 
+MAINOBJ= irs/obj/main.o
+
 FLEXL = flexbison/comp.l
 FLEXC = flexbison/lex.yy.c
 FLEXOBJ = obj/lex.yy.o
@@ -88,7 +90,7 @@ flexbison : $(FLEXOBJ) $(BISONOBJ)
 ###############################################################################
 
 #Edition des liens
-$(EXE): $(OBJ) $(FLEXOBJ) $(BISONOBJ)
+$(EXE): $(OBJ) $(MAINOBJ) # $(FLEXOBJ) $(BISONOBJ)
 	$(ECHO) "[link]" $(LINK) $(EDLFLAGS) $<
 	$(LINK) -o $(EXE) $^ $(EDLFLAGS)
 
@@ -98,6 +100,10 @@ obj/%.o:src/%.cpp include/%.h
 	$(GPP) -o $@ -c $(CPPFLAGS) $<
 
 irs/obj/%.o:irs/src/%.cpp irs/include/%.h
+	$(ECHO) "[comp]" $(GPP) $(CPPFLAGS) $<
+	$(GPP) -o $@ -c $(CPPFLAGS) $<
+	
+$(MAINOBJ):irs/src/main.cpp
 	$(ECHO) "[comp]" $(GPP) $(CPPFLAGS) $<
 	$(GPP) -o $@ -c $(CPPFLAGS) $<
 

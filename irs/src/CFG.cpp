@@ -8,10 +8,19 @@ CFG::CFG()
 CFG::CFG(Fonction* f)
 {
 	ast = f;
-	nextFreeSymbolIndex=8;
+	nextFreeSymbolIndex=f->getSize()*8;
 }
 
 void CFG::gen_asm(ostream &o)
+{
+	gen_asm_prologue(o);
+	
+	//TO_DO
+	
+	gen_asm_epilogue(o);
+}
+
+void CFG::gen_asm_prologue(ostream &o)
 {
 	int size = 0;
 	string code = "";
@@ -19,7 +28,9 @@ void CFG::gen_asm(ostream &o)
 	{
 		if (size%2==1)
 			size++;
-		//code += ast->nom+":\n";
+		//code += ast->getNom()
+		code += "nomfnc";
+		code += ":\n";
 		code += "\tpushq %rbp\n";
 		code += "\tmovq %rsp, %rbp\n";
 		code += "\tsubq $";
@@ -30,11 +41,8 @@ void CFG::gen_asm(ostream &o)
 		code += to_string(size*8);
 		code += ", %rsp\n";
 	}
-}
-
-void CFG::gen_asm_prologue(ostream &o)
-{
 	
+	o << code;
 }
 
 void CFG::gen_asm_epilogue(ostream &o)
@@ -52,7 +60,7 @@ void CFG::add_to_symbol_table(string name, Type t)
 	symbolType.insert(pair<string, Type>(name,t));
 	
 	symbolIndex.insert(pair<string, int>(name,nextFreeSymbolIndex));
-	nextFreeSymbolIndex+=8;
+	nextFreeSymbolIndex-=8;
 }
 
 string CFG::create_new_tempvar(Type t)
@@ -69,5 +77,5 @@ int CFG::get_var_index(string name)
 
 Type CFG::get_var_type(string name)
 {
-	return INT64_T;
+	return symbolType.at(name);;
 }
