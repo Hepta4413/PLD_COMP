@@ -16,6 +16,7 @@ class BlocIf : public BlocControle
 	bool elsePresent();
 	Expression* getCondition();
 	void setBloc(Bloc* blc);
+	void AddLigneColonne(int ligne,int colonne);
 	
 	private:
 	Expression* si;	

@@ -15,6 +15,7 @@ class BlocFor : public BlocControle
 	Expression* getInit();
 	Expression* getIncre();
 	void setBloc(Bloc* blc);
+	void AddLigneColonne(int ligne,int colonne);
 	
 	private:
 	Expression* condition;

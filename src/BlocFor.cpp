@@ -65,4 +65,15 @@ void BlocFor::setBloc(Bloc* blc)
     boucle->setBlocParent(blc);
     init->setBloc(blc);
     incre->setBloc(blc);
+    condition->setBloc(blc);
+}
+
+void BlocFor::AddLigneColonne(int ligne,int colonne)
+{
+	#ifdef MAP
+		cout << "Appel a la fonction AddLigneColonne de BlocFor" << endl;
+	#endif
+	condition->AddLigneColonne( ligne, colonne);
+	init->AddLigneColonne( ligne, colonne);
+	incre->AddLigneColonne( ligne, colonne);
 }

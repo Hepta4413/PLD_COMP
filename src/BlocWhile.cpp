@@ -47,3 +47,11 @@ void BlocWhile::setBloc(Bloc* blc)
     boucle->setBlocParent(blc);
 	condition->setBloc(blc);
 }
+
+void BlocWhile::AddLigneColonne(int ligne,int colonne)
+{
+	#ifdef MAP
+		cout << "Appel a la fonction AddLigneColonne de BlocWhile" << endl;
+	#endif
+	condition->AddLigneColonne( ligne, colonne);
+}

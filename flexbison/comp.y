@@ -122,7 +122,7 @@ bloc : bloc contenu {printf("add contenu bloc");$1->AddContenu($2); $$ = $1; }
 	| %empty {printf("Create new bloc"); $$= new Bloc();}
 	;
 contenu : ligne SEMICOMA {$$=$1;}
-	| bloccontrole {$$=$1;}
+	| bloccontrole {$$=$1; $1->AddLigneColonne(@1.first_line,@1.first_column);}
 	;
 ligne : operation {$$=$1; $1->AddLigneColonne(@1.first_line,@1.first_column);}
 	| declaration {$$=$1; $1->AddLigneColonne(@1.first_line,@1.first_column);}

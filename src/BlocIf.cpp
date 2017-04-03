@@ -77,3 +77,11 @@ void BlocIf::setBloc(Bloc* blc)
 	}
 }
 
+void BlocIf::AddLigneColonne(int ligne,int colonne)
+{
+	#ifdef MAP
+		cout << "Appel a la fonction AddLigneColonne de BlocIf" << endl;
+	#endif
+    si->AddLigneColonne( ligne, colonne);
+}
+

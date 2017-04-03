@@ -125,8 +125,10 @@ void Bloc::ParcoursContenu(){
 		if(!decl->getRvalue())
 		{
 			Ligne * ligne = (Ligne*)(decl);
-			cerr<<"Warning ligne "<<ligne->getLigne()<<" : "
-			<<ligne->getColonne()<<" la variable "<<*(decl->getName())<<" est déclarée mais jamais utilisée"<<endl;
+			#ifdef WAR
+				cerr<<"Warning ligne "<<ligne->getLigne()<<" : "
+				<<ligne->getColonne()<<" la variable "<<*(decl->getName())<<" est déclarée mais jamais utilisée"<<endl;
+			#endif
 		}
 	}
 }
@@ -147,7 +149,6 @@ void Bloc::analyseExpression(Contenu* contenu)
 		 nom = (*var)->getNom();
 		 declarat=RechercherDeclaration(nom);
 		 ligne = ((Ligne*)contenu);
-		 cout<<"ligne "<<declarat->getLigne()<<" "<<ligne->getLigne()<<endl;
 		if(declarat != NULL && (declarat->getLigne()< ligne->getLigne() ||
 		(declarat->getLigne()== ligne->getLigne() && 
 		declarat->getColonne()< ligne->getColonne()))){
@@ -180,11 +181,8 @@ Declaration* Bloc::RechercherDeclaration(string* nom){
 	#endif
 	if(varbloc->find(*nom) == varbloc->end())
 	{
-		cout<<*nom<<" Pas trouvé dans le bloc "<<this<<endl;
-		cout<<blocParent<<endl;
 		if(blocParent!=NULL)
 		{
-			cout<<"il y a un parent "<<this<<endl;
 			return blocParent->RechercherDeclaration(nom);
 		}
 		else
@@ -194,7 +192,6 @@ Declaration* Bloc::RechercherDeclaration(string* nom){
 	}
 	else
 	{
-		cout<<*nom<<"  trouvé dans le bloc "<<this<<endl;
 		map<string,Declaration*> map = *varbloc;
 		return map[*nom];
 	}

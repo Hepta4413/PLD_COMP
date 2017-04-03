@@ -14,6 +14,8 @@ class BlocControle : public Contenu
 	BlocControle(Bloc * bfils);
 	Bloc* getBlocFils();
 	virtual void setBloc(Bloc* blc);
+	virtual void AddLigneColonne(int ligne,int colonne)=0;
+
 	
 	private:
 	Bloc * blocFils;

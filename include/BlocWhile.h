@@ -13,6 +13,7 @@ class BlocWhile : public BlocControle
 	Bloc* getBlocBoucle();
 	Expression* getCondition();
 	void setBloc(Bloc* blc);
+	void AddLigneColonne(int ligne,int colonne);
 	
 	protected:
 	Expression* condition;	

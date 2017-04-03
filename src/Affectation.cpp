@@ -63,8 +63,10 @@ Type Affectation::calculType()
 	}
 	else
 	{	
+		#ifdef WAR
 		cerr<<"Warning ligne "<<getLigne()<<" : "<<getColonne()
 			<<" affectation d'un type différent "<<*(vars->getNom())<<" est de type "<<typeVar<<" pas du type "<<typeExpr<<endl;
+		#endif
 		return typeVar;
 	}
 }
