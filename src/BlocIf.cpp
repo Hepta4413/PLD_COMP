@@ -70,10 +70,12 @@ void BlocIf::setBloc(Bloc* blc)
 	#endif
     blocParent = blc;
     alors->setBlocParent(blc);
+	alors->setFonction(blc->getFonction());
     si->setBloc(blc);
     if(elsePresent())
     {
 		sinon->setBlocParent(blc);
+		sinon->setFonction(blc->getFonction());
 	}
 }
 

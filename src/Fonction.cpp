@@ -14,9 +14,9 @@ Fonction::Fonction()
 Fonction::Fonction(Type t, string* n, vector<Declaration*>* arg, Bloc* b)
 {
 	#ifdef MAP
-		cout << "Appel au constructeur de Fonction(Type t, string* n, vector<Declaration*>* arg, Bloc* b)" << endl;
+		cout << "	Appel au constructeur de Fonction(Type t, string* n, vector<Declaration*>* arg, Bloc* b)" << endl;
 	#endif
-	if(arguments==NULL){
+	if(arg==NULL){
 		arguments = new vector<Declaration*>();
 	}
 	else

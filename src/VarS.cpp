@@ -10,6 +10,7 @@ VarS::VarS()
 	#endif
 	typeContenu = _VARS;
 	lvalue=false;
+	rvalue=true;
 }
 
 VarS::VarS(string* n)
@@ -20,4 +21,5 @@ VarS::VarS(string* n)
     nom=n;
 	typeContenu = _VARS;
 	lvalue=false;
+	rvalue=true;
 }

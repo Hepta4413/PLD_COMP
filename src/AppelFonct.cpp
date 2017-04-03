@@ -1,4 +1,5 @@
 #include "AppelFonct.h"
+#include "Programme.h"
 #include <iostream>
 
 using namespace std;
@@ -80,11 +81,29 @@ Type AppelFonct::calculType()
 	#ifdef MAP
 		cout << "Appel a la fonction calculType de AppelFonct " <<fonctionAssocie<< endl;
 	#endif
-	if(fonctionAssocie!=NULL)
+	if(verifAppelFonction())
 	{
 		type=fonctionAssocie->getTypeRetour();
 		return type;
 	}
 	return INT32_T;
+}
+
+bool AppelFonct::verifAppelFonction()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction verifAppelFonction de AppelFonct " << endl;
+	#endif
+	if(!blocParent->getFonction()->getProgramme()->verifFonction(this))
+	{
+		cerr<<"Erreur ligne "<<getLigne()<<" : "
+			<<getColonne()<<" pas de fonction correspondante à la fonction "<<(*fonction)<<" ne correspond pas"<<endl;
+		return false;
+	}else{
+		#ifdef MAP
+			cout<<"Appel correct de fonction"<<endl;
+		#endif
+		return true;
+	}
 }
 

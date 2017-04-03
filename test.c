@@ -1,7 +1,9 @@
+void fa(int64_t a, int32_t b, char e){4+5;}
+
 void fe(){
-    int32_t a =1;
-    int64_t b;
-    b=2;
-    a=a+b;
-    if(c==a){}
+    int32_t c;
+    c = 5;
+	fa(c,4,5);
 }
+
+

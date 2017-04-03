@@ -8,6 +8,8 @@ Const::Const()
 	#ifdef MAP
 		cout << "Appel au constructeur vide de Const" << endl;
 	#endif
+	type = CONSTVAL_T;
+	typeContenu = _CONST;
 }
 
 Const::Const(long value)
@@ -16,6 +18,8 @@ Const::Const(long value)
 		cout << "Appel au constructeur de Const(long value)" << endl;
 	#endif
 	this->value=value;
+	type = CONSTVAL_T;
+	typeContenu = _CONST;
 }
 
 vector<Variable*> Const::variableUtilise(){

@@ -63,19 +63,25 @@ void Bloc::setFonction(Fonction* fonction)
 	fonct=fonction;
 }
 
+Fonction* Bloc::getFonction()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction getFonction de bloc" << endl;
+	#endif
+	return fonct;
+}
+
 void Bloc::ParcoursContenu(){
 	#ifdef MAP
 		cout << "Appel a la fonction ParcoursContenu de bloc" << endl;
 	#endif
-	string* nom;
-	Ligne* ligne;
 	vector<Variable*> variables;
 	for(auto contenu = cont->begin(); contenu != cont->end(); contenu++) 
 	{		
 		switch((*contenu)->getTypeContenu())
 		{
 			case _APPELFONCT :
-				if(!fonct->getProgramme()->verifFonction(((AppelFonct*)(*contenu))))
+				/*if(!fonct->getProgramme()->verifFonction(((AppelFonct*)(*contenu))))
 				{
 					nom = ((AppelFonct*)(*contenu))->getNom();
 					ligne = ((Ligne*)(*contenu));
@@ -85,7 +91,7 @@ void Bloc::ParcoursContenu(){
 					#ifdef MAP
 						cout<<"Appel correct de fonction"<<endl;
 					#endif
-				}
+				}*/
 			case _VAR : 
 			case _VARS :
 			case _VARTAB :
@@ -152,14 +158,14 @@ void Bloc::analyseExpression(Contenu* contenu)
 		if(declarat != NULL && (declarat->getLigne()< ligne->getLigne() ||
 		(declarat->getLigne()== ligne->getLigne() && 
 		declarat->getColonne()< ligne->getColonne()))){
-			if(declarat->getLvalue() || (*var)->getLvalue())
+			(*var)->setType(declarat->getDeclarationType());
+			if(declarat->getLvalue() || ((*var)->getLvalue() && !(*var)->getRvalue()))
 			{
 				declarat->setLvalue(true);
-				if(!(*var)->getLvalue())
+				if((*var)->getRvalue())
 				{
 					declarat->setRvalue(true);
-				}
-				(*var)->setType(declarat->getDeclarationType());
+				}				
 				#ifdef MAP
 					cout<<"pas d'erreur"<<endl;
 				#endif

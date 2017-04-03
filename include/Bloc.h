@@ -25,6 +25,7 @@ class Bloc
 	Declaration* RechercherDeclaration(string* nom);
 	void setBlocParent(Bloc* bloc);
 	void setFonction(Fonction* fonction);
+	Fonction* getFonction();
 	void analyseExpression(Contenu* expr);
 
 	protected:

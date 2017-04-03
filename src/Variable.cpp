@@ -54,10 +54,26 @@ bool Variable::getLvalue()
 
 void Variable::setLvalue(bool lval)
 {
-	#ifdef MAP
-		cout << "Appel a la fonction setLvalue de variable" << endl;
+	#ifdef MAP2
+		cout << "Appel a la fonction setRvalue de variable" << endl;
 	#endif
 	lvalue=lval;
+}
+
+bool Variable::getRvalue()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction getRvalue de variable" << endl;
+	#endif
+	return rvalue;
+}
+
+void Variable::setRvalue(bool rval)
+{
+	#ifdef MAP2
+		cout << "Appel a la fonction setLvalue de variable" << endl;
+	#endif
+	rvalue=rval;
 }
 
 void Variable::setType(Type t)

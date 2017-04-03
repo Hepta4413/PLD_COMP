@@ -45,6 +45,7 @@ void BlocWhile::setBloc(Bloc* blc)
 	#endif
     blocParent = blc;
     boucle->setBlocParent(blc);
+    boucle->setFonction(blc->getFonction());
 	condition->setBloc(blc);
 }
 

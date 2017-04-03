@@ -22,7 +22,7 @@ Programme::Programme(map<string,Fonction*>* f)
 void Programme::addFonction(Fonction* f)
 {
 	#ifdef MAP
-		cout << "Appel a la fonction addFonction de programme" << endl;
+		cout << "	Appel a la fonction addFonction de programme " <<*(f->getNom())<< endl;
 	#endif
 	if(fonctions==NULL){
 		fonctions = new map<string,Fonction*>();
@@ -50,9 +50,26 @@ bool Programme::verifFonction(AppelFonct* af){
 		Fonction* fonct = mapFonction[*(af->getNom())];
 		vector<Declaration*>* paramAttendu = fonct->getArguments();
 		vector<Expression*>* param = af->getParam();
-		cout<<param<<" "<<paramAttendu<<endl;
+		cout<<param->size()<<" "<<paramAttendu->size()<<" "<<*(fonct->getNom())<<endl;
 		if(param->size()==paramAttendu->size())
 		{
+			auto par = param->begin();
+			auto parAttendu=paramAttendu->begin();
+			int i=1;
+			for(; par != param->end(); par++) 
+			{
+				Type t1 = (*par)->getType();
+				Type t2 = (*parAttendu)->getDeclarationType();
+				if(!(t1==CONSTVAL_T || t1==t2))
+				{
+					#ifdef WAR
+						cerr<<"Warning ligne "<<af->getLigne()<<" : "
+							<<af->getColonne()<<" arguments n°"<<i<<" d'un mauvais type, attendu "<<t1<<" trouvé "<<t2<<endl;
+					#endif
+				}
+				parAttendu++;
+				i++;
+			}
 			af->setFonctionAssocie(fonct);
 			return true;
 		}

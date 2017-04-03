@@ -63,6 +63,7 @@ void BlocFor::setBloc(Bloc* blc)
 	#endif
     blocParent = blc;
     boucle->setBlocParent(blc);
+    boucle->setFonction(blc->getFonction());
     init->setBloc(blc);
     incre->setBloc(blc);
     condition->setBloc(blc);

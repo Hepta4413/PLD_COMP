@@ -19,6 +19,10 @@ Affectation::Affectation(Variable* var, Expression* value, Opbinaire op)
 		cout << "Appel au constructeur de Affectation(Variable* var, Expression* value, Opbinaire op)" << endl;
 	#endif
 	var->setLvalue(true);
+	if(op==EQUAL_OB)
+	{
+		var->setRvalue(false);
+	}
 	vars = var;
 	valuei = value;
 	operateur=op;
@@ -31,6 +35,10 @@ Affectation::Affectation(VarTab* var, Expression* value, int i, Opbinaire op)
 		cout << "Appel au constructeur de Affectation(VarTab* var, Expression* value, int i, Opbinaire op)" << endl;
 	#endif
 	var->setLvalue(true);
+	if(op==EQUAL_OB)
+	{
+		var->setRvalue(false);
+	}
 	vars = var;
 	valuei = value;
 	index = i;

@@ -16,12 +16,15 @@ class Variable : public Expression
 	vector<Variable*> variableUtilise();
 	bool getLvalue();
 	void setLvalue(bool lval);
+	bool getRvalue();
+	void setRvalue(bool lval);
 	Type calculType ();
 	void setType(Type t);
 	
 	protected:
 	string* nom;
 	bool lvalue;
+	bool rvalue;
 			
 };
 

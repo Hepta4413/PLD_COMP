@@ -17,6 +17,7 @@ class AppelFonct : public Expression
 	Type calculType ();
 	Fonction* getFonctionAssocie();
 	void setFonctionAssocie(Fonction* f);
+	bool verifAppelFonction();
 	
 	private:
 	std::string* fonction;

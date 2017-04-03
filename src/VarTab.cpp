@@ -10,6 +10,7 @@ VarTab::VarTab()
 	#endif
 	typeContenu = _VARTAB;
 	lvalue=false;
+	rvalue=true;
 }
 
 VarTab::VarTab(string* n, Expression* t)
@@ -21,4 +22,5 @@ VarTab::VarTab(string* n, Expression* t)
 	indice=t;
 	typeContenu = _VARTAB;
 	lvalue=false;
+	rvalue=true;
 }

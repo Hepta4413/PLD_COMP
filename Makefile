@@ -14,7 +14,7 @@ FLEX = @flex
 BISON = @bison
 
 # Options de compilation et editions de liens
-CPPFLAGS = -DYYDEBUG -DWAR -DMAP -Wall -std=gnu++11
+CPPFLAGS = -DYYDEBUG -DMAP2 -DWAR -Wall -std=gnu++11
 CFLAGS =
 EDLFLAGS =
 BISONFLAGS =
