@@ -3,6 +3,7 @@
 #include "BlocFor.h"
 #include "BlocWhile.h"
 #include "Declaration.h"
+#include "ListeDeclaration.h"
 #include "BlocControle.h"
 #include "Fonction.h"
 #include "AppelFonct.h"
@@ -10,6 +11,7 @@
 #include "Enums.h"
 #include <iostream>
 #include <typeinfo>
+#include <vector>
 
 using namespace std;
 
@@ -29,10 +31,15 @@ void Bloc::AddContenu(Contenu* c)
 		cout << "Appel a la fonction AddContenu de bloc " << this<<endl;
 		cout << "Ajout du contenu "<<c<<" de type "<<c->getTypeContenu()<<" dans le bloc "<<this<<endl;
 	#endif
-	c->setBloc(this);
-	cont->push_back(c);
 	if(c->getTypeContenu()==_DECLARATION){
-		AddDeclaration((Declaration*)c);
+		vector<Declaration*>* listedecl = ((ListeDeclaration*) c)->getListeDeclaration();
+		while (!listedecl->empty()){
+			Declaration* declTmp = listedecl->back();
+			declTmp->setBloc(this);
+			cont->push_back(declTmp);
+			AddDeclaration(declTmp);			
+			listedecl->pop_back();
+		}
 	}
 }
 

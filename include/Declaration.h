@@ -18,6 +18,7 @@ class Declaration : public Ligne
 	string* getName();
 	Type getDeclarationType();
 	void AddInfos(Type t, string* name);
+	void AddName(string* name);
 	void setBlocDeclaration(Bloc* b);
 	void setLvalue(bool b);
 	bool getLvalue();
