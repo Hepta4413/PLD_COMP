@@ -14,16 +14,16 @@ class BasicBlock;
 class IRInstr
 {
 	public:
-	enum Mnemo{	ldconst,
-			add,
-			sub,
-			mul,
-			rmem,
-			wmem,
-			call, 
-			cmp_eq,
-			cmp_lt,
-			cmp_le };
+	enum Mnemo{	LDCONST,
+				ADD,
+				SUB,
+				MUL,
+				RMEM,
+				WMEM,
+				CALL, 
+				CMP_EQ,
+				CMP_LT,
+				CMP_LE };
 	
 	IRInstr();
 	IRInstr(BasicBlock* bb_, Mnemo mn, Type t, vector<string> params);

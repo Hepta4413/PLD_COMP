@@ -6,8 +6,9 @@
 #include <iostream>
 #include "Fonction.h"
 #include "Enums.h"
+#include "BasicBlock.h"
 
-class BasicBlock;
+//class BasicBlock;
 
 using namespace std;
 

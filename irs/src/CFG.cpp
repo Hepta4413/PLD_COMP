@@ -15,7 +15,13 @@ void CFG::gen_asm(ostream &o)
 {
 	gen_asm_prologue(o);
 	
-	//TO_DO
+	//Génération du code asm pour chaque BB
+	for(unsigned int i=0 ; i < bbs.size(); i++)
+	{
+		current_bb = bbs[i];
+		
+		current_bb->gen_asm(o);
+	}
 	
 	gen_asm_epilogue(o);
 }
@@ -47,7 +53,8 @@ void CFG::gen_asm_prologue(ostream &o)
 
 void CFG::gen_asm_epilogue(ostream &o)
 {
-	
+	o << "leave\n";
+	o << "ret\n";
 }
 
 string CFG::IR_reg_to_asm(string reg)
@@ -71,11 +78,16 @@ string CFG::create_new_tempvar(Type t)
 
 int CFG::get_var_index(string name)
 {
-	return 0;
+	return symbolIndex.at(name);
 	
 }
 
 Type CFG::get_var_type(string name)
 {
 	return symbolType.at(name);;
+}
+
+void CFG::add_bb(BasicBlock* bb)
+{
+	bbs.push_back(bb);
 }

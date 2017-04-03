@@ -4,10 +4,11 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include "CFG.h"
+//#include "CFG.h"
 #include "IRInstr.h"
 
 //class IRInstr;
+class CFG;
 
 using namespace std;
 
