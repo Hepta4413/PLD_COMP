@@ -68,7 +68,6 @@ void Bloc::ParcoursContenu(){
 		cout << "Appel a la fonction ParcoursContenu de bloc" << endl;
 	#endif
 	string* nom;
-	Declaration* declarat;
 	Ligne* ligne;
 	vector<Variable*> variables;
 	for(auto contenu = cont->begin(); contenu != cont->end(); contenu++) 
@@ -76,7 +75,6 @@ void Bloc::ParcoursContenu(){
 		switch((*contenu)->getTypeContenu())
 		{
 			case _APPELFONCT :
-			cout<<"CECI EST UN APPEL FONCTION"<<endl;
 				if(!fonct->getProgramme()->verifFonction(((AppelFonct*)(*contenu))))
 				{
 					nom = ((AppelFonct*)(*contenu))->getNom();
@@ -95,38 +93,10 @@ void Bloc::ParcoursContenu(){
 			case _OPUNAIRE :
 			case _OPBINAIRE :
 			case _AFFECTATION :
-				variables = ((Expression*)(*contenu))->variableUtilise();
-				for(auto var = variables.begin(); var != variables.end(); var++) 
-				{		
-					 nom = (*var)->getNom();
-					 declarat=RechercherDeclaration(nom);
-					 ligne = ((Ligne*)(*contenu));
-					if(declarat != NULL && (declarat->getLigne()< ligne->getLigne() ||
-					(declarat->getLigne()== ligne->getLigne() && 
-					declarat->getColonne()< ligne->getColonne()))){
-						if(declarat->getLvalue() || (*var)->getLvalue())
-						{
-							declarat->setLvalue(true);
-							if(!(*var)->getLvalue())
-							{
-								declarat->setRvalue(true);
-							}
-							(*var)->setType(declarat->getDeclarationType());
-							#ifdef MAP
-								cout<<"pas d'erreur"<<endl;
-							#endif
-						}else{
-							cerr<<"Erreur ligne "<<ligne->getLigne()<<" : "
-						<<ligne->getColonne()<<" la variable "<<(*nom)<<" n'est pas affectée"<<endl;
-						}
-					}else{						
-						cerr<<"Erreur ligne "<<ligne->getLigne()<<" : "
-						<<ligne->getColonne()<<" la variable "<<(*nom)<<" n'est pas déclarée"<<endl;
-					}
-				}
-				((Expression*)(*contenu))->calculType();
+				analyseExpression(*contenu);
 			break;
 			case _BLOCIF :
+				//((BlocIf*)(*contenu))->getExpr
 				((BlocIf*)(*contenu))->getBlocAlors()->setBlocParent(this);
 				((BlocIf*)(*contenu))->getBlocAlors()->ParcoursContenu();
 				if(((BlocIf*)(*contenu))->elsePresent())
@@ -156,6 +126,47 @@ void Bloc::ParcoursContenu(){
 			<<ligne->getColonne()<<" la variable "<<*(decl->getName())<<" est déclarée mais jamais utilisée"<<endl;
 		}
 	}
+}
+
+void Bloc::analyseExpression(Contenu* contenu)
+{
+	string* nom;
+	Declaration* declarat;
+	Ligne* ligne;
+	vector<Variable*> variables;
+	#ifdef MAP
+		cout << "Appel a la fonction analyseExpression de bloc" << endl;
+	#endif
+	variables = ((Expression*)contenu)->variableUtilise();
+	for(auto var = variables.begin(); var != variables.end(); var++) 
+	{		
+		 nom = (*var)->getNom();
+		 declarat=RechercherDeclaration(nom);
+		 ligne = ((Ligne*)contenu);
+		if(declarat != NULL && (declarat->getLigne()< ligne->getLigne() ||
+		(declarat->getLigne()== ligne->getLigne() && 
+		declarat->getColonne()< ligne->getColonne()))){
+			if(declarat->getLvalue() || (*var)->getLvalue())
+			{
+				declarat->setLvalue(true);
+				if(!(*var)->getLvalue())
+				{
+					declarat->setRvalue(true);
+				}
+				(*var)->setType(declarat->getDeclarationType());
+				#ifdef MAP
+					cout<<"pas d'erreur"<<endl;
+				#endif
+			}else{
+				cerr<<"Erreur ligne "<<ligne->getLigne()<<" : "
+			<<ligne->getColonne()<<" la variable "<<(*nom)<<" n'est pas affectée"<<endl;
+			}
+		}else{						
+			cerr<<"Erreur ligne "<<ligne->getLigne()<<" : "
+			<<ligne->getColonne()<<" la variable "<<(*nom)<<" n'est pas déclarée"<<endl;
+		}
+	}
+	((Expression*)contenu)->calculType();
 }
 
 Declaration* Bloc::RechercherDeclaration(string* nom){

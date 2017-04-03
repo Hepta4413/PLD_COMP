@@ -1,0 +1,6 @@
+for i in FrontEndTests/ValidPrograms/*.c
+
+do
+	echo $i
+	./Compiler_H4413 < $i
+done

@@ -48,8 +48,9 @@ Type OPBinaire::calculType()
 	}
 	else
 	{
-		return INT32_T;
 		cerr<<"Warning ligne "<<getLigne()<<" : "
 			<<getColonne()<<" opération sur des types différents "<<typeE1<<" "<<typeE2<<endl;
+		return INT32_T;
+
 	}
 }

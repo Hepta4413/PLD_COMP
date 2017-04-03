@@ -11,6 +11,9 @@ class BlocFor : public BlocControle
 	BlocFor();
 	BlocFor(Expression* c, Expression* ini, Expression* inc, Bloc* bloc);
 	Bloc* getBlocBoucle();
+	Expression* getCondition();
+	Expression* getInit();
+	Expression* getIncre();
 	
 	private:
 	Expression* condition;
