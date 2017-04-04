@@ -1,5 +1,8 @@
 #include "BlocIf.h"
 #include "Bloc.h"
+#include "../irs/include/CFG.h"
+#include "../irs/include/IRInstr.h"
+#include "../irs/include/BasicBlock.h"
 #include <iostream>
 
 using namespace std;
@@ -96,5 +99,24 @@ bool BlocIf::getContientRetour()
 }
 
 string BlocIf::buildIR(CFG * cfg) {
+	si->buildIR(cfg);
+	BasicBlock* testBB = cfg->current_bb;
+	/* TODO replace
+	BasicBlock thenBB = new BasicBlock(cfg, alors);
+	BasicBlock elseBB = new BasicBlock(cfg, sinon);
+	*/
+	BasicBlock* thenBB = new BasicBlock(cfg);
+	BasicBlock* elseBB = new BasicBlock(cfg);
+
+	BasicBlock* afterIfBB = new BasicBlock(cfg);
+	afterIfBB->exit_true = testBB->exit_true;
+	afterIfBB->exit_false = testBB->exit_false;
+	testBB->exit_true = thenBB;
+	testBB->exit_false = elseBB;
+	thenBB->exit_true = afterIfBB;
+	thenBB->exit_false = NULL;
+	elseBB->exit_true = afterIfBB;
+	elseBB->exit_false = NULL;
+	cfg->current_bb = afterIfBB;
 	return "";
 }

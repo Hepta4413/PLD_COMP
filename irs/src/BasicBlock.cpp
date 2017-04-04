@@ -6,6 +6,11 @@ BasicBlock::BasicBlock()
 
 }
 
+BasicBlock::BasicBlock(CFG* c)
+{
+	cfg = c;
+}
+
 BasicBlock::BasicBlock(CFG* c, string entry_label)
 {
 	cfg = c;

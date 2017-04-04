@@ -7,6 +7,9 @@
 
 using namespace std;
 
+class CFG;
+class IRInstr;
+
 class Variable : public Expression
 {
 	public:
@@ -23,7 +26,7 @@ class Variable : public Expression
 	string buildIR(CFG * cfg);
 
 	void setBloc(Bloc* blc);
-	
+
 	protected:
 	string* nom;
 	bool lvalue;

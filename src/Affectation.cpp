@@ -1,5 +1,7 @@
 #include "Affectation.h"
 #include "Variable.h"
+#include "../irs/include/CFG.h"
+#include "../irs/include/IRInstr.h"
 #include <vector>
 #include <iostream>
 
@@ -90,5 +92,16 @@ Type Affectation::calculType()
 }
 
 string Affectation::buildIR(CFG * cfg) {
-	return "";
+
+	string right = vars->buildIR(cfg);
+	//string left = valuei->buildIR(cfg);
+/*
+	vector<string> regs;
+
+	regs.push_back(left);
+	regs.push_back(right);
+
+	cfg->current_bb->add_IRInstr(IRInstr::Mnemo::WMEM, calculType(), regs);
+*/
+	return right;
 }

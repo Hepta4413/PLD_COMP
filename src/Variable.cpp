@@ -1,6 +1,8 @@
 #include "Variable.h"
 #include "Bloc.h"
 #include "Declaration.h"
+#include "../irs/include/CFG.h"
+#include "../irs/include/IRInstr.h"
 #include <iostream>
 
 using namespace std;
@@ -93,7 +95,21 @@ Type Variable::calculType()
 }
 
 string Variable::buildIR(CFG * cfg) {
-	return "";
+	if(lvalue) {
+		string reg = cfg->create_new_tempvar(calculType());
+		int offset = cfg->get_var_index(*nom);
+		vector<string> regs;
+		regs.push_back(to_string(offset));
+		regs.push_back(reg);
+		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LDCONST, calculType(), regs);
+		// reg <- !bp + reg
+		//cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LDCONST, calculType(), regs);
+		return reg;
+	}
+	else {
+		return "";
+	}
+
 }
 
 void Variable::setBloc(Bloc* blc)
