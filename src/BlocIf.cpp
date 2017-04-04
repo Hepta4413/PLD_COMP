@@ -87,3 +87,11 @@ void BlocIf::AddLigneColonne(int ligne,int colonne)
     si->AddLigneColonne( ligne, colonne);
 }
 
+bool BlocIf::getContientRetour()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction getContientRetour de BlocIf" << endl;
+	#endif
+	return (alors->getContientRetour() && elsePresent() && sinon->getContientRetour());
+}
+

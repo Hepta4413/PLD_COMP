@@ -9,6 +9,7 @@ class Return : public Ligne
 	public:
 	Return();
 	Return(Expression* e);
+	Expression* getExpression();
 	
 	protected:
 	Expression* toReturn;

@@ -27,12 +27,14 @@ class Bloc
 	void setFonction(Fonction* fonction);
 	Fonction* getFonction();
 	void analyseExpression(Contenu* expr);
+	bool getContientRetour();
 
 	protected:
 	vector<Contenu*>* cont;
 	Fonction * fonct;
 	map<string,Declaration*>* varbloc;
 	Bloc * blocParent;
+	bool contientRetour;
 
 };
 

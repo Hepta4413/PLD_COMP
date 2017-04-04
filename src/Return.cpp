@@ -17,5 +17,14 @@ Return::Return(Expression* e)
 		cout << "Appel au constructeur vide de Return(Expression* e)" << endl;
 	#endif
 	toReturn = e;
+	toReturn->AddLigneColonne(ligne, colonne);
 	typeContenu = _RETURN;
+}
+
+Expression* Return::getExpression()
+{
+	#ifdef MAP
+		cout << "Appel ala fonction getExpression de Return" << endl;
+	#endif
+	return toReturn;
 }

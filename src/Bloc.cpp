@@ -9,6 +9,7 @@
 #include "AppelFonct.h"
 #include "Programme.h"
 #include "Enums.h"
+#include "Return.h"
 #include <iostream>
 #include <typeinfo>
 #include <vector>
@@ -40,6 +41,10 @@ void Bloc::AddContenu(Contenu* c)
 			AddDeclaration(declTmp);			
 			listedecl->pop_back();
 		}
+	}else
+	{
+		c->setBloc(this);
+		cont->push_back(c);
 	}
 }
 
@@ -78,27 +83,27 @@ Fonction* Bloc::getFonction()
 	return fonct;
 }
 
+bool Bloc::getContientRetour()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction getContientRetour de bloc" << endl;
+	#endif
+	return contientRetour;
+}
+
 void Bloc::ParcoursContenu(){
 	#ifdef MAP
 		cout << "Appel a la fonction ParcoursContenu de bloc" << endl;
 	#endif
 	vector<Variable*> variables;
+	Type t1;
+	Type t2;
+	Return* contenuRetour;
 	for(auto contenu = cont->begin(); contenu != cont->end(); contenu++) 
 	{		
 		switch((*contenu)->getTypeContenu())
 		{
 			case _APPELFONCT :
-				/*if(!fonct->getProgramme()->verifFonction(((AppelFonct*)(*contenu))))
-				{
-					nom = ((AppelFonct*)(*contenu))->getNom();
-					ligne = ((Ligne*)(*contenu));
-					cerr<<"Erreur ligne "<<ligne->getLigne()<<" : "
-						<<ligne->getColonne()<<" pas de fonction correspondante à la fonction "<<(*nom)<<" ne correspond pas"<<endl;
-				}else{
-					#ifdef MAP
-						cout<<"Appel correct de fonction"<<endl;
-					#endif
-				}*/
 			case _VAR : 
 			case _VARS :
 			case _VARTAB :
@@ -108,6 +113,26 @@ void Bloc::ParcoursContenu(){
 			case _AFFECTATION :
 				analyseExpression(*contenu);
 			break;
+			
+			case _RETURN :
+				cout<<"ceci est un RETOUR"<<endl;
+				contenuRetour= ((Return*)(*contenu));
+				contenuRetour->getExpression()->setBloc(this);
+				analyseExpression(contenuRetour->getExpression());
+				t1 = fonct->getTypeRetour();
+				t2 = contenuRetour->getExpression()->getType();
+				if(t1!=VOID_T || t1==t2)
+				{
+					cout<<"Type de retour OK"<<endl;
+				}else{
+					#ifdef WAR
+						cerr<<"Warning ligne "<<((Ligne*)(*contenu))->getLigne()<<" : "<<((Ligne*)(*contenu))->getColonne()
+						<<" type de retour incorrect attendu "<<t1<<" trouvé "<<t2<<endl;						
+					#endif
+				}
+				contientRetour = true;
+			break;
+			
 			case _BLOCIF :
 				((BlocIf*)(*contenu))->setBloc(this);
 				analyseExpression(((BlocIf*)(*contenu))->getCondition());
@@ -116,6 +141,7 @@ void Bloc::ParcoursContenu(){
 				{
 					((BlocIf*)(*contenu))->getBlocSinon()->ParcoursContenu();
 				}
+				contientRetour|=((BlocIf*)(*contenu))->getContientRetour();
 			break;
 			case _BLOCFOR :
 				((BlocFor*)(*contenu))->setBloc(this);
@@ -123,11 +149,13 @@ void Bloc::ParcoursContenu(){
 				analyseExpression(((BlocFor*)(*contenu))->getInit());
 				analyseExpression(((BlocFor*)(*contenu))->getIncre());
 				((BlocFor*)(*contenu))->getBlocBoucle()->ParcoursContenu();
+				contientRetour|=((BlocFor*)(*contenu))->getBlocBoucle()->getContientRetour();
 			break;				
 			case _BLOCWHILE :				
 				((BlocWhile*)(*contenu))->setBloc(this);
 				analyseExpression(((BlocWhile*)(*contenu))->getCondition());
 				((BlocWhile*)(*contenu))->getBlocBoucle()->ParcoursContenu();
+				contientRetour|=((BlocWhile*)(*contenu))->getBlocBoucle()->getContientRetour();
 			break;
 			default : break;
 		}	 
@@ -163,7 +191,7 @@ void Bloc::analyseExpression(Contenu* contenu)
 		 declarat=RechercherDeclaration(nom);
 		 ligne = ((Ligne*)contenu);
 		if(declarat != NULL && (declarat->getLigne()< ligne->getLigne() ||
-		(declarat->getLigne()== ligne->getLigne() && 
+		(declarat->getLigne()== ligne->getLigne() &&  //TODO erreur sur return ligne 0 0 donc pas possible d'avoir la decl avant
 		declarat->getColonne()< ligne->getColonne()))){
 			(*var)->setType(declarat->getDeclarationType());
 			if(declarat->getLvalue() || ((*var)->getLvalue() && !(*var)->getRvalue()))
