@@ -9,10 +9,10 @@ Programme::Programme()
 		cout << "Appel au constructeur vide de Programme" << endl;
 	#endif
 	fonctions = new map<string,Fonction*>();
-	Fonction* f1 = new Fonction(INT32_T,new string("getchar"),NULL,NULL) ;
-	vector<Declaration*>* argPut = new vector<Declaration*>*();
+	Fonction* f1 = new Fonction(INT32_T,new string("getchar"),NULL,new Bloc()) ;
+	vector<Declaration*>* argPut = new vector<Declaration*>();
 	argPut->push_back(new Declaration(INT32_T,new string("")));
-	Fonction* f2 = new Fonction(INT32_T,new string("putchar"),new vector<Declaration*>*(),NULL) ;
+	Fonction* f2 = new Fonction(INT32_T,new string("putchar"),argPut,new Bloc()) ;
 	fonctions->insert ( pair<string,Fonction*>(*(f1->getNom()),f1) );
 	fonctions->insert ( pair<string,Fonction*>(*(f2->getNom()),f2) );
 }
@@ -34,28 +34,31 @@ void Programme::verifVariable(){
 		cout << "Appel a la fonction Verifvariable de programme" << endl;
 	#endif
 	  bool mainPresent=false;
-	  for(auto fonct = fonctions->begin()+2; fonct != fonctions->end(); fonct++) {
-		Fonction* fct = fonct->second;
-		fct->getBloc()->ParcoursContenu();
-		if(fct->getTypeRetour()!=VOID_T && !fct->getBloc()->getContientRetour())
+	  for(auto fonct = fonctions->begin(); fonct != fonctions->end(); fonct++) {
+		if(fonct->first!="putchar" && fonct->first!="getchar")
 		{
-			cout << "Erreur dans la fonction "<<*(fct->getNom()) <<" absence de retour sur une des branches d'exécution"<< endl;
-		}
-		if(fonct->first=="main")
-		{
-			Type t = fct->getTypeRetour();
-			if(t==VOID_T || t==INT32_T || t==INT64_T)
+			Fonction* fct = fonct->second;
+			fct->getBloc()->ParcoursContenu();
+			if(fct->getTypeRetour()!=VOID_T && !fct->getBloc()->getContientRetour())
 			{
-				if(fct->getArguments()==NULL || fct->getArguments()->size()==0)
+				cout << "Erreur dans la fonction "<<*(fct->getNom()) <<" absence de retour sur une des branches d'exécution"<< endl;
+			}
+			if(fonct->first=="main")
+			{
+				Type t = fct->getTypeRetour();
+				if(t==VOID_T || t==INT32_T || t==INT64_T)
 				{
-					mainPresent=true;
+					if(fct->getArguments()==NULL || fct->getArguments()->size()==0)
+					{
+						mainPresent=true;
+					}else
+					{
+						cerr<<"Erreur argument du main invalide"<<endl;
+					}
 				}else
 				{
-					cerr<<"Erreur argument du main invalide"<<endl;
+					cerr<<"Erreur type de retour du main incorrect"<<endl;				
 				}
-			}else
-			{
-				cerr<<"Erreur type de retour du main incorrect"<<endl;				
 			}
 		}
 	  }
@@ -98,6 +101,7 @@ bool Programme::verifFonction(AppelFonct* af){
 			af->setFonctionAssocie(fonct);
 			return true;
 		}
+		cout<<"taille incorect"<<endl;
 	}
 	return false;
 }

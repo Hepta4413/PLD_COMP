@@ -23,7 +23,7 @@ Return::Return(Expression* e)
 Expression* Return::getExpression()
 {
 	#ifdef MAP
-		cout << "Appel ala fonction getExpression de Return" << endl;
+		cout << "Appel a la fonction getExpression de Return" << endl;
 	#endif
 	return toReturn;
 }
