@@ -251,3 +251,13 @@ int Bloc::getSize()
 	}
 	return size;
 }
+
+string Bloc::buildIR(CFG* cfg)
+{
+	for(unsigned int i = 0 ; i< cont->size() ; i ++)
+	{
+		cont->at(i)->buildIR(cfg);
+	}
+	
+	return "ok";
+}

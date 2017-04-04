@@ -1,16 +1,16 @@
 #ifndef BLOC_H
 #define BLOC_H
 
-//#include "OPBinaire.h"
 #include "Enums.h"
 #include <vector>
 #include <map>
 #include <string>
+#include "Contenu.h"
+#include "Variable.h"
+#include "BlocControle.h"
 
-class Variable;
-class BlocControle;
 class Fonction;
-class Contenu;
+class CFG;
 class Declaration;
 
 using namespace std;
@@ -29,6 +29,7 @@ class Bloc
 	void analyseExpression(Contenu* expr);
 	bool getContientRetour();
 	int getSize();
+	string buildIR(CFG* cfg);
 
 	protected:
 	vector<Contenu*>* cont;

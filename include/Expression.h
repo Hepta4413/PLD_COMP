@@ -2,8 +2,8 @@
 #define EXPRESSION_H
 
 #include "Enums.h"
-#include "Ligne.h"
 #include <vector>
+#include "Ligne.h"
 
 class Variable;
 

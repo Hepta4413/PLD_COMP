@@ -1,12 +1,10 @@
  #ifndef DECLARATION_H
 #define DECLARATION_H
 
-#include "Ligne.h"
 #include "Expression.h"
 #include <string>
 #include "Bloc.h"
-#include "VarS.h"
-#include "OPBinaire.h"
+#include "Ligne.h"
 
 using namespace std;
 
@@ -25,7 +23,7 @@ class Declaration : public Ligne
 	bool getLvalue();
 	void setRvalue(bool b);
 	bool getRvalue();
-  string buildIR(CFG * cfg);
+	string buildIR(CFG * cfg);
 
 	protected:
 	Type type;

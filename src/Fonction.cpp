@@ -90,3 +90,10 @@ int Fonction::getSize()
 	#endif
   return bloc->getSize() + arguments->size();
 }
+
+string Fonction::buildIR(CFG* cfg)
+{
+	bloc->buildIR(cfg);
+	
+	return "ok";
+}

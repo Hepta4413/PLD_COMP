@@ -1,12 +1,14 @@
 #ifndef CONTENU_H
 #define CONTENU_H
 
-#include "Bloc.h"
 #include "Enums.h"
+#include <string>
 
 class Bloc;
-class Declaration;
 class CFG;
+class Declaration;
+
+using namespace std;
 
 class Contenu
 {

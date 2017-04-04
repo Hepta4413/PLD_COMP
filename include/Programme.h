@@ -3,11 +3,9 @@
 
 #include "Fonction.h"
 #include "AppelFonct.h"
+#include "CFG.h"
 #include <map>
 #include <string>
-#include "CFG.h"
-
-class Fonction;
 
 using namespace std;
 
@@ -18,7 +16,6 @@ class Programme
 	void addFonction(Fonction* f);
 	void verifVariable();
 	bool verifFonction(AppelFonct* af);
-	string buildIR(CFG* cfg);
 
 	protected:
 	map<string,Fonction*>* fonctions;

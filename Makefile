@@ -29,6 +29,7 @@ INCDIR = -I ./include -I ./irs/include
 
 #OBJETS
 OBJ = \
+		obj/Programme.o \
 		obj/Affectation.o \
 		obj/AppelFonct.o \
 		obj/Bloc.o \
@@ -44,7 +45,6 @@ OBJ = \
 		obj/Ligne.o \
 		obj/OPUnaire.o \
 		obj/OPBinaire.o \
-		obj/Programme.o \
 		obj/Return.o \
 		obj/Variable.o \
 		obj/VarS.o \

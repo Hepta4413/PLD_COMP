@@ -6,11 +6,12 @@
 #include "Enums.h"
 #include <string>
 #include <vector>
+#include "Variable.h"
 
 using namespace std;
 
-class Variable;
 class Programme;
+class CFG;
 
 class Fonction
 {
@@ -24,6 +25,7 @@ class Fonction
 	vector<Declaration*>* getArguments();
 	Type getTypeRetour();
 	int getSize();
+	string buildIR(CFG* cfg);
 
 	protected:
 	string* nom;

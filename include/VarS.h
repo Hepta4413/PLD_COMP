@@ -7,6 +7,8 @@
 
 using namespace std;
 
+class Variable;
+
 class VarS : public Variable
 {
 	public:

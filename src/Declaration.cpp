@@ -1,4 +1,6 @@
 #include "Declaration.h"
+#include "OPBinaire.h"
+#include "VarS.h"
 #include <iostream>
 
 using namespace std;
