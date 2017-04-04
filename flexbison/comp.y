@@ -3,13 +3,6 @@
 	#include <string>
 	#include <vector>
 	#include <iostream>
-	#include "../include/Affectation.h"
-	#include "../include/Bloc.h"
-	#include "../include/Declaration.h"
-	#include "../include/Ligne.h"
-	#include "../include/Return.h"
-	#include "../include/AppelFonct.h"
-	#include "../include/BlocIf.h"
 	#include "../include/Enums.h"
 	#include "../include/OPBinaire.h"
 	#include "../include/Variable.h"
@@ -236,5 +229,8 @@ int main(void) {
    //cout<<"c'est fini"<<endl;
    prog->verifVariable();
    printf("Résutlat : %d\n",res);
+   
+   
+   
    return 0;
 }
