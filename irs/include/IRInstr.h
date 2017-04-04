@@ -20,14 +20,15 @@ class IRInstr
 				MUL,
 				RMEM,
 				WMEM,
-				CALL, 
+				CALL,
 				CMP_EQ,
 				CMP_LT,
 				CMP_LE };
-	
+
 	IRInstr();
 	IRInstr(BasicBlock* bb_, Mnemo mn, Type t, vector<string> params);
 	void gen_asm(ostream &o);
+	int offset(string n);
 	
 	private:
 	BasicBlock* bb; /**< The BB this instruction belongs to, which provides a pointer to the CFG this instruction belong to */
@@ -35,6 +36,7 @@ class IRInstr
 	long cons;
 	vector<string> regs;
 	Type t;
+	string label;
 };
 
 #endif
