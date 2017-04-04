@@ -30,13 +30,13 @@
 
 	void yyerror(Programme **, const char *);
 	int yylex(void);
-
 }
 
 %{
 
 %}
 %locations
+%define parse.error verbose
 %union {
     	int ival;
 	string* stringval;
@@ -129,6 +129,7 @@ bloc : bloc contenu {$1->AddContenu($2); $$ = $1; }
 	;
 contenu : ligne SEMICOMA {$$=$1;}
 	| bloccontrole {$$=$1; $1->AddLigneColonne(@1.first_line,@1.first_column);}
+	| error {$$ = new Ligne();}
 	;
 ligne : operation {$$=$1; $1->AddLigneColonne(@1.first_line,@1.first_column);}
 	| declaration {$$ = new ListeDeclaration($1);  $$->AddLigneColonne(@1.first_line,@1.first_column);}
@@ -238,7 +239,8 @@ val : 	var {$$=$1;}
 %%
 
 void yyerror(Programme ** res, const char * msg) {
-   printf("Syntax error : %s\n",msg);
+   printf("Syntax error : %s ",msg);
+   printf(" At line %d : %d\n ",yylloc.first_line,yylloc.first_column);
 }
 
 int main(void) {
@@ -246,7 +248,10 @@ int main(void) {
    int res = 0;
    Programme* prog;
    res = yyparse(&prog);
-   prog->verifVariable();
+   if(yynerrs  == 0)
+   {
+		prog->verifVariable();
+	}
    //TODO arreter si error
    printf("Résutlat : %d\n",res);
    return 0;

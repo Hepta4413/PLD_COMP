@@ -23,7 +23,7 @@ char [a-zA-Z]
 "'\\"."'" { yylval.ival = yytext[1]; return ENTIER; }
 "/*"(.|\n)*"*/" { /* ignore */ }
 "//".*$ 	{ /* ignore */ }
-[ \n\t] 	{ /* ignore */ }
+[ \n\t\r] 	{ /* ignore */ }
 "#".*$  	{ /* ignore */ }
 "<="         { return LOWEROREQUALTHAN; }
 ">="         { return UPPEROREQUALTHAN; }
@@ -75,6 +75,8 @@ char [a-zA-Z]
 "return"     { return RETURN; }
 [_a-zA-Z][_a-zA-Z0-9]*      {yylval.stringval = new string(yytext); return NOM; }
 {digit}      { yylval.ival = atoi(yytext); return ENTIER; }
+.			 {printf(" Erreur caractère innatendu : %c",*yytext); 
+				printf(" At line %d : %d Nous allons ignorer ce caractère\n ",yylloc.first_line,yylloc.first_column);}
 
     
     

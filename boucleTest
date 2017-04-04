@@ -1,4 +1,4 @@
-for i in FrontEndTests/ValidPrograms/*.c
+for i in FrontEndTests/LexError/*.c
 
 do
 	echo $i
