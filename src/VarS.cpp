@@ -23,3 +23,7 @@ VarS::VarS(string* n)
 	lvalue=false;
 	rvalue=true;
 }
+
+string VarS::buildIR(CFG * cfg) {
+	return "";
+}

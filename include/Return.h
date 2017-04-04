@@ -10,10 +10,11 @@ class Return : public Ligne
 	Return();
 	Return(Expression* e);
 	Expression* getExpression();
-	
+	string buildIR(CFG * cfg);
+
 	protected:
 	Expression* toReturn;
-		
+
 };
 
 #endif

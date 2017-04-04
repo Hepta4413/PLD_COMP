@@ -27,7 +27,7 @@ AppelFonct::AppelFonct(std::string* f, std::vector<Expression*>* param)
 	{
 		parametres = param;
 	}
-	
+
 	typeContenu = _APPELFONCT;
 	fonctionAssocie=NULL;
 }
@@ -107,3 +107,6 @@ bool AppelFonct::verifAppelFonction()
 	}
 }
 
+string AppelFonct::buildIR(CFG * cfg) {
+	return "";
+}

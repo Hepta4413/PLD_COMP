@@ -25,6 +25,7 @@ class Declaration : public Ligne
 	bool getLvalue();
 	void setRvalue(bool b);
 	bool getRvalue();
+  string buildIR(CFG * cfg);
 
 	protected:
 	Type type;

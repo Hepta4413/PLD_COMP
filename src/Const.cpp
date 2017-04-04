@@ -1,4 +1,6 @@
 #include "Const.h"
+#include "../irs/include/CFG.h"
+#include "../irs/include/IRInstr.h"
 #include <iostream>
 
 using namespace std;
@@ -47,3 +49,11 @@ Type Const::calculType()
 	return CONSTVAL_T;
 }
 
+string Const::buildIR(CFG * cfg) {
+	string reg = cfg->create_new_tempvar(calculType());
+	vector<string> regs;
+	regs.push_back(reg);
+	cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LDCONST, calculType(), regs);
+	return reg;
+
+}

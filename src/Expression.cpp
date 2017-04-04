@@ -27,3 +27,7 @@ Type Expression::getType()
 	#endif
 	return type;
 }
+
+string Expression::buildIR(CFG * cfg) {
+	return "";
+}

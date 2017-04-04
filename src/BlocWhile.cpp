@@ -56,3 +56,7 @@ void BlocWhile::AddLigneColonne(int ligne,int colonne)
 	#endif
 	condition->AddLigneColonne( ligne, colonne);
 }
+
+string BlocWhile::buildIR(CFG * cfg) {
+	return "";
+}

@@ -2,7 +2,7 @@
 
 CFG::CFG()
 {
-	
+
 }
 
 CFG::CFG(Fonction* f)
@@ -14,15 +14,15 @@ CFG::CFG(Fonction* f)
 void CFG::gen_asm(ostream &o)
 {
 	gen_asm_prologue(o);
-	
+
 	//Génération du code asm pour chaque BB
 	for(unsigned int i=0 ; i < bbs.size(); i++)
 	{
 		current_bb = bbs[i];
-		
+
 		current_bb->gen_asm(o);
 	}
-	
+
 	gen_asm_epilogue(o);
 }
 
@@ -40,14 +40,14 @@ void CFG::gen_asm_prologue(ostream &o)
 		code += "\tpushq %rbp\n";
 		code += "\tmovq %rsp, %rbp\n";
 		code += "\tsubq $";
-		
+
 		//Calcul de la size de la fonction
 		size = ast->getSize();
-		
+
 		code += to_string(size*8);
 		code += ", %rsp\n";
 	}
-	
+
 	o << code;
 }
 
@@ -65,21 +65,23 @@ string CFG::IR_reg_to_asm(string reg)
 void CFG::add_to_symbol_table(string name, Type t)
 {
 	symbolType.insert(pair<string, Type>(name,t));
-	
+
 	symbolIndex.insert(pair<string, int>(name,nextFreeSymbolIndex));
 	nextFreeSymbolIndex-=8;
 }
 
 string CFG::create_new_tempvar(Type t)
 {
-	return "OK";
-	
+	string reg = "!r"+nextBBnumber;
+	add_to_symbol_table(reg, t);
+
+	return reg;
 }
 
 int CFG::get_var_index(string name)
 {
 	return symbolIndex.at(name);
-	
+
 }
 
 Type CFG::get_var_type(string name)

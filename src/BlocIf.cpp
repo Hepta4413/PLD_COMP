@@ -95,3 +95,6 @@ bool BlocIf::getContientRetour()
 	return (alors->getContientRetour() && elsePresent() && sinon->getContientRetour());
 }
 
+string BlocIf::buildIR(CFG * cfg) {
+	return "";
+}

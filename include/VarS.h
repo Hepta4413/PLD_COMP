@@ -12,9 +12,10 @@ class VarS : public Variable
 	public:
 	VarS();
 	VarS(string* n);
+	string buildIR(CFG * cfg);
 
 	protected:
-	
+
 };
 
 #endif

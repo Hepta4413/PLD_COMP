@@ -5,6 +5,9 @@
 #include "Enums.h"
 #include <string>
 
+class CFG;
+class IRInstr;
+
 class Const : public Expression
 {
 	public:
@@ -13,6 +16,7 @@ class Const : public Expression
 	long getValue();
 	vector<Variable*> variableUtilise();
 	Type calculType ();
+	string buildIR(CFG * cfg);
 
 	protected:
 	long value;

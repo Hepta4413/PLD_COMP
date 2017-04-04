@@ -64,13 +64,13 @@ Type Affectation::calculType()
 		cout << "Appel a la fonction calculType de Affectation" << endl;
 	#endif
 	Type typeVar = vars->getType();
-	Type typeExpr = valuei->calculType(); 
+	Type typeExpr = valuei->calculType();
 	if(typeExpr==CONSTVAL_T || typeVar == typeExpr){
 		type=typeVar;
 		return typeVar;
 	}
 	else
-	{	
+	{
 		#ifdef WAR
 		cerr<<"Warning ligne "<<getLigne()<<" : "<<getColonne()
 			<<" affectation d'un type différent "<<*(vars->getNom())<<" est de type "<<typeVar<<" pas du type "<<typeExpr<<endl;
@@ -79,3 +79,6 @@ Type Affectation::calculType()
 	}
 }
 
+string Affectation::buildIR(CFG * cfg) {
+	return "";
+}

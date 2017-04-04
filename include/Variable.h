@@ -20,12 +20,13 @@ class Variable : public Expression
 	void setRvalue(bool lval);
 	Type calculType ();
 	void setType(Type t);
-	
+	string buildIR(CFG * cfg);
+
 	protected:
 	string* nom;
 	bool lvalue;
 	bool rvalue;
-			
+
 };
 
 #endif
