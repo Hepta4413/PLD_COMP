@@ -1,4 +1,6 @@
 #include "OPBinaire.h"
+#include "../irs/include/CFG.h"
+#include "../irs/include/IRInstr.h"
 #include <iostream>
 
 using namespace std;
@@ -69,7 +71,7 @@ string OPBinaire::buildIR(CFG * cfg) {
 
 	switch (op) {
 		case PLUS_OB:
-		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::PLUS, calculType(), regs);
+		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::ADD, calculType(), regs);
 		break;
 		case MINUS_OB:
 		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::SUB, calculType(), regs);

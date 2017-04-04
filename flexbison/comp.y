@@ -103,12 +103,12 @@ arg : 	argbis {printf("arg \n");$$=$1;}
 	;
 argbis :  typebase NOM typebases {  	printf("argbis1 \n");
 					$$=new vector<Declaration*>();
-					$3?printf(" tab \n"):printf(" "); 
-					$3?($1==INT32_T?INT32TAB_T:($1==INT64_T?INT64TAB_T:CHARTAB_T)):$1; 
+					$3?printf(" tab \n"):printf(" ");
+					$3?($1==INT32_T?INT32TAB_T:($1==INT64_T?INT64TAB_T:CHARTAB_T)):$1;
 					$$->push_back(new Declaration($1,$2));
 				 }
-	| argbis COMA typebase NOM typebases {  printf("argbis 2 \n"); 
-						$$=$1; 
+	| argbis COMA typebase NOM typebases {  printf("argbis 2 \n");
+						$$=$1;
 						$5?($3==INT32_T?INT32TAB_T:($3==INT64_T?INT64TAB_T:CHARTAB_T)):$3;
 						$1->push_back(new Declaration($3,$4));
 					     }
@@ -134,7 +134,7 @@ declaration : typebase NOM declarationopt multdeclaration{ for (vector<Declarati
 															$$ = $4;
 														}
 			;
-multdeclaration: COMA NOM declarationopt multdeclaration { 
+multdeclaration: COMA NOM declarationopt multdeclaration {
 															$3->AddName($2);
 															$4->push_back($3);
 															$$ = $4;
