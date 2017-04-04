@@ -36,7 +36,12 @@ void Programme::verifVariable(){
 		cout << "Appel a la fonction Verifvariable de programme" << endl;
 	#endif
 	  for(auto fonct = fonctions->begin(); fonct != fonctions->end(); fonct++) {
-		fonct->second->getBloc()->ParcoursContenu();
+		Fonction* fct = fonct->second;
+		fct->getBloc()->ParcoursContenu();
+		if(!fct->getBloc()->getContientRetour())
+		{
+			cout << "Erreur dans la fonction "<<*(fct->getNom()) <<" absence de retour sur une des branches d'exécution"<< endl;
+		}
 	  }
 }
 

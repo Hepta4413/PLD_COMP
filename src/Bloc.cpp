@@ -115,15 +115,13 @@ void Bloc::ParcoursContenu(){
 			break;
 			
 			case _RETURN :
-				cout<<"ceci est un RETOUR"<<endl;
 				contenuRetour= ((Return*)(*contenu));
 				contenuRetour->getExpression()->setBloc(this);
 				analyseExpression(contenuRetour->getExpression());
 				t1 = fonct->getTypeRetour();
 				t2 = contenuRetour->getExpression()->getType();
-				if(t1!=VOID_T || t1==t2)
+				if(t1==VOID_T || t1==t2)
 				{
-					cout<<"Type de retour OK"<<endl;
 				}else{
 					#ifdef WAR
 						cerr<<"Warning ligne "<<((Ligne*)(*contenu))->getLigne()<<" : "<<((Ligne*)(*contenu))->getColonne()
@@ -191,7 +189,7 @@ void Bloc::analyseExpression(Contenu* contenu)
 		 declarat=RechercherDeclaration(nom);
 		 ligne = ((Ligne*)contenu);
 		if(declarat != NULL && (declarat->getLigne()< ligne->getLigne() ||
-		(declarat->getLigne()== ligne->getLigne() &&  //TODO erreur sur return ligne 0 0 donc pas possible d'avoir la decl avant
+		(declarat->getLigne()== ligne->getLigne() && 
 		declarat->getColonne()< ligne->getColonne()))){
 			(*var)->setType(declarat->getDeclarationType());
 			if(declarat->getLvalue() || ((*var)->getLvalue() && !(*var)->getRvalue()))

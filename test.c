@@ -4,7 +4,12 @@ int32_t fe(){
     int64_t c;
     c = 5;
 	fa(c,4,5);
-	return c;
+	if(1==1)
+	{
+		return c;
+	}else{
+		return c;
+	}
 }
 
 
