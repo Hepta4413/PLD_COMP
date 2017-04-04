@@ -12,11 +12,12 @@ class Ligne : public Contenu
 	void AddLigneColonne(int ligne,int colonne);
 	int getLigne();
 	int getColonne();
-	
+	int getSize();
+
 	protected:
 	int ligne;
 	int colonne;
-		
+
 };
 
 #endif

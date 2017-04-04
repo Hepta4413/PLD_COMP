@@ -1,7 +1,7 @@
 #ifndef BLOC_H
 #define BLOC_H
 
-#include "OPBinaire.h"
+//#include "OPBinaire.h"
 #include "Enums.h"
 #include <vector>
 #include <map>
@@ -28,6 +28,7 @@ class Bloc
 	Fonction* getFonction();
 	void analyseExpression(Contenu* expr);
 	bool getContientRetour();
+	int getSize();
 
 	protected:
 	vector<Contenu*>* cont;

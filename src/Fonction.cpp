@@ -23,15 +23,15 @@ Fonction::Fonction(Type t, string* n, vector<Declaration*>* arg, Bloc* b)
 	{
 		arguments = arg;
 	}
-  bloc = b;   
+  bloc = b;
   b->setFonction(this);
   nom=n;
   type = t;
-  if(arg!=NULL && arg->size()>0){  
+  if(arg!=NULL && arg->size()>0){
 	  for(auto d = arguments->begin(); d != arguments->end(); d++) {
 		(*d)->setBlocDeclaration(bloc);
 	  }
-	}   
+	}
 }
 
 void Fonction::AddProg(Programme* p)
@@ -81,4 +81,11 @@ vector<Declaration*>* Fonction::getArguments()
 	#endif
   return arguments;
 }
-	
+
+int Fonction::getSize()
+{
+	#ifdef MAP
+		cout << "Appel a la fonction getSize de Fonction" << endl;
+	#endif
+  return bloc->getSize() + arguments->size();
+}

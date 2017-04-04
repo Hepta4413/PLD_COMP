@@ -24,7 +24,8 @@ FLEXFLAGS =
 ##############################################################################
 
 #HEADERS
-INCDIR = -I ./include
+INCDIR = -I ./include -I ./irs/include
+
 
 #OBJETS
 OBJ = \
@@ -48,7 +49,12 @@ OBJ = \
 		obj/Variable.o \
 		obj/VarS.o \
 		obj/VarTab.o \
-		obj/ListeDeclaration.o
+		obj/ListeDeclaration.o \
+		irs/obj/BasicBlock.o \
+		irs/obj/CFG.o \
+		irs/obj/IRInstr.o
+
+MAINOBJ= irs/obj/main.o
 
 FLEXL = flexbison/comp.l
 FLEXC = flexbison/lex.yy.c
@@ -85,12 +91,20 @@ flexbison : $(FLEXOBJ) $(BISONOBJ)
 ###############################################################################
 
 #Edition des liens
-$(EXE): $(OBJ) $(FLEXOBJ) $(BISONOBJ)
+$(EXE): $(OBJ) $(MAINOBJ) # $(FLEXOBJ) $(BISONOBJ)
 	$(ECHO) "[link]" $(LINK) $(EDLFLAGS) $<
 	$(LINK) -o $(EXE) $^ $(EDLFLAGS)
 
 #Compilation des objets
 obj/%.o:src/%.cpp include/%.h
+	$(ECHO) "[comp]" $(GPP) $(CPPFLAGS) $<
+	$(GPP) -o $@ -c $(CPPFLAGS) $<
+
+irs/obj/%.o:irs/src/%.cpp irs/include/%.h
+	$(ECHO) "[comp]" $(GPP) $(CPPFLAGS) $<
+	$(GPP) -o $@ -c $(CPPFLAGS) $<
+
+$(MAINOBJ):irs/src/main.cpp
 	$(ECHO) "[comp]" $(GPP) $(CPPFLAGS) $<
 	$(GPP) -o $@ -c $(CPPFLAGS) $<
 

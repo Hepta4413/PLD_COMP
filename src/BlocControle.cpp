@@ -35,3 +35,8 @@ void BlocControle::setBloc(Bloc* blc)
 	#endif
     blocParent = blc;
 }
+
+int BlocControle::getSize()
+{
+	return blocFils->getSize();
+}

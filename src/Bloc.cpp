@@ -38,7 +38,7 @@ void Bloc::AddContenu(Contenu* c)
 			Declaration* declTmp = listedecl->back();
 			declTmp->setBloc(this);
 			cont->push_back(declTmp);
-			AddDeclaration(declTmp);			
+			AddDeclaration(declTmp);
 			listedecl->pop_back();
 		}
 	}else
@@ -102,12 +102,12 @@ void Bloc::ParcoursContenu(){
 	Type t1;
 	Type t2;
 	Return* contenuRetour;
-	for(auto contenu = cont->begin(); contenu != cont->end(); contenu++) 
-	{		
+	for(auto contenu = cont->begin(); contenu != cont->end(); contenu++)
+	{
 		switch((*contenu)->getTypeContenu())
 		{
 			case _APPELFONCT :
-			case _VAR : 
+			case _VAR :
 			case _VARS :
 			case _VARTAB :
 			case _EXPR :
@@ -116,7 +116,7 @@ void Bloc::ParcoursContenu(){
 			case _AFFECTATION :
 				analyseExpression(*contenu);
 			break;
-			
+
 			case _RETURN :
 				contenuRetour= ((Return*)(*contenu));
 				contenuRetour->getExpression()->setBloc(this);
@@ -128,12 +128,12 @@ void Bloc::ParcoursContenu(){
 				}else{
 					#ifdef WAR
 						cerr<<"Warning ligne "<<((Ligne*)(*contenu))->getLigne()<<" : "<<((Ligne*)(*contenu))->getColonne()
-						<<" type de retour incorrect attendu "<<t1<<" trouvé "<<t2<<endl;						
+						<<" type de retour incorrect attendu "<<t1<<" trouvé "<<t2<<endl;
 					#endif
 				}
 				contientRetour = true;
 			break;
-			
+
 			case _BLOCIF :
 				((BlocIf*)(*contenu))->setBloc(this);
 				analyseExpression(((BlocIf*)(*contenu))->getCondition());
@@ -151,17 +151,17 @@ void Bloc::ParcoursContenu(){
 				analyseExpression(((BlocFor*)(*contenu))->getIncre());
 				((BlocFor*)(*contenu))->getBlocBoucle()->ParcoursContenu();
 				contientRetour|=((BlocFor*)(*contenu))->getBlocBoucle()->getContientRetour();
-			break;				
-			case _BLOCWHILE :				
+			break;
+			case _BLOCWHILE :
 				((BlocWhile*)(*contenu))->setBloc(this);
 				analyseExpression(((BlocWhile*)(*contenu))->getCondition());
 				((BlocWhile*)(*contenu))->getBlocBoucle()->ParcoursContenu();
 				contientRetour|=((BlocWhile*)(*contenu))->getBlocBoucle()->getContientRetour();
 			break;
 			default : break;
-		}	 
+		}
 	}
-	for(auto mapElem = varbloc->begin(); mapElem != varbloc->end(); mapElem++) 
+	for(auto mapElem = varbloc->begin(); mapElem != varbloc->end(); mapElem++)
 	{
 		Declaration* decl = (mapElem->second);
 		if(!decl->getRvalue())
@@ -180,19 +180,19 @@ void Bloc::analyseExpression(Contenu* contenu)
 	#ifdef MAP
 		cout << "Appel a la fonction analyseExpression de bloc" << endl;
 	#endif
-	
+
 	string* nom;
 	Declaration* declarat;
 	Ligne* ligne;
 	vector<Variable*> variables;
 	variables = ((Expression*)contenu)->variableUtilise();
-	for(auto var = variables.begin(); var != variables.end(); var++) 
-	{		
+	for(auto var = variables.begin(); var != variables.end(); var++)
+	{
 		 nom = (*var)->getNom();
 		 declarat=RechercherDeclaration(nom);
 		 ligne = ((Ligne*)contenu);
 		if(declarat != NULL && (declarat->getLigne()< ligne->getLigne() ||
-		(declarat->getLigne()== ligne->getLigne() && 
+		(declarat->getLigne()== ligne->getLigne() &&
 		declarat->getColonne()< ligne->getColonne()))){
 			(*var)->setType(declarat->getDeclarationType());
 			if(declarat->getLvalue() || ((*var)->getLvalue() && !(*var)->getRvalue()))
@@ -201,7 +201,7 @@ void Bloc::analyseExpression(Contenu* contenu)
 				if((*var)->getRvalue())
 				{
 					declarat->setRvalue(true);
-				}				
+				}
 				#ifdef MAP
 					cout<<"pas d'erreur"<<endl;
 				#endif
@@ -209,7 +209,7 @@ void Bloc::analyseExpression(Contenu* contenu)
 				cerr<<"Erreur ligne "<<ligne->getLigne()<<" : "
 			<<ligne->getColonne()<<" la variable "<<(*nom)<<" n'est pas affectée"<<endl;
 			}
-		}else{						
+		}else{
 			cerr<<"Erreur ligne "<<ligne->getLigne()<<" : "
 			<<ligne->getColonne()<<" la variable "<<(*nom)<<" n'est pas déclarée"<<endl;
 		}
@@ -239,4 +239,12 @@ Declaration* Bloc::RechercherDeclaration(string* nom){
 	}
 }
 
-
+int Bloc::getSize()
+{
+	int size = varbloc->size();
+	for(unsigned int i=0; i<cont->size(); i++)
+	{
+		size += cont->at(i)->getSize();
+	}
+	return size;
+}

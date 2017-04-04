@@ -15,11 +15,11 @@ class BlocControle : public Contenu
 	Bloc* getBlocFils();
 	virtual void setBloc(Bloc* blc);
 	virtual void AddLigneColonne(int ligne,int colonne)=0;
+	int getSize();
 
-	
 	private:
 	Bloc * blocFils;
-		
+
 };
 
 #endif

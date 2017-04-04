@@ -7,6 +7,8 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 class Variable;
 class Programme;
 
@@ -14,17 +16,18 @@ class Fonction
 {
 	public:
 	Fonction();
-	Fonction(Type t, std::string* nom,std::vector<Declaration*>* arg, Bloc* b);
+	Fonction(Type t, string* nom,vector<Declaration*>* arg, Bloc* b);
 	void AddProg(Programme* p);
-	std::string* getNom();
+	string* getNom();
 	Bloc* getBloc();
 	Programme* getProgramme();
 	vector<Declaration*>* getArguments();
 	Type getTypeRetour();
-	
+	int getSize();
+
 	protected:
-	std::string* nom;
-	std::vector<Declaration*>* arguments;
+	string* nom;
+	vector<Declaration*>* arguments;
 	Programme * prog;
 	Bloc* bloc;
 	Type type;

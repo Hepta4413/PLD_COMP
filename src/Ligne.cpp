@@ -36,3 +36,7 @@ int Ligne::getColonne()
 	return colonne;
 }
 
+int Ligne::getSize()
+{
+	return 0;
+}
