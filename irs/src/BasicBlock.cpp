@@ -29,5 +29,4 @@ void BasicBlock::add_IRInstr(IRInstr::Mnemo op, Type t, vector<string> params)
 int BasicBlock::get_var_index(string name)
 {
 	return cfg->get_var_index(name);
-
 }
