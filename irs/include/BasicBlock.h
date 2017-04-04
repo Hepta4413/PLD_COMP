@@ -19,6 +19,7 @@ class BasicBlock
 	BasicBlock(CFG* cfg, string entry_label);
 	void gen_asm(ostream &o);
 	void add_IRInstr(IRInstr::Mnemo op, Type t, vector<string> params);
+	int get_var_index(string name);
 	
 	private:
 	vector<IRInstr*> irinstrs;

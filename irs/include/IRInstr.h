@@ -28,6 +28,7 @@ class IRInstr
 	IRInstr();
 	IRInstr(BasicBlock* bb_, Mnemo mn, Type t, vector<string> params);
 	void gen_asm(ostream &o);
+	int offset(string n);
 	
 	private:
 	BasicBlock* bb; /**< The BB this instruction belongs to, which provides a pointer to the CFG this instruction belong to */

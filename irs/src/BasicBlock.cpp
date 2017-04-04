@@ -24,3 +24,8 @@ void BasicBlock::add_IRInstr(IRInstr::Mnemo op, Type t, vector<string> params)
 	IRInstr * ir = new IRInstr(this, op, t, params);
 	irinstrs.push_back(ir);
 }
+
+int BasicBlock::get_var_index(string name)
+{
+	cfg->get_var_index(name);
+}

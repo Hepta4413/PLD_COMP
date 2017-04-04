@@ -15,30 +15,31 @@ IRInstr::IRInstr(BasicBlock* bb_, Mnemo mn, Type type, vector<string> params)
 
 void IRInstr::gen_asm(ostream &o)
 {
+	
 	switch(mnemo)
 	{
 		//var <- const
 		case LDCONST:
-			o << "movq $" + cons +",\t%" + regs[0] + "\n";
+			o << "movq $" + cons +",\t%" + offset(regs[0]) + "(%rbp)\n";
 			break;
 		
 		//var <- var1+var2
 		case ADD:
-			o << "movq %" + regs[1] + ",\t%" + regs[0] + "\n";
-			o << "addq %" + regs[2] + ",\t%" + regs[0] + "\n";
+			o << "movq %" + offset(regs[1]) + "(%rbp),\t%" + offset(regs[0]) + "(%rbp)\n";
+			o << "addq %" + offset(regs[2]) + "(%rbp),\t%" + offset(regs[0]) + "\n";
 			break;
 			
 		//var <- var1-var2
 		case SUB:
-			o << "movq %" + regs[1] + ",\t%" + regs[0] + "\n";
-			o << "subq %" + regs[2] + ",\t%" + regs[0] + "\n";
+			o << "movq %" + offset(regs[1]) + "(%rbp),\t%" + offset(regs[0]) + "(%rbp)\n";
+			o << "subq %" + offset(regs[2]) + "(%rbp),\t%" + offset(regs[0]) + "(%rbp)\n";
 			break;
 			
 		//var <- var1*var2
 		case MUL:
-			o << "movq %" + regs[1] + ",\t%rax\n";
-			o << "imulq %" + regs[2] + "\n";
-			o << "movq %rax,\t%" + regs[0] + "\n";
+			o << "movq %" + offset(regs[1]) + "(%rbp),\t%rax\n";
+			o << "imulq %" + offset(regs[2]) + "(%rbp)\n";
+			o << "movq %rax,\t%" + offset(regs[0]) + "(%rbp)\n";
 			break;
 			
 		//var1 <- (var2)
@@ -75,3 +76,9 @@ void IRInstr::gen_asm(ostream &o)
 			
 			break;
 	}
+}
+
+int IRInstr::offset(string n)
+{
+	
+}
