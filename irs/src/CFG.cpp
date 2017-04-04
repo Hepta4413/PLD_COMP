@@ -70,7 +70,7 @@ void CFG::add_to_symbol_table(string name, Type t)
 
 string CFG::create_new_tempvar(Type t)
 {
-	string reg = "!r"+nextBBnumber;
+	string reg = "!r"+nextFreeSymbolIndex;
 	add_to_symbol_table(reg, t);
 
 	return reg;
