@@ -25,21 +25,21 @@ void IRInstr::gen_asm(ostream &o)
 		
 		//var <- var1+var2
 		case ADD:
-			o << "movq %" + offset(regs[1]) + "(%rbp),\t%" + offset(regs[0]) + "(%rbp)\n";
-			o << "addq %" + offset(regs[2]) + "(%rbp),\t%" + offset(regs[0]) + "\n";
+			o << "movq " + offset(regs[1]) + "(%rbp),\t" + offset(regs[0]) + "(%rbp)\n";
+			o << "addq " + offset(regs[2]) + "(%rbp),\t" + offset(regs[0]) + "\n";
 			break;
 			
 		//var <- var1-var2
 		case SUB:
-			o << "movq %" + offset(regs[1]) + "(%rbp),\t%" + offset(regs[0]) + "(%rbp)\n";
-			o << "subq %" + offset(regs[2]) + "(%rbp),\t%" + offset(regs[0]) + "(%rbp)\n";
+			o << "movq " + offset(regs[1]) + "(%rbp),\t" + offset(regs[0]) + "(%rbp)\n";
+			o << "subq " + offset(regs[2]) + "(%rbp),\t" + offset(regs[0]) + "(%rbp)\n";
 			break;
 			
 		//var <- var1*var2
 		case MUL:
-			o << "movq %" + offset(regs[1]) + "(%rbp),\t%rax\n";
-			o << "imulq %" + offset(regs[2]) + "(%rbp)\n";
-			o << "movq %rax,\t%" + offset(regs[0]) + "(%rbp)\n";
+			o << "movq " + offset(regs[1]) + "(%rbp),\t%rax\n";
+			o << "imulq " + offset(regs[2]) + "(%rbp)\n";
+			o << "movq %rax,\t" + offset(regs[0]) + "(%rbp)\n";
 			break;
 			
 		//var1 <- (var2)
@@ -49,16 +49,18 @@ void IRInstr::gen_asm(ostream &o)
 			
 		//(var1) <- var2
 		case WMEM:
-			
+			o << "movq " + offset(regs[0]) + "(%rbp),\t%rax\n";
+			o << "movq " + offset(regs[1]) + "(%rbp),\t%rax\n";
+			o << "movq %r10,\t(%rax)\n";
 			break;
 			
 		//var <- call label (var1, var2, var3...)
 		case CALL:
-			for(unsigned int = 1 ; i < regs.size() ; i++)
+			/*for(unsigned int = 1 ; i < regs.size() ; i++)
 			{
 				o << "pushq %" + regs[i] + "\n";
 			}
-			o << "call "+label + "\n";
+			o << "call "+label + "\n";*/
 			break;
 			
 		//var <- var1=var2

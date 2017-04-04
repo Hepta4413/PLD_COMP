@@ -13,7 +13,7 @@ BasicBlock::BasicBlock(CFG* c, string entry_label)
 
 void BasicBlock::gen_asm(ostream &o)
 {
-	for(unsigned int = 0 ; i<irinstrs.size() ; i++)
+	for(unsigned int i = 0 ; i<irinstrs.size() ; i++)
 	{
 		irinstrs[i]->gen_asm(o);
 	}
