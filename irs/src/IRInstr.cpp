@@ -36,8 +36,9 @@ void IRInstr::gen_asm(ostream &o)
 			
 		//var <- var1*var2
 		case MUL:
-			o << "movq %" + regs[1] + ",\t%" + regs[0] + "\n";
-			o << "imulq %" + regs[2] + ",\t%" + regs[0] + "\n";
+			o << "movq %" + regs[1] + ",\t%rax\n";
+			o << "imulq %" + regs[2] + "\n";
+			o << "movq %rax,\t%" + regs[0] + "\n";
 			break;
 			
 		//var1 <- (var2)
@@ -52,7 +53,11 @@ void IRInstr::gen_asm(ostream &o)
 			
 		//var <- call label (var1, var2, var3...)
 		case CALL:
-			
+			for(unsigned int = 1 ; i < regs.size() ; i++)
+			{
+				o << "pushq %" + regs[i] + "\n";
+			}
+			o << "call "+label + "\n";
 			break;
 			
 		//var <- var1=var2
