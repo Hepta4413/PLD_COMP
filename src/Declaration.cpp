@@ -127,3 +127,7 @@ void Declaration::AddName(string* n) {
 		cout << *name << endl;
 	#endif
 }
+
+string Declaration::buildIR(CFG * cfg) {
+	return "";
+}

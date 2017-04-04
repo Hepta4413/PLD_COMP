@@ -37,6 +37,10 @@ Type OPUnaire::calculType()
 	return type;
 }
 
+string OPUnaire::buildIR(CFG * cfg) {
+	return "";
+}
+
 void OPUnaire::setBloc(Bloc* blc)
 {
 	#ifdef MAP

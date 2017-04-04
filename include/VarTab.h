@@ -13,6 +13,7 @@ class VarTab : public Variable
 	public:
 	VarTab();
 	VarTab(string* n, Expression* t);
+	string buildIR(CFG * cfg);
 
 	private:
 	Expression* indice;

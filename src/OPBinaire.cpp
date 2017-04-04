@@ -1,4 +1,6 @@
 #include "OPBinaire.h"
+#include "../irs/include/CFG.h"
+#include "../irs/include/IRInstr.h"
 #include <iostream>
 
 using namespace std;
@@ -6,7 +8,7 @@ using namespace std;
 OPBinaire::OPBinaire()
 {
 	#ifdef MAP
-		cout << "Appel au constructeur vide de OPBinaire" << endl;
+	cout << "Appel au constructeur vide de OPBinaire" << endl;
 	#endif
 	typeContenu = _OPBINAIRE;
 }
@@ -14,7 +16,7 @@ OPBinaire::OPBinaire()
 OPBinaire::OPBinaire(Expression* ex1, Expression* ex2, Opbinaire ope)
 {
 	#ifdef MAP
-		cout << "Appel au constructeur de OPBinaire(Expression* ex1, Expression* ex2, Opbinaire ope)" << endl;
+	cout << "Appel au constructeur de OPBinaire(Expression* ex1, Expression* ex2, Opbinaire ope)" << endl;
 	#endif
 	e1 = ex1;
 	e2 = ex2;
@@ -34,7 +36,7 @@ void OPBinaire::setBloc(Bloc* blc)
 
 vector<Variable*> OPBinaire::variableUtilise(){
 	#ifdef MAP
-		cout << "Appel a la fonction variableUtilise de opBinaire" << endl;
+	cout << "Appel a la fonction variableUtilise de opBinaire" << endl;
 	#endif
 	vector<Variable*> result;
 	vector<Variable*> vector1=e1->variableUtilise();
@@ -47,7 +49,7 @@ vector<Variable*> OPBinaire::variableUtilise(){
 Type OPBinaire::calculType()
 {
 	#ifdef MAP
-		cout << "Appel a la fonction calculType de OPBinaire" << endl;
+	cout << "Appel a la fonction calculType de OPBinaire" << endl;
 	#endif
 	Type typeE1 = e1->calculType();
 	Type typeE2 = e2->calculType();
@@ -60,9 +62,82 @@ Type OPBinaire::calculType()
 	{
 		#ifdef WAR
 		cerr<<"Warning ligne "<<getLigne()<<" : "
-			<<getColonne()<<" opération sur des types différents "<<typeE1<<" "<<typeE2<<endl;
+		<<getColonne()<<" opération sur des types différents "<<typeE1<<" "<<typeE2<<endl;
 		#endif
 		return INT32_T;
 
 	}
+}
+
+string OPBinaire::buildIR(CFG * cfg) {
+	string reg1 = e1->buildIR(cfg);
+	string reg2 = e2->buildIR(cfg);
+	string reg3 = cfg->create_new_tempvar(calculType());
+
+	vector<string> regs;
+	regs.push_back(reg3);
+	regs.push_back(reg2);
+	regs.push_back(reg1);
+
+	switch (op) {
+		case PLUS_OB:
+		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::ADD, calculType(), regs);
+		break;
+		case MINUS_OB:
+		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::SUB, calculType(), regs);
+		break;
+		case MULT_OB:
+		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
+		break;
+		/*
+		case EQUAL_OB:
+		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
+		break;
+		case DIV_OB:
+		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
+		break;
+		case UPPERTHAN_OB:
+		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
+		break;
+		case UPPEROREQUAL_OB:
+		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
+		break;
+		case LOWERTHAN_OB:
+		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
+		break;
+		case LOWEROREQUAL_OB:
+		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
+		break;
+		case PLUSEQUAL_OB:
+		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
+		break;
+		case MINUSEQUAL_OB:
+		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
+		break;
+		case DIVEQUAL_OB:
+		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
+		break;
+		case MULTEQUAL_OB:
+		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
+		break;
+		case DOUBLEEQUAL_OB:
+		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
+		break;
+		case MODULO_OB:
+		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
+		break;
+		case NOTEQUAL_OB:
+		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
+		break;
+		case OR_OB:
+		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
+		break;
+		case AND_OB:
+		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
+		break;
+		*/
+	}
+
+	return reg1;
+
 }

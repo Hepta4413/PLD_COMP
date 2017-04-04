@@ -20,13 +20,15 @@ class Variable : public Expression
 	void setRvalue(bool lval);
 	Type calculType ();
 	void setType(Type t);
+	string buildIR(CFG * cfg);
+
 	void setBloc(Bloc* blc);
 	
 	protected:
 	string* nom;
 	bool lvalue;
 	bool rvalue;
-			
+
 };
 
 #endif

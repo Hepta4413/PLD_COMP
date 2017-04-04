@@ -1,4 +1,5 @@
 #include "BlocControle.h"
+#include "../irs/include/CFG.h"
 #include <iostream>
 
 using namespace std;
@@ -39,4 +40,8 @@ void BlocControle::setBloc(Bloc* blc)
 int BlocControle::getSize()
 {
 	return blocFils->getSize();
+}
+
+string BlocControle::buildIR(CFG * cfg) {
+	return "";
 }

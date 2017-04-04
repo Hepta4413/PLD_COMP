@@ -18,6 +18,8 @@ class AppelFonct : public Expression
 	Fonction* getFonctionAssocie();
 	void setFonctionAssocie(Fonction* f);
 	bool verifAppelFonction();
+	string buildIR(CFG * cfg);
+
 	void setBloc(Bloc* blc);
 	
 	private:

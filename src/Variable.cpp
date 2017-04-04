@@ -92,6 +92,10 @@ Type Variable::calculType()
 	return type;
 }
 
+string Variable::buildIR(CFG * cfg) {
+	return "";
+}
+
 void Variable::setBloc(Bloc* blc)
 {
 	#ifdef MAP

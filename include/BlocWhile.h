@@ -14,9 +14,10 @@ class BlocWhile : public BlocControle
 	Expression* getCondition();
 	void setBloc(Bloc* blc);
 	void AddLigneColonne(int ligne,int colonne);
-	
+	string buildIR(CFG * cfg);
+
 	protected:
-	Expression* condition;	
+	Expression* condition;
 	Bloc* boucle;
 };
 

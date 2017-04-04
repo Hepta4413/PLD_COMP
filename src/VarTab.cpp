@@ -24,3 +24,7 @@ VarTab::VarTab(string* n, Expression* t)
 	lvalue=false;
 	rvalue=true;
 }
+
+string VarTab::buildIR(CFG * cfg) {
+	return "";
+}

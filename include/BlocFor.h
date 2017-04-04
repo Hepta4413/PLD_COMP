@@ -16,13 +16,14 @@ class BlocFor : public BlocControle
 	Expression* getIncre();
 	void setBloc(Bloc* blc);
 	void AddLigneColonne(int ligne,int colonne);
-	
+	string buildIR(CFG * cfg);
+
 	private:
 	Expression* condition;
 	Expression* incre;
 	Expression* init;
 	Bloc* boucle;
-		
+
 };
 
 #endif

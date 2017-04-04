@@ -27,3 +27,7 @@ Expression* Return::getExpression()
 	#endif
 	return toReturn;
 }
+
+string Return::buildIR(CFG * cfg) {
+	return "";
+}

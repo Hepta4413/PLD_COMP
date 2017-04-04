@@ -11,6 +11,7 @@ class OPUnaire : public Expression
 	OPUnaire(Expression* e, Opunaire op);
 	vector<Variable*> variableUtilise();
 	Type calculType ();
+	string buildIR(CFG * cfg);
 	void setBloc(Bloc* blc);
 
 	protected :

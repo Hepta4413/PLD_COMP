@@ -17,6 +17,7 @@ class Expression : public Ligne
 	virtual vector<Variable*> variableUtilise() =0; //attention le vector peut être vide
 	virtual Type calculType() =0;
 	Type getType();
+	string buildIR(CFG * cfg);
 
 	protected :
 	Type type;
