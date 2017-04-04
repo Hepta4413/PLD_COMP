@@ -18,6 +18,9 @@
 	#include "../include/VarTab.h"
 	#include "../include/Const.h"
 	#include "../include/ListeDeclaration.h"
+	#include "Affectation.h"
+	#include "Return.h"
+	#include "BlocIf.h"
 
 	using namespace std;
 
