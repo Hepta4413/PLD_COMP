@@ -35,13 +35,35 @@ void Programme::verifVariable(){
 	#ifdef MAP
 		cout << "Appel a la fonction Verifvariable de programme" << endl;
 	#endif
+	  bool mainPresent=false;
 	  for(auto fonct = fonctions->begin(); fonct != fonctions->end(); fonct++) {
 		Fonction* fct = fonct->second;
 		fct->getBloc()->ParcoursContenu();
-		if(!fct->getBloc()->getContientRetour())
+		if(fct->getTypeRetour()!=VOID_T && !fct->getBloc()->getContientRetour())
 		{
 			cout << "Erreur dans la fonction "<<*(fct->getNom()) <<" absence de retour sur une des branches d'exécution"<< endl;
 		}
+		if(fonct->first=="main")
+		{
+			Type t = fct->getTypeRetour();
+			if(t==VOID_T || t==INT32_T || t==INT64_T)
+			{
+				if(fct->getArguments()==NULL || fct->getArguments()->size()==0)
+				{
+					mainPresent=true;
+				}else
+				{
+					cerr<<"Erreur argument du main invalide"<<endl;
+				}
+			}else
+			{
+				cerr<<"Erreur type de retour du main incorrect"<<endl;				
+			}
+		}
+	  }
+	  if(!mainPresent)
+	  {
+		  cerr<<"Absence de main correct dans le programme"<<endl;				
 	  }
 }
 

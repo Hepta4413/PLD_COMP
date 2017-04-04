@@ -12,4 +12,7 @@ int32_t fe(){
 	}
 }
 
+void main(){
+}
+
 
