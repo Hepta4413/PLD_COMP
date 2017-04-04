@@ -3,6 +3,7 @@
 	#include <string>
 	#include <vector>
 	#include <iostream>
+	#include <fstream>
 	#include "../include/Enums.h"
 	#include "../include/OPBinaire.h"
 	#include "../include/Variable.h"
@@ -242,16 +243,33 @@ void yyerror(Programme ** res, const char * msg) {
 int main(void) {
    //yydebug=1;
    int res = 0;
-   Programme* prog;
-   res = yyparse(&prog);
+   Programme* pro;
+   res = yyparse(&pro);
    if(yynerrs  == 0)
    {
-		prog->verifVariable();
+		pro->verifVariable();
 	}
    //TODO arreter si error
    printf("Résutlat : %d\n",res);
    
+   map<string,Fonction *> * fonctions = pro->getFonctions();
+   Fonction* f1 = fonctions->at("main");
    
+   CFG* cfg = new CFG(f1);
+   f1->buildIR(cfg);
+   
+   ofstream codeAs("main.s", ios::out | ios::trunc);
+	
+	if(codeAs)
+	{	
+		cfg->gen_asm(codeAs);
+		printf("Corps généré\n");
+		
+		codeAs.close();
+	}
+	else
+		cerr << "Cannot open file" << endl;
+	
    
    return 0;
 }

@@ -15,10 +15,12 @@ void CFG::gen_asm(ostream &o)
 {
 	gen_asm_prologue(o);
 
+	printf("%i BBs trouvés",bbs.size());
 	//Génération du code asm pour chaque BB
 	for(unsigned int i=0 ; i < bbs.size(); i++)
 	{
 		bbs[i]->gen_asm(o);
+		printf("generation du bbs %i\n",i);
 	}
 
 	gen_asm_epilogue(o);
@@ -50,8 +52,8 @@ void CFG::gen_asm_prologue(ostream &o)
 
 void CFG::gen_asm_epilogue(ostream &o)
 {
-	o << "leave\n";
-	o << "ret\n";
+	o << "\tleave\n";
+	o << "\tret\n";
 }
 
 //Pas nécessaire pour le moment

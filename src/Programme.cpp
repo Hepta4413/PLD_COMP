@@ -104,3 +104,8 @@ bool Programme::verifFonction(AppelFonct* af){
 	cout<<"FONCTION PAS TROUVE"<<endl;
 	return false;
 }
+
+map<string,Fonction*>* Programme::getFonctions()
+{
+	return fonctions;
+}

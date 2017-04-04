@@ -16,6 +16,7 @@ class Programme
 	void addFonction(Fonction* f);
 	void verifVariable();
 	bool verifFonction(AppelFonct* af);
+	map<string,Fonction*>* getFonctions();
 
 	protected:
 	map<string,Fonction*>* fonctions;
