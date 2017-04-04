@@ -76,6 +76,17 @@ string* AppelFonct::getNom()
 	return fonction;
 }
 
+void AppelFonct::setBloc(Bloc* blc)
+{
+	#ifdef MAP
+		cout << "Appel a la fonction setBloc de AppelFonct" << endl;
+	#endif
+    blocParent = blc;
+	for(auto expr = parametres->begin(); expr != parametres->end(); expr++) {
+		(*expr)->setBloc(blc);
+	}
+}
+
 Type AppelFonct::calculType()
 {
 	#ifdef MAP

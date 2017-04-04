@@ -11,7 +11,8 @@ class OPBinaire : public Expression
 	OPBinaire(Expression* e1, Expression* e2, Opbinaire op);
 	vector<Variable*> variableUtilise();
 	Type calculType ();
-
+	void setBloc(Bloc* blc);
+	
 	protected :
 	Expression* e1;
 	Expression* e2;

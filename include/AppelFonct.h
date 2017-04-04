@@ -18,6 +18,7 @@ class AppelFonct : public Expression
 	Fonction* getFonctionAssocie();
 	void setFonctionAssocie(Fonction* f);
 	bool verifAppelFonction();
+	void setBloc(Bloc* blc);
 	
 	private:
 	std::string* fonction;

@@ -166,8 +166,8 @@ void Bloc::ParcoursContenu(){
 		Declaration* decl = (mapElem->second);
 		if(!decl->getRvalue())
 		{
-			Ligne * ligne = (Ligne*)(decl);
 			#ifdef WAR
+				Ligne * ligne = (Ligne*)(decl);
 				cerr<<"Warning ligne "<<ligne->getLigne()<<" : "
 				<<ligne->getColonne()<<" la variable "<<*(decl->getName())<<" est déclarée mais jamais utilisée"<<endl;
 			#endif
@@ -185,15 +185,18 @@ void Bloc::analyseExpression(Contenu* contenu)
 	Declaration* declarat;
 	Ligne* ligne;
 	vector<Variable*> variables;
+	contenu->setBloc(this);
 	variables = ((Expression*)contenu)->variableUtilise();
 	for(auto var = variables.begin(); var != variables.end(); var++)
 	{
 		 nom = (*var)->getNom();
 		 declarat=RechercherDeclaration(nom);
 		 ligne = ((Ligne*)contenu);
+		 
 		if(declarat != NULL && (declarat->getLigne()< ligne->getLigne() ||
 		(declarat->getLigne()== ligne->getLigne() &&
-		declarat->getColonne()< ligne->getColonne()))){
+		declarat->getColonne()< ligne->getColonne())))
+		{
 			(*var)->setType(declarat->getDeclarationType());
 			if(declarat->getLvalue() || ((*var)->getLvalue() && !(*var)->getRvalue()))
 			{

@@ -91,3 +91,11 @@ Type Variable::calculType()
 	#endif
 	return type;
 }
+
+void Variable::setBloc(Bloc* blc)
+{
+	#ifdef MAP
+		cout << "Appel a la fonction setBloc de Variable" << endl;
+	#endif
+    blocParent = blc;
+}

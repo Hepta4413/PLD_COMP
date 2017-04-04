@@ -36,3 +36,12 @@ Type OPUnaire::calculType()
 	type=exp->calculType();
 	return type;
 }
+
+void OPUnaire::setBloc(Bloc* blc)
+{
+	#ifdef MAP
+		cout << "Appel a la fonction setBloc de OPUnaire" << endl;
+	#endif
+    blocParent = blc;
+	exp->setBloc(blc);
+}

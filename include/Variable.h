@@ -20,6 +20,7 @@ class Variable : public Expression
 	void setRvalue(bool lval);
 	Type calculType ();
 	void setType(Type t);
+	void setBloc(Bloc* blc);
 	
 	protected:
 	string* nom;
