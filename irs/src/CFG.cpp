@@ -15,7 +15,6 @@ void CFG::gen_asm(ostream &o)
 {
 	gen_asm_prologue(o);
 
-	printf("%i BBs trouvés",bbs.size());
 	//Génération du code asm pour chaque BB
 	for(unsigned int i=0 ; i < bbs.size(); i++)
 	{
