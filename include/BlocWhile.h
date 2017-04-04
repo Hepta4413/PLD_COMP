@@ -5,6 +5,10 @@
 #include "Expression.h"
 #include "Enums.h"
 
+class CFG;
+class IRInstr;
+class BasicBlock;
+
 class BlocWhile : public BlocControle
 {
 	public:

@@ -1,5 +1,8 @@
 #include "BlocWhile.h"
 #include "Bloc.h"
+#include "../irs/include/CFG.h"
+#include "../irs/include/IRInstr.h"
+#include "../irs/include/BasicBlock.h"
 #include <iostream>
 
 using namespace std;
@@ -58,5 +61,23 @@ void BlocWhile::AddLigneColonne(int ligne,int colonne)
 }
 
 string BlocWhile::buildIR(CFG * cfg) {
+	BasicBlock* beforeWhileBB = cfg->current_bb;
+	BasicBlock* bodyBB = new BasicBlock(cfg);
+	BasicBlock* testBB = new BasicBlock(cfg);
+
+	cfg->current_bb = testBB;
+	condition->buildIR(cfg);
+
+	/* TODO add
+	bodyBB = new BasicBlock(cfg, boucle);
+	*/
+	BasicBlock* afterWhileBB = new BasicBlock(cfg);
+	afterWhileBB->exit_true = beforeWhileBB->exit_true;
+	afterWhileBB->exit_false = beforeWhileBB->exit_false;
+	testBB->exit_true = bodyBB;
+	testBB->exit_false = afterWhileBB;
+	bodyBB->exit_true = testBB;
+	bodyBB->exit_false = NULL;
+	cfg->current_bb = afterWhileBB;
 	return "";
 }
