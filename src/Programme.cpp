@@ -9,14 +9,12 @@ Programme::Programme()
 		cout << "Appel au constructeur vide de Programme" << endl;
 	#endif
 	fonctions = new map<string,Fonction*>();
-}
-
-Programme::Programme(map<string,Fonction*>* f)
-{
-	#ifdef MAP
-		cout << "Appel au constructeur de Programme(map<string,Fonction>* f)" << endl;
-	#endif
-	fonctions = f;
+	Fonction* f1 = new Fonction(INT32_T,new string("getchar"),NULL,NULL) ;
+	vector<Declaration*>* argPut = new vector<Declaration*>*();
+	argPut->push_back(new Declaration(INT32_T,new string("")));
+	Fonction* f2 = new Fonction(INT32_T,new string("putchar"),new vector<Declaration*>*(),NULL) ;
+	fonctions->insert ( pair<string,Fonction*>(*(f1->getNom()),f1) );
+	fonctions->insert ( pair<string,Fonction*>(*(f2->getNom()),f2) );
 }
 
 void Programme::addFonction(Fonction* f)
@@ -36,7 +34,7 @@ void Programme::verifVariable(){
 		cout << "Appel a la fonction Verifvariable de programme" << endl;
 	#endif
 	  bool mainPresent=false;
-	  for(auto fonct = fonctions->begin(); fonct != fonctions->end(); fonct++) {
+	  for(auto fonct = fonctions->begin()+2; fonct != fonctions->end(); fonct++) {
 		Fonction* fct = fonct->second;
 		fct->getBloc()->ParcoursContenu();
 		if(fct->getTypeRetour()!=VOID_T && !fct->getBloc()->getContientRetour())
