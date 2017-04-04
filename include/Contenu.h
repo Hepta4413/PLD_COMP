@@ -18,7 +18,7 @@ class Contenu
 	virtual void setBloc(Bloc* blc);
 	TypeContenu getTypeContenu();
 	virtual int getSize() =0;
-	
+
 	protected:
 	Bloc* blocParent;
 	TypeContenu typeContenu;

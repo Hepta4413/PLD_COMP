@@ -20,11 +20,11 @@ class IRInstr
 				MUL,
 				RMEM,
 				WMEM,
-				CALL, 
+				CALL,
 				CMP_EQ,
 				CMP_LT,
 				CMP_LE };
-	
+
 	IRInstr();
 	IRInstr(BasicBlock* bb_, Mnemo mn, Type t, vector<string> params);
 	void gen_asm(ostream &o);
@@ -36,6 +36,7 @@ class IRInstr
 	long cons;
 	vector<string> regs;
 	Type t;
+	string label;
 };
 
 #endif
