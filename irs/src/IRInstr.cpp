@@ -60,7 +60,7 @@ void IRInstr::gen_asm(ostream &o)
 		//var <- call label (var1, var2, var3...)
 		case CALL:
 			o << "call "+label + "\n";
-			for(unsigned int = 1 ; i < regs.size() ; i++)
+			for(unsigned int i = 1 ; i < regs.size() ; i++)
 			{
 				o << "movq %" + regs[i] + ","+to_string(-8*i)+"(%rbp)\n";
 			}
@@ -69,21 +69,21 @@ void IRInstr::gen_asm(ostream &o)
 		//var1=var2
 		case CMP_EQ:
 			o << "movq " + offset(regs[0]) + "(%rbp),\t%rax\n";
-			o << "cmp %rax,\t" + offset(regs[1]) + "(%rbp)\n"
+			o << "cmp %rax,\t" + offset(regs[1]) + "(%rbp)\n";
 			o << "je " + label +"\n";
 			break;
 
 		//var1<var2
 		case CMP_LT:
 			o << "movq " + offset(regs[0]) + "(%rbp),\t%rax\n";
-			o << "cmp %rax,\t" + offset(regs[1]) + "(%rbp)\n"
+			o << "cmp %rax,\t" + offset(regs[1]) + "(%rbp)\n";
 			o << "jl " + label +"\n";
 			break;
 
 		//var1<=var2
 		case CMP_LE:
 			o << "movq " + offset(regs[0]) + "(%rbp),\t%rax\n";
-			o << "cmp %rax,\t" + offset(regs[1]) + "(%rbp)\n"
+			o << "cmp %rax,\t" + offset(regs[1]) + "(%rbp)\n";
 			o << "jle " + label +"\n";
 			break;
 	}

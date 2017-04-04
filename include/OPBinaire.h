@@ -4,6 +4,9 @@
 #include "Enums.h"
 #include "Expression.h"
 
+class CFG;
+class IRInstr;
+
 class OPBinaire : public Expression
 {
 	public :

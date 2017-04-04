@@ -26,7 +26,7 @@ void CFG::gen_asm(ostream &o)
 
 void CFG::gen_asm_prologue(ostream &o)
 {
-	int size = f->getSize();
+	int size = ast->getSize();
 	string code = "";
 	if (size > 0)
 	{
