@@ -15,6 +15,7 @@ class Affectation : public Expression
 	vector<Variable*> variableUtilise();
 	Type calculType ();
 	string buildIR(CFG * cfg);
+	void setBloc(Bloc* blc);
 
 	protected:
 	Variable* vars;

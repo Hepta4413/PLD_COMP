@@ -95,3 +95,11 @@ Type Variable::calculType()
 string Variable::buildIR(CFG * cfg) {
 	return "";
 }
+
+void Variable::setBloc(Bloc* blc)
+{
+	#ifdef MAP
+		cout << "Appel a la fonction setBloc de Variable" << endl;
+	#endif
+    blocParent = blc;
+}

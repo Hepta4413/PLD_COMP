@@ -16,6 +16,8 @@ class OPBinaire : public Expression
 	Type calculType ();
 	string buildIR(CFG * cfg);
 
+	void setBloc(Bloc* blc);
+	
 	protected :
 	Expression* e1;
 	Expression* e2;

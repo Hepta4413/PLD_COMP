@@ -24,6 +24,16 @@ OPBinaire::OPBinaire(Expression* ex1, Expression* ex2, Opbinaire ope)
 	typeContenu = _OPBINAIRE;
 }
 
+void OPBinaire::setBloc(Bloc* blc)
+{
+	#ifdef MAP
+		cout << "Appel a la fonction setBloc de OPBinaire" << endl;
+	#endif
+    blocParent = blc;
+	e1->setBloc(blc);
+	e2->setBloc(blc);
+}
+
 vector<Variable*> OPBinaire::variableUtilise(){
 	#ifdef MAP
 	cout << "Appel a la fonction variableUtilise de opBinaire" << endl;

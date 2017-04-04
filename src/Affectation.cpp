@@ -46,6 +46,16 @@ Affectation::Affectation(VarTab* var, Expression* value, int i, Opbinaire op)
 	typeContenu = _AFFECTATION;
 }
 
+void Affectation::setBloc(Bloc* blc)
+{
+	#ifdef MAP
+		cout << "Appel a la fonction setBloc de Affectation" << endl;
+	#endif
+    blocParent = blc;
+    valuei->setBloc(blc);
+    vars->setBloc(blc);
+}
+
 vector<Variable*> Affectation::variableUtilise(){
 	#ifdef MAP
 		cout << "Appel a la fonction variableUtilise de Affectation" << endl;

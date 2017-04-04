@@ -59,7 +59,7 @@
 	bool boolean;
 }
 
-%token INT32 CHAR RETURN INT64 PLUS MINUS MUL DIV OPEN CLOSE EQUAL MULEQUAL PLUSEQUAL MINUSEQUAL DIVEQUAL LOWERTHAN UPPERTHAN LOWEROREQUALTHAN UPPEROREQUALTHAN DOUBLEEQUAL DOUBLEPLUS DOUBLEMINUS QUOTE NOTEQUAL CLOSEBRACKET OPENBRACKET OPENCURLYBRACKET CLOSECURLYBRACKET NOT AND OR MODULO INCR DECR  IF ELSE FOR WHILE SEMICOMA COMA VOID
+%token INT32 CHAR RETURN INT64 PLUS MINUS MUL DIV OPEN CLOSE EQUAL MULEQUAL OREQUAL XOREQUAL ANDEQUAL PLUSEQUAL MODEQUAL MINUSEQUAL DIVEQUAL LOWERTHAN UPPERTHAN LOWEROREQUALTHAN UPPEROREQUALTHAN DOUBLEEQUAL DOUBLEPLUS DOUBLEMINUS QUOTE NOTEQUAL CLOSEBRACKET OPENBRACKET OPENCURLYBRACKET CLOSECURLYBRACKET RSHIFT LSHIFT NOT AND ANDBIT  OR ORBIT XOR MODULO INCR DECR  IF ELSE FOR WHILE SEMICOMA COMA VOID
 %token <ival> ENTIER VAR
 %token <stringval> NOM
 %type <bloc> bloc
@@ -80,10 +80,14 @@
 %type <boolean> typebases
 
 %left COMA
-%left EQUAL PLUSEQUAL MINUSEQUAL DIVEQUAL MULEQUAL
+%left EQUAL PLUSEQUAL MINUSEQUAL DIVEQUAL MULEQUAL MODEQUAL OREQUAL XOREQUAL ANDEQUAL
 %left AND OR
+%left ORBIT
+%left XOR
+%left ANDBIT
 %left DOUBLEEQUAL NOTEQUAL
 %left LOWERTHAN LOWEROREQUALTHAN UPPERTHAN UPPEROREQUALTHAN
+%left RSHIFT LSHIFT
 %left PLUS MINUS
 %left MUL DIV MODULO
 %left INCR DECR NOT
@@ -98,23 +102,23 @@ axiome : prog { *resultat = $1; }
 prog : 	prog fonction { $1->addFonction($2); $$ = $1; }
 	| %empty { $$= new Programme();};
 fonction : typereturnfonction NOM OPEN arg CLOSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET { $$= new Fonction($1,$2,$4,$7);};
-arg : 	argbis {printf("arg \n");$$=$1;}
-	| %empty {printf("arg null \n");$$= NULL;}
+arg : 	argbis {$$=$1;}
+	| %empty {$$= NULL;}
 	;
-argbis :  typebase NOM typebases {  	printf("argbis1 \n");
+argbis :  typebase NOM typebases {  	
 					$$=new vector<Declaration*>();
-					$3?printf(" tab \n"):printf(" ");
+					$3?($1==INT32_T?INT32TAB_T:($1==INT64_T?INT64TAB_T:CHARTAB_T)):$1; 
 					$3?($1==INT32_T?INT32TAB_T:($1==INT64_T?INT64TAB_T:CHARTAB_T)):$1;
 					$$->push_back(new Declaration($1,$2));
 				 }
-	| argbis COMA typebase NOM typebases {  printf("argbis 2 \n");
-						$$=$1;
+	| argbis COMA typebase NOM typebases {  
+						$$=$1; 
 						$5?($3==INT32_T?INT32TAB_T:($3==INT64_T?INT64TAB_T:CHARTAB_T)):$3;
 						$1->push_back(new Declaration($3,$4));
 					     }
 	;
-bloc : bloc contenu {printf("add contenu bloc\n");$1->AddContenu($2); $$ = $1; }
-	| %empty {printf("Create new bloc\n"); $$= new Bloc();}
+bloc : bloc contenu {$1->AddContenu($2); $$ = $1; }
+	| %empty { $$= new Bloc();}
 	;
 contenu : ligne SEMICOMA {$$=$1;}
 	| bloccontrole {$$=$1; $1->AddLigneColonne(@1.first_line,@1.first_column);}
@@ -143,13 +147,13 @@ multdeclaration: COMA NOM declarationopt multdeclaration {
 				;
 declarationopt : OPENBRACKET expr CLOSEBRACKET {$$= new Declaration($2);}
 		 | EQUAL expr { $$ = new Declaration($2);}
-		 | %empty {printf("Create new declaration\n"); $$ = new Declaration();}
+		 | %empty {$$ = new Declaration();}
 		 ;
-operation : expr {printf("Expression create\n");$$=$1;}
-	| %empty {printf("Create new operation\n"); $$= NULL;}
+operation : expr {$$=$1;}
+	| %empty {$$= NULL;}
 	;
 expr :    expr MUL expr {$$ = new OPBinaire($1, $3, MULT_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
-	| expr PLUS expr {printf("Create new plus\n"); $$ = new OPBinaire($1, $3, PLUS_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
+	| expr PLUS expr { $$ = new OPBinaire($1, $3, PLUS_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
 	| expr MINUS expr {$$ = new OPBinaire($1, $3, MINUS_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
 	| expr DIV expr {$$ = new OPBinaire($1, $3, DIV_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
 	| expr MODULO expr {$$ = new OPBinaire($1, $3, MODULO_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
@@ -159,9 +163,18 @@ expr :    expr MUL expr {$$ = new OPBinaire($1, $3, MULT_OB); $$->AddLigneColonn
 	| expr UPPERTHAN expr {$$ = new OPBinaire($1, $3, UPPERTHAN_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
 	| expr DOUBLEEQUAL expr {$$ = new OPBinaire($1, $3, DOUBLEEQUAL_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
 	| expr NOTEQUAL expr {$$ = new OPBinaire($1, $3, NOTEQUAL_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
+	| expr OREQUAL expr {$$ = new OPBinaire($1, $3, OREQUAL_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
+	| expr ANDEQUAL expr {$$ = new OPBinaire($1, $3, ANDEQUAL_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
+	| expr XOREQUAL expr {$$ = new OPBinaire($1, $3, XOREQUAL_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
 	| expr AND expr {$$ = new OPBinaire($1, $3, AND_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
 	| expr OR expr {$$ = new OPBinaire($1, $3, OR_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
+	| expr ANDBIT expr {$$ = new OPBinaire($1, $3, ANDBIT_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
+	| expr ORBIT expr {$$ = new OPBinaire($1, $3, ORBIT_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}	
+	| expr LSHIFT expr {$$ = new OPBinaire($1, $3, LSHIFT_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
+	| expr RSHIFT expr {$$ = new OPBinaire($1, $3, RSHIFT_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
+	| expr XOR expr {$$ = new OPBinaire($1, $3, XOR_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
 	| var EQUAL expr {$$ = new Affectation($1, $3, EQUAL_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
+	| var MODEQUAL expr {$$ = new Affectation($1, $3, MODEQUAL_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
 	| var MULEQUAL expr {$$ = new Affectation($1, $3, MULTEQUAL_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
 	| var DIVEQUAL expr {$$ = new Affectation($1, $3, DIVEQUAL_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
 	| var PLUSEQUAL expr {$$ = new Affectation($1, $3, PLUSEQUAL_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
@@ -189,7 +202,7 @@ bloccontrole : IF condition OPENCURLYBRACKET bloc CLOSECURLYBRACKET else {$6->Ad
      		| FOR OPEN operation SEMICOMA operation SEMICOMA operation CLOSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET {$$=new BlocFor($3,$5,$7,$10);}
      		;
 else : ELSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET {$$=new BlocIf($3);}
-	| %empty {printf("Create new blocIF\n"); $$=new BlocIf();}
+	| %empty {$$=new BlocIf();}
 	;
 condition : OPEN expr CLOSE {$$=$2;}
 	;
@@ -213,7 +226,7 @@ var : 	NOM option {$$=($2==NULL?(Variable*) new VarS($1): (Variable*) new VarTab
 option : OPENBRACKET expr CLOSEBRACKET {$$=$2;}| %empty {$$=NULL;}
 	;
 val : 	var {$$=$1;}
-	| ENTIER {printf("Create new const\n"); $$=new Const($1);}
+	| ENTIER {$$=new Const($1);}
 	;
 %%
 
@@ -226,8 +239,8 @@ int main(void) {
    int res = 0;
    Programme* prog;
    res = yyparse(&prog);
-   //cout<<"c'est fini"<<endl;
    prog->verifVariable();
+   //TODO arreter si error
    printf("Résutlat : %d\n",res);
    
    

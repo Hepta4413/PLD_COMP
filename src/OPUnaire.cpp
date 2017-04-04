@@ -40,3 +40,12 @@ Type OPUnaire::calculType()
 string OPUnaire::buildIR(CFG * cfg) {
 	return "";
 }
+
+void OPUnaire::setBloc(Bloc* blc)
+{
+	#ifdef MAP
+		cout << "Appel a la fonction setBloc de OPUnaire" << endl;
+	#endif
+    blocParent = blc;
+	exp->setBloc(blc);
+}

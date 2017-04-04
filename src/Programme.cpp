@@ -20,7 +20,7 @@ Programme::Programme()
 void Programme::addFonction(Fonction* f)
 {
 	#ifdef MAP
-		cout << "	Appel a la fonction addFonction de programme " <<*(f->getNom())<< endl;
+		cout << "Appel a la fonction addFonction de programme " <<*(f->getNom())<< endl;
 	#endif
 	if(fonctions==NULL){
 		fonctions = new map<string,Fonction*>();
@@ -78,7 +78,6 @@ bool Programme::verifFonction(AppelFonct* af){
 		Fonction* fonct = mapFonction[*(af->getNom())];
 		vector<Declaration*>* paramAttendu = fonct->getArguments();
 		vector<Expression*>* param = af->getParam();
-		cout<<param->size()<<" "<<paramAttendu->size()<<" "<<*(fonct->getNom())<<endl;
 		if(param->size()==paramAttendu->size())
 		{
 			auto par = param->begin();
@@ -101,7 +100,7 @@ bool Programme::verifFonction(AppelFonct* af){
 			af->setFonctionAssocie(fonct);
 			return true;
 		}
-		cout<<"taille incorect"<<endl;
 	}
+	cout<<"FONCTION PAS TROUVE"<<endl;
 	return false;
 }

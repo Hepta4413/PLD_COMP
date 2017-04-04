@@ -20,6 +20,8 @@ class AppelFonct : public Expression
 	bool verifAppelFonction();
 	string buildIR(CFG * cfg);
 
+	void setBloc(Bloc* blc);
+	
 	private:
 	std::string* fonction;
 	std::vector<Expression*>* parametres;

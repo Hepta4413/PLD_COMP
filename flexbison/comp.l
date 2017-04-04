@@ -19,6 +19,8 @@
 digit [0-9]+
 char [a-zA-Z]
 %%
+"'"{char}"'" { yylval.ival = yytext[1]; return ENTIER; }
+"'\\"."'" { yylval.ival = yytext[1]; return ENTIER; }
 "/*"(.|\n)*"*/" { /* ignore */ }
 "//".*$ 	{ /* ignore */ }
 [ \n\t] 	{ /* ignore */ }
@@ -34,7 +36,16 @@ char [a-zA-Z]
 "+="         { return PLUSEQUAL; }
 "-="         { return MINUSEQUAL; }
 "*="         { return MULEQUAL; }
+"%="         { return MODEQUAL; }
 "/="         { return DIVEQUAL; }
+"&="         { return ANDEQUAL; }
+"^="         { return XOREQUAL; }
+"|="         { return OREQUAL; }
+"<<"         { return LSHIFT; }
+">>"         { return RSHIFT; }
+"&"          { return ANDBIT; }
+"|"          { return ORBIT; }
+"^"          { return XOR; }
 "+"          { return PLUS; }
 "-"          { return MINUS; }
 "*"          { return MUL; }
@@ -62,7 +73,6 @@ char [a-zA-Z]
 "int64_t"    { return INT64; }
 "char"       { return CHAR; }
 "return"     { return RETURN; }
-"'"{char}"'" { yylval.ival = yytext[1]; return ENTIER; }
 [_a-zA-Z][_a-zA-Z0-9]*      {yylval.stringval = new string(yytext); return NOM; }
 {digit}      { yylval.ival = atoi(yytext); return ENTIER; }
 
