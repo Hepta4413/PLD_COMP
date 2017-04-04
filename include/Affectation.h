@@ -14,6 +14,7 @@ class Affectation : public Expression
 	Affectation(VarTab* vartab, Expression* value, int i, Opbinaire op);
 	vector<Variable*> variableUtilise();
 	Type calculType ();
+	string buildIR(CFG * cfg);
 
 	protected:
 	Variable* vars;

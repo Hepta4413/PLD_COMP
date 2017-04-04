@@ -40,3 +40,7 @@ int Ligne::getSize()
 {
 	return 0;
 }
+
+string Ligne::buildIR(CFG * cfg) {
+	return "";
+}

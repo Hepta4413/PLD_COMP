@@ -91,3 +91,7 @@ Type Variable::calculType()
 	#endif
 	return type;
 }
+
+string Variable::buildIR(CFG * cfg) {
+	return "";
+}

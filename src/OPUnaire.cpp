@@ -36,3 +36,7 @@ Type OPUnaire::calculType()
 	type=exp->calculType();
 	return type;
 }
+
+string OPUnaire::buildIR(CFG * cfg) {
+	return "";
+}

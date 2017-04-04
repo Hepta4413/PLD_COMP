@@ -56,3 +56,7 @@ Type OPBinaire::calculType()
 
 	}
 }
+
+string OPBinaire::buildIR(CFG * cfg) {
+	return "";
+}

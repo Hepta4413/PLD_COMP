@@ -14,7 +14,6 @@ class Programme
 {
 	public:
 	Programme();
-	Programme(map<string,Fonction*>* f);
 	void addFonction(Fonction* f);
 	void verifVariable();
 	bool verifFonction(AppelFonct* af);

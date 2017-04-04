@@ -18,12 +18,13 @@ class BlocIf : public BlocControle
 	void setBloc(Bloc* blc);
 	void AddLigneColonne(int ligne,int colonne);
 	bool getContientRetour();
-	
+	string buildIR(CFG * cfg);
+
 	private:
-	Expression* si;	
+	Expression* si;
 	Bloc* sinon;
 	Bloc* alors;
-		
+
 };
 
 #endif

@@ -78,3 +78,7 @@ void BlocFor::AddLigneColonne(int ligne,int colonne)
 	init->AddLigneColonne( ligne, colonne);
 	incre->AddLigneColonne( ligne, colonne);
 }
+
+string BlocFor::buildIR(CFG * cfg) {
+	return "";
+}

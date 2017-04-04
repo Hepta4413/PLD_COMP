@@ -6,6 +6,7 @@
 //#include "Bloc.h"
 
 class Bloc;
+class CFG;
 
 class BlocControle : public Contenu
 {
@@ -16,6 +17,7 @@ class BlocControle : public Contenu
 	virtual void setBloc(Bloc* blc);
 	virtual void AddLigneColonne(int ligne,int colonne)=0;
 	int getSize();
+	string buildIR(CFG * cfg);
 
 	private:
 	Bloc * blocFils;

@@ -13,6 +13,7 @@ class Ligne : public Contenu
 	int getLigne();
 	int getColonne();
 	int getSize();
+	string buildIR(CFG * cfg);
 
 	protected:
 	int ligne;

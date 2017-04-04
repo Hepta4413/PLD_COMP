@@ -5,8 +5,8 @@
 #include "Enums.h"
 
 class Bloc;
-//class Bloc;
 class Declaration;
+class CFG;
 
 class Contenu
 {
@@ -18,6 +18,7 @@ class Contenu
 	virtual void setBloc(Bloc* blc);
 	TypeContenu getTypeContenu();
 	virtual int getSize() =0;
+	virtual string buildIR(CFG * cfg) = 0;
 
 	protected:
 	Bloc* blocParent;

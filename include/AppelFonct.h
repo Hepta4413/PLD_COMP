@@ -18,7 +18,8 @@ class AppelFonct : public Expression
 	Fonction* getFonctionAssocie();
 	void setFonctionAssocie(Fonction* f);
 	bool verifAppelFonction();
-	
+	string buildIR(CFG * cfg);
+
 	private:
 	std::string* fonction;
 	std::vector<Expression*>* parametres;
