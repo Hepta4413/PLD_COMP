@@ -56,6 +56,9 @@ void Bloc::AddDeclaration(Declaration* d)
 	if (varbloc->find(*(d->getName())) == varbloc->end())
 	{
 		varbloc->insert ( pair<string,Declaration*>(*(d->getName()),d));
+	}else
+	{
+		cerr<<"Erreur redéclaration de la variable "<<d->getName()<<endl;
 	}
 }
 
