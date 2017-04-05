@@ -63,15 +63,22 @@ string CFG::IR_reg_to_asm(string reg)
 
 void CFG::add_to_symbol_table(string name, Type t)
 {
+	#ifdef MAP
+		cout << "	Appel a la fonction add_to_symbol_table de CFG " <<name<< endl;
+	#endif
 	symbolType.insert(pair<string, Type>(name,t));
 
 	symbolIndex.insert(pair<string, int>(name,nextFreeSymbolIndex));
 	nextFreeSymbolIndex-=8;
+	cout<<"FIN"<<endl;
 }
 
 string CFG::create_new_tempvar(Type t)
 {
-	string reg = "!r"+nextFreeSymbolIndex;
+	#ifdef MAP
+		cout << "	Appel a la fonction create_new_tempvar de CFG " << endl;
+	#endif
+	string reg = "!r"+(-nextFreeSymbolIndex);
 	add_to_symbol_table(reg, t);
 
 	return reg;
@@ -79,6 +86,9 @@ string CFG::create_new_tempvar(Type t)
 
 int CFG::get_var_index(string name)
 {
+	#ifdef MAP
+		cout << "	Appel a la fonction get_var_index de CFG " <<name<< endl;
+	#endif
 	return symbolIndex.at(name);
 
 }

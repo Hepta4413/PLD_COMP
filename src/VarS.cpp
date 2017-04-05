@@ -25,5 +25,5 @@ VarS::VarS(string* n)
 }
 
 string VarS::buildIR(CFG * cfg) {
-	return "";
+	return Variable::buildIR(cfg);
 }

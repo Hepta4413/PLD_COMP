@@ -43,17 +43,23 @@ long Const::getValue()
 Type Const::calculType()
 {
 	#ifdef MAP
-		cout << "Appel a la fonction AppelFonct de Const" << endl;
+		cout << "Appel a la fonction calculType de Const" << endl;
 	#endif
 	type = CONSTVAL_T;
 	return CONSTVAL_T;
 }
 
 string Const::buildIR(CFG * cfg) {
-	string reg = cfg->create_new_tempvar(calculType());
+	#ifdef MAP
+		cout << "Appel a la fonction buildIR de Const" << endl;
+	#endif
+	string reg = cfg->create_new_tempvar(type);
 	vector<string> regs;
+	regs.push_back(""+value);
 	regs.push_back(reg);
-	cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LDCONST, calculType(), regs);
+	cout<<"AVANT INSTRUCTION"<<endl;
+	cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LDCONST, type, regs);
+	cout<<"APRES INSTRUCTION"<<endl;
 	return reg;
 
 }

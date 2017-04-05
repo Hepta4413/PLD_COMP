@@ -8,6 +8,9 @@ IRInstr::IRInstr()
 
 IRInstr::IRInstr(BasicBlock* bb_, Mnemo mn, Type type, vector<string> params)
 {
+	#ifdef MAP
+		cout << "Appel au constructeur de IRInstr "<< endl;
+	#endif
 	bb = bb_;
 	mnemo = mn;
 	t = type;
@@ -16,11 +19,14 @@ IRInstr::IRInstr(BasicBlock* bb_, Mnemo mn, Type type, vector<string> params)
 
 void IRInstr::gen_asm(ostream &o)
 {
+	#ifdef MAP
+		cout << "Appel a la fonction gen_asm de IRInstr "<< endl;
+	#endif
 	switch(mnemo)
 	{
 		//var <- const
 		case LDCONST:
-			o << "movq $" + to_string(cons) + ",\t%" + offset(regs[0]) + "\n";
+			o << "movq $" + offset(regs[0]) + ",\t%" + offset(regs[1]) + "\n";
 			break;
 
 		//var <- var1+var2
