@@ -4,12 +4,14 @@
 BasicBlock::BasicBlock()
 {
 	irinstrs= new vector<IRInstr*>();
+	label = "TROLOLO";
 }
 
 BasicBlock::BasicBlock(CFG* c)
 {
 	cfg = c;
 	irinstrs= new vector<IRInstr*>();
+	label = "TROLOLO";
 }
 
 BasicBlock::BasicBlock(CFG* c, string entry_label)
@@ -17,6 +19,7 @@ BasicBlock::BasicBlock(CFG* c, string entry_label)
 	cfg = c;
 	label = entry_label;
 	irinstrs= new vector<IRInstr*>();
+	label = "TROLOLO";
 }
 
 void BasicBlock::gen_asm(ostream &o)
@@ -36,7 +39,8 @@ void BasicBlock::add_IRInstr(IRInstr::Mnemo op, Type t, vector<string> params)
 		cout<<"Appel a la fonction add_IRInstr de BasicBloc"<<endl;
 	#endif
 	IRInstr * ir = new IRInstr(this, op, t, params);
-	cout<<"MILIEU add_IRInstr "<<irinstrs->size()<<endl;
+	cout<<"MILIEU add_IRInstr "<<endl;
+	cout << label << endl;
 	irinstrs->push_back(ir);
 	cout<<"FIN add_IRInstr"<<endl;
 

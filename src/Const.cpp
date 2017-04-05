@@ -57,7 +57,7 @@ string Const::buildIR(CFG * cfg) {
 	vector<string> regs;
 	regs.push_back(""+value);
 	regs.push_back(reg);
-	cout<<"AVANT INSTRUCTION"<<endl;
+	cout<<"AVANT INSTRUCTION "<<cfg->current_bb<<endl;
 	cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LDCONST, type, regs);
 	cout<<"APRES INSTRUCTION"<<endl;
 	return reg;
