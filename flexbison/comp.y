@@ -267,6 +267,8 @@ int main(void) {
 	
 	if(codeAs)
 	{	
+		codeAs << "\t.globl	main\n\n";
+		
 		for(unsigned int i = 0 ; i < cfgs.size() ; i++)
 		{
 			cfgs[i]->gen_asm(codeAs);
