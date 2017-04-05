@@ -25,7 +25,7 @@ class BasicBlock
 	BasicBlock * exit_false;
 
 	private:
-	vector<IRInstr*> irinstrs;
+	vector<IRInstr*>* irinstrs;
 	CFG * cfg;
 	string label;
 

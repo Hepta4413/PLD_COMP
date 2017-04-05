@@ -98,14 +98,15 @@ string Affectation::buildIR(CFG * cfg)
 	#endif
 	
 	string right = vars->buildIR(cfg);
-	//string left = valuei->buildIR(cfg);
-/*
+	cout<<"Affectation buildIR"<<endl;
+	string left = valuei->buildIR(cfg);
+
 	vector<string> regs;
 
 	regs.push_back(left);
 	regs.push_back(right);
 
 	cfg->current_bb->add_IRInstr(IRInstr::Mnemo::WMEM, calculType(), regs);
-*/
+
 	return right;
 }

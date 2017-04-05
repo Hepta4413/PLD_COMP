@@ -3,32 +3,43 @@
 
 BasicBlock::BasicBlock()
 {
-
+	irinstrs= new vector<IRInstr*>();
 }
 
 BasicBlock::BasicBlock(CFG* c)
 {
 	cfg = c;
+	irinstrs= new vector<IRInstr*>();
 }
 
 BasicBlock::BasicBlock(CFG* c, string entry_label)
 {
 	cfg = c;
 	label = entry_label;
+	irinstrs= new vector<IRInstr*>();
 }
 
 void BasicBlock::gen_asm(ostream &o)
 {
-	for(unsigned int i = 0 ; i<irinstrs.size() ; i++)
+	#ifdef MAP
+		cout<<"Appel a la fonction gen_asm de BasicBloc"<<endl;
+	#endif
+	for(unsigned int i = 0 ; i<irinstrs->size() ; i++)
 	{
-		irinstrs[i]->gen_asm(o);
+		irinstrs->at(i)->gen_asm(o);
 	}
 }
 
 void BasicBlock::add_IRInstr(IRInstr::Mnemo op, Type t, vector<string> params)
 {
+	#ifdef MAP
+		cout<<"Appel a la fonction add_IRInstr de BasicBloc"<<endl;
+	#endif
 	IRInstr * ir = new IRInstr(this, op, t, params);
-	irinstrs.push_back(ir);
+	cout<<"MILIEU add_IRInstr "<<irinstrs->size()<<endl;
+	irinstrs->push_back(ir);
+	cout<<"FIN add_IRInstr"<<endl;
+
 }
 
 int BasicBlock::get_var_index(string name)
