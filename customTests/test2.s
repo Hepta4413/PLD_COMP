@@ -14,6 +14,13 @@ main:
 	movq	$1, -8(%rbp)
 	movl	$97, %edi
 	call	putchar
+	cmpq	$1, -8(%rbp)
+	jne	.L2
+	movq	$2, -8(%rbp)
+	jmp	.L1
+.L2:
+	movq	$3, -8(%rbp)
+.L1:
 	leave
 	.cfi_def_cfa 7, 8
 	ret
