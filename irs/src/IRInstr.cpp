@@ -22,11 +22,13 @@ void IRInstr::gen_asm(ostream &o)
 	#ifdef MAP
 		cout << "Appel a la fonction gen_asm de IRInstr "<< endl;
 	#endif
+	cout << "mnemo "<<mnemo<< endl;
 	switch(mnemo)
 	{
 		//var <- const
 		case LDCONST:
-			o << "movq $" + offset(regs[0]) + ",\t%" + offset(regs[1]) + "\n";
+			cout <<"movq $" + regs[0] + ",\t%" + offset(regs[1]) + "\n"<<endl;
+			o << "movq $" + regs[0] + ",\t%" + offset(regs[1]) + "\n";
 			break;
 
 		//var <- var1+var2
@@ -58,6 +60,7 @@ void IRInstr::gen_asm(ostream &o)
 
 		//(var1) <- var2
 		case WMEM:
+			cout<<"WMEM "<<regs[0]<<regs[1]<<endl;
 			o << "movq " + offset(regs[0]) + "(%rbp),\t%rax\n";
 			o << "movq " + offset(regs[1]) + "(%rbp),\t%rax\n";
 			o << "movq %r10,\t(%rax)\n";
@@ -104,5 +107,6 @@ void IRInstr::gen_asm(ostream &o)
 
 string IRInstr::offset(string n)
 {
-	return to_string(bb->get_var_index(n));
+	cout<<to_string(bb->get_var_index(n))<<endl;
+	return to_string(-(bb->get_var_index(n)));
 }

@@ -25,10 +25,11 @@ BasicBlock::BasicBlock(CFG* c, string entry_label)
 void BasicBlock::gen_asm(ostream &o)
 {
 	#ifdef MAP
-		cout<<"Appel a la fonction gen_asm de BasicBloc"<<endl;
+		cout<<"Appel a la fonction gen_asm de BasicBloc "<<irinstrs->size()<<endl;
 	#endif
 	for(unsigned int i = 0 ; i<irinstrs->size() ; i++)
 	{
+		cout<<i<<endl;
 		irinstrs->at(i)->gen_asm(o);
 	}
 }

@@ -55,11 +55,10 @@ string Const::buildIR(CFG * cfg) {
 	#endif
 	string reg = cfg->create_new_tempvar(type);
 	vector<string> regs;
-	regs.push_back(""+value);
+	regs.push_back(to_string(value));
 	regs.push_back(reg);
-	cout<<"AVANT INSTRUCTION "<<cfg->current_bb<<endl;
+	cout<<value<<" CECI EST LA VALEUR DU REGS[0] "<<regs.size()<<" "<<regs.at(0)<<endl;
 	cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LDCONST, type, regs);
-	cout<<"APRES INSTRUCTION"<<endl;
 	return reg;
 
 }

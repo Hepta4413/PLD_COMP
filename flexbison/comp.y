@@ -261,9 +261,12 @@ int main(void) {
 		Fonction* f = it->second;
 		
 		if(it->first != "putchar" && it->first != "getchar")
-			cfgs.push_back(new CFG(f));
-		
-		cout << "CFG de la fonction " + it->first + " généré" << endl;
+		{
+			CFG* c = new CFG(f);
+			f->getBloc()->buildIR(c);
+			cfgs.push_back(c);
+			cout << "CFG de la fonction " + it->first + " généré " <<cfgs.size()<< endl;
+		}
    } 
    
    ofstream codeAs("main.s", ios::out | ios::trunc);

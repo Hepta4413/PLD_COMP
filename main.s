@@ -1,20 +1,13 @@
-fonction:
-	pushq %rbp
-	movq %rsp, %rbp
-	subq $8, %rsp
-	leave
-	ret
-	leave
-	ret
+	.globl	main
+
 main:
 	pushq %rbp
 	movq %rsp, %rbp
 	subq $8, %rsp
+movq $1,	%0
+movq 0(%rbp),	%rax
+movq -8(%rbp),	%rax
+movq %r10,	(%rax)
 	leave
 	ret
-putchar:
-	pushq %rbp
-	movq %rsp, %rbp
-	subq $16, %rsp
-	leave
-	ret
+

@@ -33,7 +33,7 @@ int main()
 		gen_prologue(codeAs);
 		printf("Prologue généré\n");
 		
-		//cfg->gen_asm(codeAs);
+		cfg->gen_asm(codeAs);
 		printf("Corps généré\n");
 		
 		gen_epilogue(codeAs);

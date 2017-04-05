@@ -118,6 +118,8 @@ string Variable::buildIR(CFG * cfg) {
 	else {
 		return "";
 	}*/
+	cout<<"AJOUT DE "<<*nom<<endl;
+	cfg->add_to_symbol_table(*nom, type);
 	return *nom;
 
 }

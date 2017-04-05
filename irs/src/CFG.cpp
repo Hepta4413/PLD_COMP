@@ -2,17 +2,23 @@
 
 CFG::CFG()
 {
-
+	current_bb = new BasicBlock(this);
+	bbs.push_back(current_bb);
 }
 
 CFG::CFG(Fonction* f)
 {
+	current_bb = new BasicBlock(this);
+	bbs.push_back(current_bb);
 	ast = f;
 	nextFreeSymbolIndex=f->getSize()*8;
 }
 
 void CFG::gen_asm(ostream &o)
 {
+	#ifdef MAP
+		cout<<"Appel a la fonction gen_asm de CFG"<<endl;
+	#endif
 	gen_asm_prologue(o);
 
 	//Génération du code asm pour chaque BB
@@ -64,7 +70,7 @@ string CFG::IR_reg_to_asm(string reg)
 void CFG::add_to_symbol_table(string name, Type t)
 {
 	#ifdef MAP
-		cout << "	Appel a la fonction add_to_symbol_table de CFG " <<name<< endl;
+		cout << "Appel a la fonction add_to_symbol_table de CFG " <<name<< endl;
 	#endif
 	symbolType.insert(pair<string, Type>(name,t));
 
@@ -76,7 +82,7 @@ void CFG::add_to_symbol_table(string name, Type t)
 string CFG::create_new_tempvar(Type t)
 {
 	#ifdef MAP
-		cout << "	Appel a la fonction create_new_tempvar de CFG " << endl;
+		cout << "Appel a la fonction create_new_tempvar de CFG " << endl;
 	#endif
 	string reg = "!r"+(-nextFreeSymbolIndex);
 	add_to_symbol_table(reg, t);
@@ -89,6 +95,11 @@ int CFG::get_var_index(string name)
 	#ifdef MAP
 		cout << "	Appel a la fonction get_var_index de CFG " <<name<< endl;
 	#endif
+	/*cout<<"afficher map"<<endl;
+	for(auto i=symbolIndex.begin(); i!=symbolIndex.end() ; i++)
+	{
+		cout<<i->first<<endl;
+	}*/
 	return symbolIndex.at(name);
 
 }
