@@ -260,7 +260,10 @@ int main(void) {
    {
 		Fonction* f = it->second;
 		
-		cfgs.push_back(new CFG(f));
+		if(it->first != "putchar" && it->first != "getchar")
+			cfgs.push_back(new CFG(f));
+		
+		cout << "CFG de la fonction " + it->first + " généré" << endl;
    } 
    
    ofstream codeAs("main.s", ios::out | ios::trunc);

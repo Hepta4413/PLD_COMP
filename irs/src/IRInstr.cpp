@@ -59,11 +59,18 @@ void IRInstr::gen_asm(ostream &o)
 
 		//var <- call label (var1, var2, var3...)
 		case CALL:
-			o << "call "+label + "\n";
-			for(unsigned int i = 1 ; i < regs.size() ; i++)
+			//gestion séparée du putchar
+			if(label == "putchar")
+				o << "movl %" + offset(regs[1]) + "(%rbp),\t(%edi)\n";
+			else
 			{
-				o << "movq %" + regs[i] + ","+to_string(-8*i)+"(%rbp)\n";
+				for(unsigned int i = 1 ; i < regs.size() ; i++)
+				{
+					o << "movq %" + regs[i] + ","+to_string(-8*i)+"(%rbp)\n";
+				}
 			}
+			
+			o << "call "+label + "\n";
 			break;
 
 		//var1=var2

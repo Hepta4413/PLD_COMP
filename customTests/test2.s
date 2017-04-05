@@ -12,29 +12,13 @@ main:
 	.cfi_def_cfa_register 6
 	subq	$16, %rsp
 	movq	$1, -8(%rbp)
-	movl	$0, %eax
-	call	fonction
+	movl	$97, %edi
+	call	putchar
 	leave
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
 .LFE0:
 	.size	main, .-main
-	.globl	fonction
-	.type	fonction, @function
-fonction:
-.LFB1:
-	.cfi_startproc
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-	popq	%rbp
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
-.LFE1:
-	.size	fonction, .-fonction
 	.ident	"GCC: (Debian 4.9.2-10) 4.9.2"
 	.section	.note.GNU-stack,"",@progbits
