@@ -136,6 +136,8 @@ string OPBinaire::buildIR(CFG * cfg) {
 		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
 		break;
 		*/
+		default:
+		break;
 	}
 
 	return reg1;

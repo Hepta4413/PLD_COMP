@@ -25,5 +25,9 @@ VarS::VarS(string* n)
 }
 
 string VarS::buildIR(CFG * cfg) {
+	#ifdef MAP
+		cout << "Appel au constructeur de buildIR" << endl;
+	#endif
+	
 	return "";
 }

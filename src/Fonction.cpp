@@ -93,6 +93,10 @@ int Fonction::getSize()
 
 string Fonction::buildIR(CFG* cfg)
 {
+	#ifdef MAP
+		cout << "Appel a la fonction buildIR de Fonction" << endl;
+	#endif
+	
 	bloc->buildIR(cfg);
 	
 	return "ok";

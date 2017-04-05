@@ -91,8 +91,12 @@ Type Affectation::calculType()
 	}
 }
 
-string Affectation::buildIR(CFG * cfg) {
-
+string Affectation::buildIR(CFG * cfg)
+{
+	#ifdef MAP
+		cout << "Appel a la fonction buildIR de Affectation" << endl;
+	#endif
+	
 	string right = vars->buildIR(cfg);
 	//string left = valuei->buildIR(cfg);
 /*
