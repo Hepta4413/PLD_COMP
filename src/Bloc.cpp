@@ -244,6 +244,10 @@ Declaration* Bloc::RechercherDeclaration(string* nom){
 
 int Bloc::getSize()
 {
+	#ifdef MAP
+		cout << "Appel a la fonction getSize de bloc" << endl;
+	#endif
+	
 	int size = varbloc->size();
 	for(unsigned int i=0; i<cont->size(); i++)
 	{
@@ -254,6 +258,10 @@ int Bloc::getSize()
 
 string Bloc::buildIR(CFG* cfg)
 {
+	#ifdef MAP
+		cout << "Appel a la fonction buildIR de bloc" << endl;
+	#endif
+	
 	for(unsigned int i = 0 ; i< cont->size() ; i ++)
 	{
 		cont->at(i)->buildIR(cfg);

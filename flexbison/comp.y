@@ -253,17 +253,30 @@ int main(void) {
    printf("Résutlat : %d\n",res);
    
    map<string,Fonction *> * fonctions = pro->getFonctions();
-   Fonction* f1 = fonctions->at("main");
    
-   CFG* cfg = new CFG(f1);
-   f1->buildIR(cfg);
+   vector<CFG*> cfgs;
+   
+   for (map<string,Fonction *>::iterator it=fonctions->begin(); it!=fonctions->end(); ++it)
+   {
+		Fonction* f = it->second;
+		
+		if(it->first != "putchar" && it->first != "getchar")
+			cfgs.push_back(new CFG(f));
+		
+		cout << "CFG de la fonction " + it->first + " généré" << endl;
+   } 
    
    ofstream codeAs("main.s", ios::out | ios::trunc);
 	
 	if(codeAs)
 	{	
-		cfg->gen_asm(codeAs);
-		printf("Corps généré\n");
+		codeAs << "\t.globl	main\n\n";
+		
+		for(unsigned int i = 0 ; i < cfgs.size() ; i++)
+		{
+			cfgs[i]->gen_asm(codeAs);
+			printf("Corps fonction %ui généré\n",i);
+		}
 		
 		codeAs.close();
 	}

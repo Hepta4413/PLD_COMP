@@ -52,7 +52,7 @@ void CFG::gen_asm_prologue(ostream &o)
 void CFG::gen_asm_epilogue(ostream &o)
 {
 	o << "\tleave\n";
-	o << "\tret\n";
+	o << "\tret\n\n";
 }
 
 //Pas nécessaire pour le moment
