@@ -109,7 +109,7 @@ void IRInstr::gen_asm(ostream &o)
 			break;
 
 		//fin d' else
-		case ENDELSE:
+		case LABEL:
 			o << regs[0] + ":\n";
 			break;
 

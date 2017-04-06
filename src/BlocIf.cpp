@@ -135,7 +135,7 @@ string BlocIf::buildIR(CFG * cfg) {
 	}
 	regs.clear();
 	regs.push_back("labelalors" + ss.str());
-	cfg->current_bb->add_IRInstr(IRInstr::Mnemo::ENDELSE, INT32_T, regs);
+	cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LABEL, INT32_T, regs);
 
 	return "";
 }

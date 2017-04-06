@@ -204,7 +204,7 @@ argsbis : expr {$$=new vector<Expression*>(); $$->push_back($1);}
 	;
 bloccontrole : IF condition OPENCURLYBRACKET bloc CLOSECURLYBRACKET else {$6->AddIf($2,$4);$$=$6;}
      		| WHILE condition OPENCURLYBRACKET bloc CLOSECURLYBRACKET {$$= new BlocWhile($2,$4);}
-     		| FOR OPEN operation SEMICOMA operation SEMICOMA operation CLOSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET {$$=new BlocFor($3,$5,$7,$10);}
+     		| FOR OPEN operation SEMICOMA operation SEMICOMA operation CLOSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET {$$=new BlocFor($5,$3,$7,$10);}
      		;
 else : ELSE OPENCURLYBRACKET bloc CLOSECURLYBRACKET {$$=new BlocIf($3);}
 	| %empty {$$=new BlocIf();}

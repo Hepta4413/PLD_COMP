@@ -25,7 +25,7 @@ class IRInstr
 				CMP_LT,
 				CMP_LE,
 				ENDIF,
-				ENDELSE,
+				LABEL,
 				ENDWHILEFOR,
 				CMP_NEQ};
 
