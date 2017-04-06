@@ -28,79 +28,103 @@ void IRInstr::gen_asm(ostream &o)
 		//var <- const
 		case LDCONST:
 			cout <<"movq $" + regs[0] + ",\t%" + offset(regs[1]) + "\n"<<endl;
-			o << "movq $" + regs[0] + ",\t" + offset(regs[1]) + "(%rbp)\n";
+			o << "\tmovq $" + regs[0] + ",\t" + offset(regs[1]) + "(%rbp)\n";
 			break;
 
 		//var <- var1+var2
 		case ADD:
-			o << "movq " + offset(regs[1]) + "(%rbp),\t%rax\n";
-			o << "addq " + offset(regs[2]) + "(%rbp),\t%rax\n";
-			o << "movq %rax,\t" + offset(regs[0]) + "(%rbp)\n";
+			o << "\tmovq " + offset(regs[1]) + "(%rbp),\t%rax\n";
+			o << "\taddq " + offset(regs[2]) + "(%rbp),\t%rax\n";
+			o << "\tmovq %rax,\t" + offset(regs[0]) + "(%rbp)\n";
 			break;
 
 		//var <- var1-var2
 		case SUB:
-			o << "movq " + offset(regs[1]) + "(%rbp),\t%rax\n";
-			o << "subq " + offset(regs[2]) + "(%rbp),\t%rax\n";
-			o << "movq %rax,\t" + offset(regs[0]) + "(%rbp)\n";
+			o << "\tmovq " + offset(regs[1]) + "(%rbp),\t%rax\n";
+			o << "\tsubq " + offset(regs[2]) + "(%rbp),\t%rax\n";
+			o << "\tmovq %rax,\t" + offset(regs[0]) + "(%rbp)\n";
 			break;
 
 		//var <- var1*var2
 		case MUL:
-			o << "movq " + offset(regs[1]) + "(%rbp),\t%rax\n";
-			o << "imulq " + offset(regs[2]) + "(%rbp)\n";
-			o << "movq %rax,\t" + offset(regs[0]) + "(%rbp)\n";
+			o << "\tmovq " + offset(regs[1]) + "(%rbp),\t%rax\n";
+			o << "\timulq " + offset(regs[2]) + "(%rbp)\n";
+			o << "\tmovq %rax,\t" + offset(regs[0]) + "(%rbp)\n";
 			break;
 
 		//var1 <- (var2)
 		case RMEM:
-			o << "movq " + offset(regs[1]) + "(%rbp),\t%rax\n";
-			o << "movq %rax,\t" + offset(regs[0]) + "(%rbp)\n";
+			o << "\tmovq " + offset(regs[1]) + "(%rbp),\t%rax\n";
+			o << "\tmovq %rax,\t" + offset(regs[0]) + "(%rbp)\n";
 			break;
 
 		//(var1) <- var2
 		case WMEM:
 			cout<<"WMEM "<<regs[0]<<regs[1]<<endl;
-			o << "movq " + offset(regs[0]) + "(%rbp),\t%rax\n";
-			o << "movq %rax,\t"+offset(regs[1])+"(%rbp)\n";
+			o << "\tmovq " + offset(regs[0]) + "(%rbp),\t%rax\n";
+			o << "\tmovq %rax,\t"+offset(regs[1])+"(%rbp)\n";
 			break;
 
 		//var <- call label (var1, var2, var3...)
 		case CALL:
 			//gestion séparée du putchar
-			if(label == "putchar")
-				o << "movl %" + offset(regs[1]) + "(%rbp),\t(%edi)\n";
+			if(regs[2] == "putchar")
+				o << "\tmovl %" + offset(regs[1]) + "(%rbp),\t(%edi)\n";
 			else
 			{
 				for(unsigned int i = 1 ; i < regs.size() ; i++)
 				{
-					o << "movq %" + regs[i] + ","+to_string(-8*i)+"(%rbp)\n";
+					o << "\tmovq %" + regs[i] + ","+to_string(-8*i)+"(%rbp)\n";
 				}
 			}
 
-			o << "call "+label + "\n";
+			o << "\tcall "+regs[2] + "\n";
 			break;
 
-		//var1=var2
+		//var1==var2
 		case CMP_EQ:
-			o << "movq " + offset(regs[0]) + "(%rbp),\t%rax\n";
-			o << "cmp " + offset(regs[1]) + "(%rbp),\ŧ%rax\n";
-			o << "je " + label +"\n";
+			o << "\tmovq " + offset(regs[0]) + "(%rbp),\t%rax\n";
+			o << "\tcmp " + offset(regs[1]) + "(%rbp),\ŧ%rax\n";
+			o << "\tjne " + regs[2] +"\n";
 			break;
 
 		//var1<var2
 		case CMP_LT:
-			o << "movq " + offset(regs[0]) + "(%rbp),\t%rax\n";
-			o << "cmp " + offset(regs[1]) + "(%rbp),\ŧ%rax\n";
-			o << "jl " + label +"\n";
+			o << "\tmovq " + offset(regs[0]) + "(%rbp),\t%rax\n";
+			o << "\tcmp " + offset(regs[1]) + "(%rbp),\ŧ%rax\n";
+			o << "\tjl " + regs[2] +"\n";
 			break;
 
 		//var1<=var2
 		case CMP_LE:
-			o << "movq " + offset(regs[0]) + "(%rbp),\t%rax\n";
-			o << "cmp " + offset(regs[1]) + "(%rbp),\ŧ%rax\n";
-			o << "jle " + label +"\n";
+			o << "\tmovq " + offset(regs[0]) + "(%rbp),\t%rax\n";
+			o << "\tcmp " + offset(regs[1]) + "(%rbp),\ŧ%rax\n";
+			o << "\tjle " + regs[2] +"\n";
 			break;
+
+		//fin d'un if + début else
+		case ENDIF
+			o << "\tjmp " + regs[0] + "\n";
+			o << regs[1] + ":\n";
+			break;
+
+		//fin d' else
+		case ENDELSE
+			o << regs[0] + ":\n";
+			break;
+
+		//fin d'un while ou d'un for
+		case ENDWHILEFOR
+			o << "\tjmp " + regs[0] + "\n";
+			o << regs[1] + ":\n";
+			break;
+			
+		case CMP_NEQ:
+			o << "\tmovq " + offset(regs[0]) + "(%rbp),\t%rax\n";
+			o << "\tcmp " + offset(regs[1]) + "(%rbp),\ŧ%rax\n";
+			o << "\tje " + label +"\n";
+			break;
+		
 	}
 }
 

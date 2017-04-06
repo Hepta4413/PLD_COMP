@@ -23,7 +23,11 @@ class IRInstr
 				CALL,
 				CMP_EQ,
 				CMP_LT,
-				CMP_LE };
+				CMP_LE,
+				ENDIF,
+				ENDELSE,
+				ENDWHILEFOR,
+				CMP_NEQ};
 
 	IRInstr();
 	IRInstr(BasicBlock* bb_, Mnemo mn, Type t, vector<string> params);

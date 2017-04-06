@@ -19,8 +19,9 @@ class CFG
 	CFG(Fonction* ast);
 
 	Fonction* ast; /**< The AST this CFG comes from */
-	
-	void add_bb(BasicBlock* bb); 
+
+	void add_bb(BasicBlock* bb);
+	BasicBlock* createNewBasicBlock();
 
 	// x86 code generation: could be encapsulated in a processor class in a retargetable compiler
 	void gen_asm(ostream& o);
@@ -42,10 +43,10 @@ class CFG
 	map <string, Type> symbolType; /**< part of the symbol table  */
 	map <string, int> symbolIndex; /**< part of the symbol table  */
 	int nextFreeSymbolIndex; /**< to allocate new symbols in the symbol table */
-	int nextBBnumber; /**< just for naming */
-	
+	int currentBBnumber; /**< just for naming */
+
 	vector <BasicBlock*> bbs; /**< all the basic blocks of this CFG*/
-	
+
 };
 
 #endif
