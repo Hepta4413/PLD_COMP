@@ -27,7 +27,6 @@ void IRInstr::gen_asm(ostream &o)
 	{
 		//var <- const
 		case LDCONST:
-			cout <<"movq $" + regs[0] + ",\t%" + offset(regs[1]) + "\n"<<endl;
 			o << "\tmovq $" + regs[0] + ",\t" + offset(regs[1]) + "(%rbp)\n";
 			break;
 

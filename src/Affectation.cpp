@@ -96,17 +96,44 @@ string Affectation::buildIR(CFG * cfg)
 	#ifdef MAP
 		cout << "Appel a la fonction buildIR de Affectation" << endl;
 	#endif
-	
 	string right = vars->buildIR(cfg);
-	cout<<"Affectation buildIR"<<endl;
 	string left = valuei->buildIR(cfg);
-
 	vector<string> regs;
+	switch (operateur) {
+		case EQUAL_OB:
+			
 
-	regs.push_back(left);
-	regs.push_back(right);
+			regs.push_back(left);
+			regs.push_back(right);
 
-	cfg->current_bb->add_IRInstr(IRInstr::Mnemo::WMEM, calculType(), regs);
-
+			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::WMEM, calculType(), regs);
+		break;
+		case PLUSEQUAL_OB:
+			regs.push_back(right);
+			regs.push_back(left);
+			regs.push_back(right);
+			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::ADD, calculType(), regs);
+			
+		break;
+		case MINUSEQUAL_OB:
+			regs.push_back(right);
+			regs.push_back(left);
+			regs.push_back(right);
+			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::SUB, calculType(), regs);
+		break;
+		case MULTEQUAL_OB:
+			regs.push_back(right);
+			regs.push_back(left);
+			regs.push_back(right);
+			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
+		break;
+		/*
+		case DIVEQUAL_OB:
+		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
+		break;
+			*/
+	}
 	return right;
+	
+	
 }

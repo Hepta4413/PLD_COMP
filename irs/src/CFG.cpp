@@ -94,7 +94,7 @@ string CFG::create_new_tempvar(Type t)
 int CFG::get_var_index(string name)
 {
 	#ifdef MAP
-		cout << "	Appel a la fonction get_var_index de CFG " <<name<< endl;
+		cout << "Appel a la fonction get_var_index de CFG " << endl;
 	#endif
 	/*cout<<"afficher map"<<endl;
 	for(auto i=symbolIndex.begin(); i!=symbolIndex.end() ; i++)
