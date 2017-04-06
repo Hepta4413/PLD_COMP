@@ -112,6 +112,13 @@ void IRInstr::gen_asm(ostream &o)
 		case ENDELSE
 			o << regs[0] + ":\n";
 			break;
+			
+		//fin d'un while ou d'un for
+		case ENDWHILEFOR
+			o << "\tjmp " + regs[0] + "\n";
+			o << regs[1] + ":\n";
+			break;
+		
 	}
 }
 
