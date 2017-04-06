@@ -4,6 +4,8 @@
 #include "../irs/include/IRInstr.h"
 #include "../irs/include/BasicBlock.h"
 #include <iostream>
+#include <sstream>
+
 
 using namespace std;
 
@@ -61,23 +63,38 @@ void BlocWhile::AddLigneColonne(int ligne,int colonne)
 }
 
 string BlocWhile::buildIR(CFG * cfg) {
-	BasicBlock* beforeWhileBB = cfg->current_bb;
-	BasicBlock* bodyBB = new BasicBlock(cfg);
-	BasicBlock* testBB = new BasicBlock(cfg);
+		#ifdef MAP
+		cout << "Appel a la fonction buildIR de BlocIf" << endl;
+	#endif
+	
+	stringstream ss;
+	ss << this;
 
-	cfg->current_bb = testBB;
-	condition->buildIR(cfg);
+	cfg->createNewBasicBlock();
+	
+	vector<string> regs;
+	string reg = cfg->create_new_tempvar(CONSTVAL_T);
+	regs.push_back("0");
+	regs.push_back(reg);
+	cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LDCONST, CONSTVAL_T, regs);
+	
+	regs.clear();
+	regs.push_back("labeldebutwhile" + ss.str());
+	cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LABEL, INT32_T, regs);
+	
+	regs.clear();
+	string reg2 = condition->buildIR(cfg);
+	regs.push_back(reg2);
+	regs.push_back(reg);
+	regs.push_back("labelfinwhile" + ss.str());
+	cfg->current_bb->add_IRInstr(IRInstr::Mnemo::CMP_NEQ, INT32_T, regs);
 
-	/* TODO add
-	bodyBB = new BasicBlock(cfg, boucle);
-	*/
-	BasicBlock* afterWhileBB = new BasicBlock(cfg);
-	afterWhileBB->exit_true = beforeWhileBB->exit_true;
-	afterWhileBB->exit_false = beforeWhileBB->exit_false;
-	testBB->exit_true = bodyBB;
-	testBB->exit_false = afterWhileBB;
-	bodyBB->exit_true = testBB;
-	bodyBB->exit_false = NULL;
-	cfg->current_bb = afterWhileBB;
+	boucle->buildIR(cfg);
+
+	regs.clear();
+	regs.push_back("labeldebutwhile" + ss.str());
+	regs.push_back("labelfinwhile" + ss.str());
+	cfg->current_bb->add_IRInstr(IRInstr::Mnemo::ENDWHILEFOR, INT32_T, regs);
+
 	return "";
 }
