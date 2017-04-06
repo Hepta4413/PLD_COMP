@@ -90,9 +90,6 @@ string OPBinaire::buildIR(CFG * cfg) {
 		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
 		break;
 		/*
-		case EQUAL_OB:
-		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
-		break;
 		case DIV_OB:
 		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
 		break;
@@ -102,12 +99,14 @@ string OPBinaire::buildIR(CFG * cfg) {
 		case UPPEROREQUAL_OB:
 		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
 		break;
+		*/
 		case LOWERTHAN_OB:
-		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
+		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::CMP_LT, calculType(), regs);
 		break;
 		case LOWEROREQUAL_OB:
-		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
+		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::CMP_LE, calculType(), regs);
 		break;
+		/*
 		case PLUSEQUAL_OB:
 		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
 		break;
@@ -120,9 +119,11 @@ string OPBinaire::buildIR(CFG * cfg) {
 		case MULTEQUAL_OB:
 		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
 		break;
+		*/
 		case DOUBLEEQUAL_OB:
-		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
+		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::CMP_EQ, calculType(), regs);
 		break;
+		/*
 		case MODULO_OB:
 		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
 		break;

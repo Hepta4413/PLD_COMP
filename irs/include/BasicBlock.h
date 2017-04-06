@@ -23,7 +23,7 @@ class BasicBlock
 
 	BasicBlock * exit_true;
 	BasicBlock * exit_false;
-	
+
 	private:
 	vector<IRInstr*>* irinstrs;
 	CFG * cfg;

@@ -68,7 +68,7 @@ void IRInstr::gen_asm(ostream &o)
 		//var <- call label (var1, var2, var3...)
 		case CALL:
 			//gestion séparée du putchar
-			if(label == "putchar")
+			if(regs[2] == "putchar")
 				o << "\tmovl %" + offset(regs[1]) + "(%rbp),\t(%edi)\n";
 			else
 			{
@@ -78,41 +78,41 @@ void IRInstr::gen_asm(ostream &o)
 				}
 			}
 
-			o << "\tcall "+label + "\n";
+			o << "\tcall "+regs[2] + "\n";
 			break;
 
-		//var1=var2
+		//var1==var2
 		case CMP_EQ:
 			o << "\tmovq " + offset(regs[0]) + "(%rbp),\t%rax\n";
 			o << "\tcmp " + offset(regs[1]) + "(%rbp),\ŧ%rax\n";
-			o << "\tjne " + label +"\n";
+			o << "\tjne " + regs[2] +"\n";
 			break;
 
 		//var1<var2
 		case CMP_LT:
 			o << "\tmovq " + offset(regs[0]) + "(%rbp),\t%rax\n";
 			o << "\tcmp " + offset(regs[1]) + "(%rbp),\ŧ%rax\n";
-			o << "\tjl " + label +"\n";
+			o << "\tjl " + regs[2] +"\n";
 			break;
 
 		//var1<=var2
 		case CMP_LE:
 			o << "\tmovq " + offset(regs[0]) + "(%rbp),\t%rax\n";
 			o << "\tcmp " + offset(regs[1]) + "(%rbp),\ŧ%rax\n";
-			o << "\tjle " + label +"\n";
+			o << "\tjle " + regs[2] +"\n";
 			break;
-			
+
 		//fin d'un if + début else
 		case ENDIF
 			o << "\tjmp " + regs[0] + "\n";
 			o << regs[1] + ":\n";
 			break;
-		
+
 		//fin d' else
 		case ENDELSE
 			o << regs[0] + ":\n";
 			break;
-			
+
 		//fin d'un while ou d'un for
 		case ENDWHILEFOR
 			o << "\tjmp " + regs[0] + "\n";
