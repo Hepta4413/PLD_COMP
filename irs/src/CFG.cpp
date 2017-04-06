@@ -11,7 +11,9 @@ CFG::CFG(Fonction* f)
 	current_bb = new BasicBlock(this);
 	bbs.push_back(current_bb);
 	ast = f;
-	nextFreeSymbolIndex=f->getSize()*8;
+	nextFreeSymbolIndex=-8;
+
+	cout << "------Construction CFG nextFreeSymbolIndex : " << nextFreeSymbolIndex << endl;
 }
 
 void CFG::gen_asm(ostream &o)
@@ -34,6 +36,9 @@ void CFG::gen_asm(ostream &o)
 void CFG::gen_asm_prologue(ostream &o)
 {
 	int size = ast->getSize();
+
+	cout << "--------------Size : " << to_string(size) << endl;
+
 	string code = "";
 	if (size > 0)
 	{
@@ -44,10 +49,6 @@ void CFG::gen_asm_prologue(ostream &o)
 		code += "\tpushq %rbp\n";
 		code += "\tmovq %rsp, %rbp\n";
 		code += "\tsubq $";
-
-		//Calcul de la size de la fonction
-		size = ast->getSize();
-
 		code += to_string(size*8);
 		code += ", %rsp\n";
 	}
