@@ -118,6 +118,12 @@ void IRInstr::gen_asm(ostream &o)
 			o << "\tjmp " + regs[0] + "\n";
 			o << regs[1] + ":\n";
 			break;
+			
+		case CMP_NEQ:
+			o << "\tmovq " + offset(regs[0]) + "(%rbp),\t%rax\n";
+			o << "\tcmp " + offset(regs[1]) + "(%rbp),\ŧ%rax\n";
+			o << "\tje " + label +"\n";
+			break;
 		
 	}
 }

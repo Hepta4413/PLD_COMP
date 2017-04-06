@@ -26,7 +26,8 @@ class IRInstr
 				CMP_LE,
 				ENDIF,
 				ENDELSE,
-				ENDWHILEFOR};
+				ENDWHILEFOR,
+				CMP_NEQ};
 
 	IRInstr();
 	IRInstr(BasicBlock* bb_, Mnemo mn, Type t, vector<string> params);
