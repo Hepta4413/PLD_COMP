@@ -140,6 +140,6 @@ string OPBinaire::buildIR(CFG * cfg) {
 		break;
 	}
 
-	return reg1;
+	return reg3;
 
 }

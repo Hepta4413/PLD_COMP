@@ -35,7 +35,7 @@ void CFG::gen_asm(ostream &o)
 
 void CFG::gen_asm_prologue(ostream &o)
 {
-	int size = ast->getSize();
+	int size = -(nextFreeSymbolIndex+8);
 
 	cout << "--------------Size : " << to_string(size) << endl;
 
@@ -49,7 +49,7 @@ void CFG::gen_asm_prologue(ostream &o)
 		code += "\tpushq %rbp\n";
 		code += "\tmovq %rsp, %rbp\n";
 		code += "\tsubq $";
-		code += to_string(size*8);
+		code += to_string(size);
 		code += ", %rsp\n";
 	}
 
