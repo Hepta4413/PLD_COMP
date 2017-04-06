@@ -21,7 +21,7 @@ class CFG
 	Fonction* ast; /**< The AST this CFG comes from */
 
 	void add_bb(BasicBlock* bb);
-	BasicBlock* createNewBasicBlock();
+	void createNewBasicBlock();
 
 	// x86 code generation: could be encapsulated in a processor class in a retargetable compiler
 	void gen_asm(ostream& o);

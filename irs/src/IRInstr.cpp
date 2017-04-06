@@ -84,45 +84,45 @@ void IRInstr::gen_asm(ostream &o)
 		//var1==var2
 		case CMP_EQ:
 			o << "\tmovq " + offset(regs[0]) + "(%rbp),\t%rax\n";
-			o << "\tcmp " + offset(regs[1]) + "(%rbp),\ŧ%rax\n";
+			o << "\tcmp " + offset(regs[1]) + "(%rbp),\t%rax\n";
 			o << "\tjne " + regs[2] +"\n";
 			break;
 
 		//var1<var2
 		case CMP_LT:
 			o << "\tmovq " + offset(regs[0]) + "(%rbp),\t%rax\n";
-			o << "\tcmp " + offset(regs[1]) + "(%rbp),\ŧ%rax\n";
+			o << "\tcmp " + offset(regs[1]) + "(%rbp),\t%rax\n";
 			o << "\tjl " + regs[2] +"\n";
 			break;
 
 		//var1<=var2
 		case CMP_LE:
 			o << "\tmovq " + offset(regs[0]) + "(%rbp),\t%rax\n";
-			o << "\tcmp " + offset(regs[1]) + "(%rbp),\ŧ%rax\n";
+			o << "\tcmp " + offset(regs[1]) + "(%rbp),\t%rax\n";
 			o << "\tjle " + regs[2] +"\n";
 			break;
 
 		//fin d'un if + début else
-		case ENDIF
+		case ENDIF:
 			o << "\tjmp " + regs[0] + "\n";
 			o << regs[1] + ":\n";
 			break;
 
 		//fin d' else
-		case ENDELSE
+		case ENDELSE:
 			o << regs[0] + ":\n";
 			break;
 
 		//fin d'un while ou d'un for
-		case ENDWHILEFOR
+		case ENDWHILEFOR:
 			o << "\tjmp " + regs[0] + "\n";
 			o << regs[1] + ":\n";
 			break;
 			
 		case CMP_NEQ:
 			o << "\tmovq " + offset(regs[0]) + "(%rbp),\t%rax\n";
-			o << "\tcmp " + offset(regs[1]) + "(%rbp),\ŧ%rax\n";
-			o << "\tje " + label +"\n";
+			o << "\tcmp " + offset(regs[1]) + "(%rbp),\t%rax\n";
+			o << "\tje " + regs[2] +"\n";
 			break;
 		
 	}

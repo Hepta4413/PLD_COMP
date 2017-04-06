@@ -57,7 +57,6 @@ string Const::buildIR(CFG * cfg) {
 	vector<string> regs;
 	regs.push_back(to_string(value));
 	regs.push_back(reg);
-	cout<<value<<" CECI EST LA VALEUR DU REGS[0] "<<regs.size()<<" "<<regs.at(0)<<endl;
 	cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LDCONST, type, regs);
 	return reg;
 

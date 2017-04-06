@@ -4,6 +4,7 @@
 #include "../irs/include/IRInstr.h"
 #include "../irs/include/BasicBlock.h"
 #include <iostream>
+#include <sstream>
 
 using namespace std;
 
@@ -53,7 +54,7 @@ Bloc* BlocIf::getBlocSinon()
 bool BlocIf::elsePresent()
 {
 	#ifdef MAP
-	cout << "Appel a la fonction elsePresent de BlocIf" << endl;
+	cout << "Appel a la fonction elsePresent de BlocIf" <<sinon<< endl;
 	#endif
 	return sinon!=NULL;
 }
@@ -99,24 +100,42 @@ bool BlocIf::getContientRetour()
 }
 
 string BlocIf::buildIR(CFG * cfg) {
-	cfg->createNewBasicBlock();
-	string reg = si->buildIR(cfg);
-	vector<string> regs;
-	regs.push_back(to_string(0));
-	regs.push_back(reg);
-	regs.push_back("label" + to_string(sinon));
-	cfg->current_bb->add_IRInstr(IRInstr::Mnemo::CMP_NEQ, type, regs);
+	#ifdef MAP
+		cout << "Appel a la fonction buildIR de BlocIf" << endl;
+	#endif
+	
+	stringstream ss;
+	ss << this;
 
+	cfg->createNewBasicBlock();
+	vector<string> regs;
+	string reg = cfg->create_new_tempvar(CONSTVAL_T);
+	regs.push_back("0");
+	regs.push_back(reg);
+	cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LDCONST, CONSTVAL_T, regs);
+	
+	regs.clear();
+	string reg2 = si->buildIR(cfg);
+	regs.push_back(reg2);
+	regs.push_back(reg);
+	regs.push_back("labelsinon" + ss.str());
+	cfg->current_bb->add_IRInstr(IRInstr::Mnemo::CMP_NEQ, INT32_T, regs);
+
+	cout<<"end if"<<endl;
 	alors->buildIR(cfg);
 	regs.clear();
-	regs.push_back("label" + to_string(alors));
-	regs.push_back("label" + to_string(sinon));
-	cfg->current_bb->add_IRInstr(IRInstr::Mnemo::ENDIF, type, regs);
+	regs.push_back("labelalors" + ss.str());
+	regs.push_back("labelsinon" + ss.str());
+	cfg->current_bb->add_IRInstr(IRInstr::Mnemo::ENDIF, INT32_T, regs);
 
-	sinon->buildIR(cfg);
+	cout<<"end ELSE"<<endl;
+	if(elsePresent())
+	{
+		sinon->buildIR(cfg);
+	}
 	regs.clear();
-	regs.push_back("label" + to_string(alors));
-	cfg->current_bb->add_IRInstr(IRInstr::Mnemo::ENDLELSE, type, regs);
+	regs.push_back("labelalors" + ss.str());
+	cfg->current_bb->add_IRInstr(IRInstr::Mnemo::ENDELSE, INT32_T, regs);
 
 	return "";
 }

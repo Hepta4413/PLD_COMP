@@ -115,7 +115,7 @@ void CFG::add_bb(BasicBlock* bb)
 	bbs.push_back(bb);
 }
 
-BasicBlock* CFG::createNewBasicBlock() {
+void CFG::createNewBasicBlock() {
 	BasicBlock* b =  new BasicBlock(this);
 	add_bb(b);
 	current_bb = b;
