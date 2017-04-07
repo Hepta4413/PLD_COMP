@@ -1,5 +1,8 @@
 #include "Return.h"
+#include "IRInstr.h"
+#include "CFG.h"
 #include <iostream>
+
 
 using namespace std;
 
@@ -29,5 +32,9 @@ Expression* Return::getExpression()
 }
 
 string Return::buildIR(CFG * cfg) {
-	return toReturn->buildIR(cfg);
+	string reg1 = toReturn->buildIR(cfg);
+	vector<string> regs;
+	regs.push_back(reg1);
+	cfg->current_bb->add_IRInstr(IRInstr::Mnemo::RETURN, INT64_T, regs);
+	return "ok";
 }
