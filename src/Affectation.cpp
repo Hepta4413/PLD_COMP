@@ -96,12 +96,12 @@ string Affectation::buildIR(CFG * cfg)
 	#ifdef MAP
 		cout << "Appel a la fonction buildIR de Affectation" << endl;
 	#endif
-	string right = vars->buildIR(cfg);
+	string right = *(vars->getNom())/*vars->buildIR(cfg)*/;
 	string left = valuei->buildIR(cfg);
 	vector<string> regs;
 	switch (operateur) {
 		case EQUAL_OB:
-			
+
 
 			regs.push_back(left);
 			regs.push_back(right);
@@ -113,7 +113,7 @@ string Affectation::buildIR(CFG * cfg)
 			regs.push_back(left);
 			regs.push_back(right);
 			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::ADD, calculType(), regs);
-			
+
 		break;
 		case MINUSEQUAL_OB:
 			regs.push_back(right);
@@ -134,6 +134,6 @@ string Affectation::buildIR(CFG * cfg)
 			*/
 	}
 	return right;
-	
-	
+
+
 }
