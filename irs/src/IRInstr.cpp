@@ -59,7 +59,6 @@ void IRInstr::gen_asm(ostream &o)
 
 		//(var1) <- var2
 		case WMEM:
-			cout<<"WMEM "<<regs[0]<<regs[1]<<endl;
 			o << "\tmovq " + offset(regs[0]) + "(%rbp),\t%rax\n";
 			o << "\tmovq %rax,\t"+offset(regs[1])+"(%rbp)\n";
 			break;
@@ -76,7 +75,7 @@ void IRInstr::gen_asm(ostream &o)
 			{
 				for(unsigned int i = 2 ; i < regs.size() ; i++)
 				{
-					o << "\tmovq %" + offset(regs[i]) + ","+to_string(-8*i)+"(%rbp)\n";
+					o << "\tmovq " + offset(regs[i]) + ","+to_string(-8*i)+"(%rbp)\n";
 				}
 			}
 
@@ -130,7 +129,7 @@ void IRInstr::gen_asm(ostream &o)
 			
 		case RETURN:
 			o << "\tmovq " + offset(regs[0]) + "(%rbp),\t%rax\n";
-			o << "\tleave\n\tret\n"
+			o << "\tleave\n\tret\n";
 			break;
 		
 	}

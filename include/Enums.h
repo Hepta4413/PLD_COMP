@@ -7,4 +7,5 @@ enum Opunaire { DECR_OU, INCR_OU, NOT_OU, NEG_OU};
 enum TypeControle {IF_TC, WHILE_TC, FOR_TC};
 enum TypeContenu { _LIGNE, _DECLARATION, _RETURN, _EXPR, _OPUNAIRE, _OPBINAIRE, _AFFECTATION, _VAR, _VARS, _VARTAB, _APPELFONCT, _BLOCCONTROLE, _BLOCIF, _BLOCFOR, _BLOCWHILE, _CONST };
 
+//bool erreur=false;
 #endif
