@@ -43,8 +43,6 @@ void Programme::verifVariable(){
 			if(fct->getTypeRetour()!=VOID_T && !fct->getBloc()->getContientRetour())
 			{
 				cerr << "Erreur dans la fonction "<<*(fct->getNom()) <<" absence de retour sur une des branches d'exécution"<< endl;
-			    //erreur=true;			
-
 			}
 			if(fonct->first=="main")
 			{
@@ -57,14 +55,10 @@ void Programme::verifVariable(){
 					}else
 					{
 						cerr<<"Erreur argument du main invalide"<<endl;
-						//erreur=true;				
-
 					}
 				}else
 				{
-					cerr<<"Erreur type de retour du main incorrect"<<endl;	
-					//erreur=true;					
-			
+					cerr<<"Erreur type de retour du main incorrect"<<endl;				
 				}
 			}
 		}
@@ -72,7 +66,6 @@ void Programme::verifVariable(){
 	  if(!mainPresent)
 	  {
 		  cerr<<"Absence de main correct dans le programme"<<endl;	
-		  //erreur=true;			
 	  }
 }
 

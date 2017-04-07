@@ -23,7 +23,6 @@ void Variable::VerifDeclaration(string* nom)
 	Declaration* decl = blocParent->RechercherDeclaration(nom);
     if(decl==NULL){
 		cerr<<"Erreur la variable "<<*nom<<" n'est pas déclarée"<<endl;
-		//erreur=true;			
 	}else{
 		type=decl->getDeclarationType();
 	}

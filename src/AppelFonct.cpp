@@ -109,7 +109,6 @@ bool AppelFonct::verifAppelFonction()
 	{
 		cerr<<"Erreur ligne "<<getLigne()<<" : "
 			<<getColonne()<<" pas de fonction correspondante à la fonction "<<(*fonction)<<" ne correspond pas"<<endl;
-			//erreur=true;		
 		return false;
 	}else{
 		#ifdef MAP

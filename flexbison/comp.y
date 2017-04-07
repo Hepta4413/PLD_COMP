@@ -248,46 +248,41 @@ int main(void) {
    if(yynerrs  == 0)
    {
 		pro->verifVariable();
-		//if(!erreur)
-		//{
-		   printf("Résutlat : %d\n",res);
-		   
-		   map<string,Fonction *> * fonctions = pro->getFonctions();
-		   
-		   vector<CFG*> cfgs;
-		   
-		   for (map<string,Fonction *>::iterator it=fonctions->begin(); it!=fonctions->end(); ++it)
-		   {
-				Fonction* f = it->second;
-				
-				if(it->first != "putchar" && it->first != "getchar")
-				{
-					CFG* c = new CFG(f);
-					f->getBloc()->buildIR(c);
-					cfgs.push_back(c);
-					cout << "CFG de la fonction " + it->first + " généré " <<cfgs.size()<< endl;
-				}
-		   } 
-		   
-		   ofstream codeAs("main.s", ios::out | ios::trunc);
+	   printf("Résutlat : %d\n",res);
+	   
+	   map<string,Fonction *> * fonctions = pro->getFonctions();
+	   
+	   vector<CFG*> cfgs;
+	   
+	   for (map<string,Fonction *>::iterator it=fonctions->begin(); it!=fonctions->end(); ++it)
+	   {
+			Fonction* f = it->second;
 			
-			if(codeAs)
-			{	
-				codeAs << "\t.globl	main\n\n";
-				
-				for(unsigned int i = 0 ; i < cfgs.size() ; i++)
-				{
-					cfgs[i]->gen_asm(codeAs);
-					printf("Corps fonction %ui généré\n",i);
-				}
-				
-				codeAs.close();
+			if(it->first != "putchar" && it->first != "getchar")
+			{
+				CFG* c = new CFG(f);
+				f->getBloc()->buildIR(c);
+				cfgs.push_back(c);
+				cout << "CFG de la fonction " + it->first + " généré " <<cfgs.size()<< endl;
 			}
-			else
-				cerr << "Cannot open file" << endl;
-		}else{
-			cerr<<"Arrêt de la compilation car il y a une erreur"<<endl;
-		//}
-   }
+	   } 
+	   
+	   ofstream codeAs("main.s", ios::out | ios::trunc);
+		
+		if(codeAs)
+		{	
+			codeAs << "\t.globl	main\n\n";
+			
+			for(unsigned int i = 0 ; i < cfgs.size() ; i++)
+			{
+				cfgs[i]->gen_asm(codeAs);
+				printf("Corps fonction %ui généré\n",i);
+			}
+			
+			codeAs.close();
+		}
+		else
+			cerr << "Cannot open file" << endl;
+	}
    return 0;
 }
