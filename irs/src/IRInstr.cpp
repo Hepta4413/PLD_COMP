@@ -68,10 +68,13 @@ void IRInstr::gen_asm(ostream &o)
 		case CALL:
 			//gestion séparée du putchar
 			if(regs[0] == "putchar")
-				o << "\tmovl %" + offset(regs[1]) + "(%rbp),\t(%edi)\n";
+			{
+				cout<<"PUTCHAR"<<endl;
+				o << "\tmovl " + offset(regs[2]) + "(%rbp),\t%edi\n";
+			}
 			else
 			{
-				for(unsigned int i = 1 ; i < regs.size() ; i++)
+				for(unsigned int i = 2 ; i < regs.size() ; i++)
 				{
 					o << "\tmovq %" + offset(regs[i]) + ","+to_string(-8*i)+"(%rbp)\n";
 				}
