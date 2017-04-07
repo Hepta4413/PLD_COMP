@@ -22,6 +22,9 @@ void IRInstr::gen_asm(ostream &o)
 	#ifdef MAP
 		cout << "Appel a la fonction gen_asm de IRInstr "<< endl;
 	#endif
+	
+	string param_registers[6] = {"%rdi","%rsi","%rdx","%rcx","%r8","%r9"};
+	
 	cout << "Mnemo : "<<mnemo<< endl;
 	switch(mnemo)
 	{
@@ -76,7 +79,8 @@ void IRInstr::gen_asm(ostream &o)
 			{
 				for(unsigned int i = 2 ; i < regs.size() ; i++)
 				{
-					o << "\tmovq %" + offset(regs[i]) + ","+to_string(-8*i)+"(%rbp)\n";
+					if(i<9)
+						o << "\tmovq " + offset(regs[i]) + "(%rbp),"+ param_registers[i-2] + "\n";
 				}
 			}
 
@@ -130,7 +134,7 @@ void IRInstr::gen_asm(ostream &o)
 			
 		case RETURN:
 			o << "\tmovq " + offset(regs[0]) + "(%rbp),\t%rax\n";
-			o << "\tleave\n\tret\n"
+			o << "\tleave\n\tret\n";
 			break;
 		
 	}

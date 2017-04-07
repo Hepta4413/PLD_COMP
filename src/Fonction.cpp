@@ -101,3 +101,8 @@ string Fonction::buildIR(CFG* cfg)
 	
 	return "ok";
 }
+
+int Fonction::getNbArg()
+{
+	return arguments->size();
+}

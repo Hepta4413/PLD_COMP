@@ -36,7 +36,8 @@ void CFG::gen_asm(ostream &o)
 void CFG::gen_asm_prologue(ostream &o)
 {
 	int size = -(nextFreeSymbolIndex+8);
-
+	string param_registers[6] = {"%rdi","%rsi","%rdx","%rcx","%r8","%r9"};
+	
 	cout << "--------------Size : " << to_string(size) << endl;
 
 	string code = "";
@@ -51,6 +52,12 @@ void CFG::gen_asm_prologue(ostream &o)
 		code += "\tsubq $";
 		code += to_string(size);
 		code += ", %rsp\n";
+	}
+	
+	for(int i=0;i<ast->getNbArg();i++)
+	{
+		
+		code += "\tmovq  " + param_registers[i] + ",\t" + to_string(nextFreeSymbolIndex+(i+1)*8) + "(%rbp)\n";
 	}
 
 	o << code;
