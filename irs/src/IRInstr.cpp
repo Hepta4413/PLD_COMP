@@ -39,8 +39,8 @@ void IRInstr::gen_asm(ostream &o)
 
 		//var <- var1-var2
 		case SUB:
-			o << "\tmovq " + offset(regs[1]) + "(%rbp),\t%rax\n";
-			o << "\tsubq " + offset(regs[2]) + "(%rbp),\t%rax\n";
+			o << "\tmovq " + offset(regs[2]) + "(%rbp),\t%rax\n";
+			o << "\tsubq " + offset(regs[1]) + "(%rbp),\t%rax\n";
 			o << "\tmovq %rax,\t" + offset(regs[0]) + "(%rbp)\n";
 			break;
 
