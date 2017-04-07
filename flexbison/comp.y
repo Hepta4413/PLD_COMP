@@ -187,10 +187,10 @@ expr :    expr MUL expr {$$ = new OPBinaire($1, $3, MULT_OB); $$->AddLigneColonn
 	| val { $$ = $1; $$->AddLigneColonne(@1.first_line,@1.first_column);}
 	| af { $$ = $1; $$->AddLigneColonne(@1.first_line,@1.first_column);}
 	| OPEN expr CLOSE {$$=$2;$$->AddLigneColonne(@1.first_line,@1.first_column);}
-	| var INCR {$$ = new OPUnaire ($1, INCR_OU);$$->AddLigneColonne(@1.first_line,@1.first_column);}
-	| var DECR {$$ = new OPUnaire ($1, DECR_OU);$$->AddLigneColonne(@1.first_line,@1.first_column);}
-	| INCR var {$$ = new OPUnaire ($2, INCR_OU);$$->AddLigneColonne(@1.first_line,@1.first_column);}
-	| DECR var {$$ = new OPUnaire ($2, DECR_OU);$$->AddLigneColonne(@1.first_line,@1.first_column);}
+	| var INCR {$$ = new OPUnaire ($1, INCR_OU_BACK);$$->AddLigneColonne(@1.first_line,@1.first_column);}
+	| var DECR {$$ = new OPUnaire ($1, DECR_OU_BACK);$$->AddLigneColonne(@1.first_line,@1.first_column);}
+	| INCR var {$$ = new OPUnaire ($2, INCR_OU_FRONT);$$->AddLigneColonne(@1.first_line,@1.first_column);}
+	| DECR var {$$ = new OPUnaire ($2, DECR_OU_FRONT);$$->AddLigneColonne(@1.first_line,@1.first_column);}
 	| MINUS expr {$$ = new OPUnaire ($2, NEG_OU);$$->AddLigneColonne(@1.first_line,@1.first_column);}
 	| NOT expr {$$ = new OPUnaire ($2, NOT_OU);$$->AddLigneColonne(@1.first_line,@1.first_column);}
 	;
@@ -248,46 +248,44 @@ int main(void) {
    if(yynerrs  == 0)
    {
 		pro->verifVariable();
-		//if(!erreur)
-		//{
-		   printf("Résutlat : %d\n",res);
-		   
-		   map<string,Fonction *> * fonctions = pro->getFonctions();
-		   
-		   vector<CFG*> cfgs;
-		   
-		   for (map<string,Fonction *>::iterator it=fonctions->begin(); it!=fonctions->end(); ++it)
-		   {
-				Fonction* f = it->second;
-				
-				if(it->first != "putchar" && it->first != "getchar")
-				{
-					CFG* c = new CFG(f);
-					f->getBloc()->buildIR(c);
-					cfgs.push_back(c);
-					cout << "CFG de la fonction " + it->first + " généré " <<cfgs.size()<< endl;
-				}
-		   } 
-		   
-		   ofstream codeAs("main.s", ios::out | ios::trunc);
-			
-			if(codeAs)
-			{	
-				codeAs << "\t.globl	main\n\n";
-				
-				for(unsigned int i = 0 ; i < cfgs.size() ; i++)
-				{
-					cfgs[i]->gen_asm(codeAs);
-					printf("Corps fonction %ui généré\n",i);
-				}
-				
-				codeAs.close();
-			}
-			else
-				cerr << "Cannot open file" << endl;
-		}else{
-			cerr<<"Arrêt de la compilation car il y a une erreur"<<endl;
-		//}
-   }
+	}
+   //TODO arreter si error
+   printf("Résutlat : %d\n",res);
+   
+   map<string,Fonction *> * fonctions = pro->getFonctions();
+   
+   vector<CFG*> cfgs;
+   
+   for (map<string,Fonction *>::iterator it=fonctions->begin(); it!=fonctions->end(); ++it)
+   {
+		Fonction* f = it->second;
+		
+		if(it->first != "putchar" && it->first != "getchar")
+		{
+			CFG* c = new CFG(f);
+			f->getBloc()->buildIR(c);
+			cfgs.push_back(c);
+			cout << "CFG de la fonction " + it->first + " généré " <<cfgs.size()<< endl;
+		}
+   } 
+   
+   ofstream codeAs("main.s", ios::out | ios::trunc);
+	
+	if(codeAs)
+	{	
+		codeAs << "\t.globl	main\n\n";
+		
+		for(unsigned int i = 0 ; i < cfgs.size() ; i++)
+		{
+			cfgs[i]->gen_asm(codeAs);
+			printf("Corps fonction %ui généré\n",i);
+		}
+		
+		codeAs.close();
+	}
+	else
+		cerr << "Cannot open file" << endl;
+	
+   
    return 0;
 }
