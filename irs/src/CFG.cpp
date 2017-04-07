@@ -58,7 +58,7 @@ void CFG::gen_asm_prologue(ostream &o)
 	for(int i=0;i<ast->getNbArg();i++)
 	{
 		
-		code += "\tmovq  " + param_registers[i] + ",\t" + to_string(nextFreeSymbolIndex+(i+1)*8) + "(%rbp)\n";
+		code += "\tmovq  " + param_registers[i] + ",\t" + to_string(nextFreeSymbolIndex-8+16*ast->getNbArg()-i*16) + "(%rbp)\n";
 	}
 
 	o << code;

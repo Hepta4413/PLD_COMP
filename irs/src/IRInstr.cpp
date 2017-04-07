@@ -62,7 +62,6 @@ void IRInstr::gen_asm(ostream &o)
 
 		//(var1) <- var2
 		case WMEM:
-			cout<<"WMEM "<<regs[0]<<regs[1]<<endl;
 			o << "\tmovq " + offset(regs[0]) + "(%rbp),\t%rax\n";
 			o << "\tmovq %rax,\t"+offset(regs[1])+"(%rbp)\n";
 			break;

@@ -1,4 +1,5 @@
 #include "Programme.h"
+#include "Enums.h"
 #include <iostream>
 
 using namespace std;
@@ -41,7 +42,9 @@ void Programme::verifVariable(){
 			fct->getBloc()->ParcoursContenu();
 			if(fct->getTypeRetour()!=VOID_T && !fct->getBloc()->getContientRetour())
 			{
-				cout << "Erreur dans la fonction "<<*(fct->getNom()) <<" absence de retour sur une des branches d'exécution"<< endl;
+				cerr << "Erreur dans la fonction "<<*(fct->getNom()) <<" absence de retour sur une des branches d'exécution"<< endl;
+			    //erreur=true;			
+
 			}
 			if(fonct->first=="main")
 			{
@@ -54,17 +57,22 @@ void Programme::verifVariable(){
 					}else
 					{
 						cerr<<"Erreur argument du main invalide"<<endl;
+						//erreur=true;				
+
 					}
 				}else
 				{
-					cerr<<"Erreur type de retour du main incorrect"<<endl;				
+					cerr<<"Erreur type de retour du main incorrect"<<endl;	
+					//erreur=true;					
+			
 				}
 			}
 		}
 	  }
 	  if(!mainPresent)
 	  {
-		  cerr<<"Absence de main correct dans le programme"<<endl;				
+		  cerr<<"Absence de main correct dans le programme"<<endl;	
+		  //erreur=true;			
 	  }
 }
 

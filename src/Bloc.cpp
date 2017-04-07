@@ -59,6 +59,7 @@ void Bloc::AddDeclaration(Declaration* d)
 	}else
 	{
 		cerr<<"Erreur redéclaration de la variable "<<d->getName()<<endl;
+		//erreur=true;		
 	}
 }
 
@@ -211,10 +212,12 @@ void Bloc::analyseExpression(Contenu* contenu)
 			}else{
 				cerr<<"Erreur ligne "<<ligne->getLigne()<<" : "
 			<<ligne->getColonne()<<" la variable "<<(*nom)<<" n'est pas affectée"<<endl;
+				//erreur=true;		
 			}
 		}else{
 			cerr<<"Erreur ligne "<<ligne->getLigne()<<" : "
 			<<ligne->getColonne()<<" la variable "<<(*nom)<<" n'est pas déclarée"<<endl;
+			//erreur=true;		
 		}
 	}
 	((Expression*)contenu)->calculType();

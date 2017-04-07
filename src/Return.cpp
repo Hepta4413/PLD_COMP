@@ -29,5 +29,5 @@ Expression* Return::getExpression()
 }
 
 string Return::buildIR(CFG * cfg) {
-	return "";
+	return toReturn->buildIR(cfg);
 }
