@@ -101,3 +101,18 @@ string Fonction::buildIR(CFG* cfg)
 	
 	return "ok";
 }
+
+int Fonction::getNbArg()
+{
+	return arguments->size();
+}
+
+vector<string> Fonction::getNameParam()
+{
+	vector<string> names;
+	for(unsigned int i=0 ; i<arguments->size();i++)
+	{
+		names.push_back(*(arguments->at(i)->getName()));
+	}
+	return names;
+}

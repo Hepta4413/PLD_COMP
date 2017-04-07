@@ -26,6 +26,8 @@ class Fonction
 	Type getTypeRetour();
 	int getSize();
 	string buildIR(CFG* cfg);
+	int getNbArg();
+	vector<string> getNameParam();
 
 	protected:
 	string* nom;

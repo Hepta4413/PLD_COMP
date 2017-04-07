@@ -3,19 +3,24 @@
 main:
 	pushq %rbp
 	movq %rsp, %rbp
-	subq $64, %rsp
-	movq $97,	-24(%rbp)
-	movq -24(%rbp),	%rax
-	movq %rax,	-8(%rbp)
-	movq $102,	-32(%rbp)
+	subq $80, %rsp
+	movq $99,	-16(%rbp)
+	movq $1,	-24(%rbp)
+	movq -16(%rbp),	%rax
+	subq -24(%rbp),	%rax
+	movq %rax,	-32(%rbp)
 	movq -32(%rbp),	%rax
-	movq %rax,	-16(%rbp)
+	movq %rax,	-8(%rbp)
+	movq $1,	-56(%rbp)
+	movq -8(%rbp),	%rax
+	subq -56(%rbp),	%rax
+	movq %rax,	-8(%rbp)
 	movl -8(%rbp),	%edi
 	call putchar
 	movq %rax,	-40(%rbp)
-	movl -16(%rbp),	%edi
+	movl -8(%rbp),	%edi
 	call putchar
-	movq %rax,	-56(%rbp)
+	movq %rax,	-72(%rbp)
 	leave
 	ret
 

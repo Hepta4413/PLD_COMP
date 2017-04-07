@@ -187,10 +187,10 @@ expr :    expr MUL expr {$$ = new OPBinaire($1, $3, MULT_OB); $$->AddLigneColonn
 	| val { $$ = $1; $$->AddLigneColonne(@1.first_line,@1.first_column);}
 	| af { $$ = $1; $$->AddLigneColonne(@1.first_line,@1.first_column);}
 	| OPEN expr CLOSE {$$=$2;$$->AddLigneColonne(@1.first_line,@1.first_column);}
-	| var INCR {$$ = new OPUnaire ($1, INCR_OU);$$->AddLigneColonne(@1.first_line,@1.first_column);}
-	| var DECR {$$ = new OPUnaire ($1, DECR_OU);$$->AddLigneColonne(@1.first_line,@1.first_column);}
-	| INCR var {$$ = new OPUnaire ($2, INCR_OU);$$->AddLigneColonne(@1.first_line,@1.first_column);}
-	| DECR var {$$ = new OPUnaire ($2, DECR_OU);$$->AddLigneColonne(@1.first_line,@1.first_column);}
+	| var INCR {$$ = new OPUnaire ($1, INCR_OU_BACK);$$->AddLigneColonne(@1.first_line,@1.first_column);}
+	| var DECR {$$ = new OPUnaire ($1, DECR_OU_BACK);$$->AddLigneColonne(@1.first_line,@1.first_column);}
+	| INCR var {$$ = new OPUnaire ($2, INCR_OU_FRONT);$$->AddLigneColonne(@1.first_line,@1.first_column);}
+	| DECR var {$$ = new OPUnaire ($2, DECR_OU_FRONT);$$->AddLigneColonne(@1.first_line,@1.first_column);}
 	| MINUS expr {$$ = new OPUnaire ($2, NEG_OU);$$->AddLigneColonne(@1.first_line,@1.first_column);}
 	| NOT expr {$$ = new OPUnaire ($2, NOT_OU);$$->AddLigneColonne(@1.first_line,@1.first_column);}
 	;

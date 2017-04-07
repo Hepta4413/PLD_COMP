@@ -10,18 +10,12 @@ main:
 	.cfi_offset 6, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
-	subq	$16, %rsp
-	movq	$1, -8(%rbp)
-	movl	$97, %edi
-	call	putchar
-	cmpq	$1, -8(%rbp)
-	jne	.L2
 	movq	$2, -8(%rbp)
-	jmp	.L1
-.L2:
+	cmpq	$3, -8(%rbp)
+	jg	.L1
 	movq	$3, -8(%rbp)
 .L1:
-	leave
+	popq	%rbp
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
