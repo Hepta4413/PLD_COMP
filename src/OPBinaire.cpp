@@ -71,33 +71,56 @@ Type OPBinaire::calculType()
 }
 
 string OPBinaire::buildIR(CFG * cfg) {
-	string reg1 = e1->buildIR(cfg);
-	string reg2 = e2->buildIR(cfg);
-	string reg3 = cfg->create_new_tempvar(type);
+	string reg1;
+	string reg2;
+	string reg3;
+	string reg0;
 
 	vector<string> regs;
-	regs.push_back(reg3);
-	regs.push_back(reg2);
-	regs.push_back(reg1);
-	
+
 	stringstream ss;
 	ss << this;
 
 	switch (op) {
 		case PLUS_OB:
-		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::ADD, calculType(), regs);
+			reg1 = e1->buildIR(cfg);
+			reg2 = e2->buildIR(cfg);
+			reg3 = cfg->create_new_tempvar(type);
+
+			regs.push_back(reg3);
+			regs.push_back(reg2);
+			regs.push_back(reg1);
+			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::ADD, calculType(), regs);
 		break;
 		case MINUS_OB:
-		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::SUB, calculType(), regs);
+			reg1 = e1->buildIR(cfg);
+			reg2 = e2->buildIR(cfg);
+			reg3 = cfg->create_new_tempvar(type);
+
+			regs.push_back(reg3);
+			regs.push_back(reg2);
+			regs.push_back(reg1);
+			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::SUB, calculType(), regs);
 		break;
 		case MULT_OB:
-		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
+			reg1 = e1->buildIR(cfg);
+			reg2 = e2->buildIR(cfg);
+			reg3 = cfg->create_new_tempvar(type);
+
+			regs.push_back(reg3);
+			regs.push_back(reg2);
+			regs.push_back(reg1);
+			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
 		break;
 		/*
 		case DIV_OB:
 		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
 		break;*/
 		case UPPERTHAN_OB:
+			reg1 = e1->buildIR(cfg);
+			reg2 = e2->buildIR(cfg);
+			reg3 = cfg->create_new_tempvar(type);
+
 			regs.clear();
 			regs.push_back(reg2);
 			regs.push_back(reg1);
@@ -124,6 +147,10 @@ string OPBinaire::buildIR(CFG * cfg) {
 			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LABEL, type, regs);
 		break;
 		case UPPEROREQUAL_OB:
+			reg1 = e1->buildIR(cfg);
+			reg2 = e2->buildIR(cfg);
+			reg3 = cfg->create_new_tempvar(type);
+		
 			regs.clear();
 			regs.push_back(reg2);
 			regs.push_back(reg1);
@@ -150,7 +177,10 @@ string OPBinaire::buildIR(CFG * cfg) {
 			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LABEL, type, regs);
 		break;
 		case LOWERTHAN_OB:
-
+			reg1 = e1->buildIR(cfg);
+			reg2 = e2->buildIR(cfg);
+			reg3 = cfg->create_new_tempvar(type);
+			
 			regs.clear();
 			regs.push_back(reg1);
 			regs.push_back(reg2);
@@ -178,6 +208,10 @@ string OPBinaire::buildIR(CFG * cfg) {
 		break;
 		
 		case LOWEROREQUAL_OB:
+			reg1 = e1->buildIR(cfg);
+			reg2 = e2->buildIR(cfg);
+			reg3 = cfg->create_new_tempvar(type);
+			
 			regs.clear();
 			regs.push_back(reg1);
 			regs.push_back(reg2);
@@ -205,6 +239,10 @@ string OPBinaire::buildIR(CFG * cfg) {
 		break;
 		
 		case DOUBLEEQUAL_OB:
+			reg1 = e1->buildIR(cfg);
+			reg2 = e2->buildIR(cfg);
+			reg3 = cfg->create_new_tempvar(type);
+			
 			regs.clear();
 			regs.push_back(reg1);
 			regs.push_back(reg2);
@@ -236,6 +274,10 @@ string OPBinaire::buildIR(CFG * cfg) {
 		break;
 		 */
 		case NOTEQUAL_OB:
+			reg1 = e1->buildIR(cfg);
+			reg2 = e2->buildIR(cfg);
+			reg3 = cfg->create_new_tempvar(type);
+			
 			regs.clear();
 			regs.push_back(reg1);
 			regs.push_back(reg2);
@@ -261,14 +303,121 @@ string OPBinaire::buildIR(CFG * cfg) {
 			regs.push_back("labelalors" + ss.str());
 			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LABEL, type, regs);
 		break;
-		/*
 		case OR_OB:
-		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
+			reg1 = e1->buildIR(cfg);
+			reg3 = cfg->create_new_tempvar(type);
+			reg0 = cfg->create_new_tempvar(type);
+
+			regs.clear();
+			regs.push_back("0");
+			regs.push_back(reg0);
+			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LDCONST, CONSTVAL_T, regs);
+
+			regs.clear();
+			regs.push_back(reg1);
+			regs.push_back(reg0);
+			regs.push_back("labelsinon1" + ss.str());
+			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::CMP_NEQ, type, regs);
+
+			regs.clear();
+			regs.push_back("1");
+			regs.push_back(reg3);
+			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LDCONST, CONSTVAL_T, regs);
+
+			regs.clear();
+			regs.push_back("labelalors1" + ss.str());
+			regs.push_back("labelsinon1" + ss.str());
+			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::ENDIF, type, regs);
+
+			reg2 = e2->buildIR(cfg);
+			
+			regs.clear();
+			regs.push_back(reg2);
+			regs.push_back(reg0);
+			regs.push_back("labelsinon2" + ss.str());
+			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::CMP_NEQ, type, regs);
+
+			regs.clear();
+			regs.push_back("1");
+			regs.push_back(reg3);
+			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LDCONST, CONSTVAL_T, regs);
+
+			regs.clear();
+			regs.push_back("labelalors2" + ss.str());
+			regs.push_back("labelsinon2" + ss.str());
+			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::ENDIF, type, regs);
+
+			regs.clear();
+			regs.push_back("0");
+			regs.push_back(reg3);
+			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LDCONST, CONSTVAL_T, regs);
+			
+			regs.clear();
+			regs.push_back("labelalors2" + ss.str());
+			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LABEL, type, regs);
+			
+			regs.clear();
+			regs.push_back("labelalors1" + ss.str());
+			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LABEL, type, regs);
 		break;
 		case AND_OB:
-		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
+			reg1 = e1->buildIR(cfg);
+			reg3 = cfg->create_new_tempvar(type);
+			reg0 = cfg->create_new_tempvar(type);
+
+			regs.clear();
+			regs.push_back("0");
+			regs.push_back(reg0);
+			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LDCONST, CONSTVAL_T, regs);
+
+			regs.clear();
+			regs.push_back(reg1);
+			regs.push_back(reg0);
+			regs.push_back("labelsinon1" + ss.str());
+			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::CMP_EQ, type, regs);
+
+			regs.clear();
+			regs.push_back("0");
+			regs.push_back(reg3);
+			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LDCONST, CONSTVAL_T, regs);
+
+			regs.clear();
+			regs.push_back("labelalors1" + ss.str());
+			regs.push_back("labelsinon1" + ss.str());
+			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::ENDIF, type, regs);
+
+			reg2 = e2->buildIR(cfg);
+			
+			regs.clear();
+			regs.push_back(reg2);
+			regs.push_back(reg0);
+			regs.push_back("labelsinon2" + ss.str());
+			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::CMP_EQ, type, regs);
+
+			regs.clear();
+			regs.push_back("0");
+			regs.push_back(reg3);
+			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LDCONST, CONSTVAL_T, regs);
+
+			regs.clear();
+			regs.push_back("labelalors2" + ss.str());
+			regs.push_back("labelsinon2" + ss.str());
+			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::ENDIF, type, regs);
+
+			regs.clear();
+			regs.push_back("1");
+			regs.push_back(reg3);
+			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LDCONST, CONSTVAL_T, regs);
+			
+			regs.clear();
+			regs.push_back("labelalors2" + ss.str());
+			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LABEL, type, regs);
+			
+			regs.clear();
+			regs.push_back("labelalors1" + ss.str());
+			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LABEL, type, regs);
 		break;
-		*/
+		
 		default:
 		break;
 	}
