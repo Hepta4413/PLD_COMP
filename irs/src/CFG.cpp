@@ -19,7 +19,7 @@ CFG::CFG(Fonction* f)
 void CFG::gen_asm(ostream &o)
 {
 	#ifdef MAP
-		cout<<"Appel a la fonction gen_asm de CFG"<<endl;
+	cout<<"Appel a la fonction gen_asm de CFG"<<endl;
 	#endif
 	gen_asm_prologue(o);
 
@@ -40,14 +40,15 @@ void CFG::gen_asm_prologue(ostream &o)
 	cout << "--------------Size : " << to_string(size) << endl;
 
 	string code = "";
+	code += *(ast->getNom());
+	code += ":\n";
+	code += "\tpushq %rbp\n";
+	code += "\tmovq %rsp, %rbp\n";
 	if (size > 0)
 	{
-		if (size%2==1)
-			size++;
-		code += *(ast->getNom());
-		code += ":\n";
-		code += "\tpushq %rbp\n";
-		code += "\tmovq %rsp, %rbp\n";
+		if (size%16!=0)
+		size+=8;
+
 		code += "\tsubq $";
 		code += to_string(size);
 		code += ", %rsp\n";
@@ -71,7 +72,7 @@ string CFG::IR_reg_to_asm(string reg)
 void CFG::add_to_symbol_table(string name, Type t)
 {
 	#ifdef MAP
-		cout << "Appel a la fonction add_to_symbol_table de CFG " <<name<< endl;
+	cout << "Appel a la fonction add_to_symbol_table de CFG " <<name<< endl;
 	#endif
 	symbolType.insert(pair<string, Type>(name,t));
 
@@ -83,7 +84,7 @@ void CFG::add_to_symbol_table(string name, Type t)
 string CFG::create_new_tempvar(Type t)
 {
 	#ifdef MAP
-		cout << "Appel a la fonction create_new_tempvar de CFG " << endl;
+	cout << "Appel a la fonction create_new_tempvar de CFG " << endl;
 	#endif
 	string reg = "!r"+(-nextFreeSymbolIndex);
 	add_to_symbol_table(reg, t);
@@ -94,14 +95,14 @@ string CFG::create_new_tempvar(Type t)
 int CFG::get_var_index(string name)
 {
 	#ifdef MAP
-		cout << "Appel a la fonction get_var_index de CFG " << endl;
+	cout << "Appel a la fonction get_var_index de CFG " << endl;
 	#endif
 	/*cout<<"afficher map"<<endl;
 	for(auto i=symbolIndex.begin(); i!=symbolIndex.end() ; i++)
 	{
-		cout<<i->first<<endl;
-	}*/
-	return symbolIndex.at(name);
+	cout<<i->first<<endl;
+}*/
+return symbolIndex.at(name);
 
 }
 
