@@ -81,6 +81,7 @@ void IRInstr::gen_asm(ostream &o)
 			}
 
 			o << "\tcall "+regs[0] + "\n";
+			o << "\tmovq %rax,\t"+offset(regs[1])+"(%rbp)\n";
 			break;
 
 		//var1==var2
@@ -125,6 +126,11 @@ void IRInstr::gen_asm(ostream &o)
 			o << "\tmovq " + offset(regs[0]) + "(%rbp),\t%rax\n";
 			o << "\tcmp " + offset(regs[1]) + "(%rbp),\t%rax\n";
 			o << "\tje " + regs[2] +"\n";
+			break;
+			
+		case RETURN:
+			o << "\tmovq " + offset(regs[0]) + "(%rbp),\t%rax\n";
+			o << "\tleave\n\tret\n"
 			break;
 		
 	}
