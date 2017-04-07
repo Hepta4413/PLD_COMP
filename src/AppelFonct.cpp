@@ -119,5 +119,15 @@ bool AppelFonct::verifAppelFonction()
 }
 
 string AppelFonct::buildIR(CFG * cfg) {
-	return "";
+	string regRetour = cfg->create_new_tempvar(type);
+	
+	vector<string> regs;
+	regs.push_back(*fonction);
+	regs.push_back(regRetour);
+	
+	for(auto expr = parametres->begin(); expr != parametres->end(); expr++) {
+		regs.push_back((*expr)->buildIR(cfg));
+	}
+	cfg->current_bb->add_IRInstr(IRInstr::Mnemo::CALL, type, regs);
+	return regRetour;
 }

@@ -73,7 +73,7 @@ Type OPBinaire::calculType()
 string OPBinaire::buildIR(CFG * cfg) {
 	string reg1 = e1->buildIR(cfg);
 	string reg2 = e2->buildIR(cfg);
-	string reg3 = cfg->create_new_tempvar(calculType());
+	string reg3 = cfg->create_new_tempvar(type);
 
 	vector<string> regs;
 	regs.push_back(reg3);
