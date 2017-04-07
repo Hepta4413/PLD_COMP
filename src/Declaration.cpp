@@ -1,6 +1,7 @@
 #include "Declaration.h"
 #include "OPBinaire.h"
 #include "VarS.h"
+#include "CFG.h"
 #include <iostream>
 
 using namespace std;
@@ -131,5 +132,7 @@ void Declaration::AddName(string* n) {
 }
 
 string Declaration::buildIR(CFG * cfg) {
-	return "";
+	cout<<"(Declaration) AJOUT DE "<<*name<<endl;
+	cfg->add_to_symbol_table(*name, type);
+	return *name;
 }
