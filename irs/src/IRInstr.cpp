@@ -91,14 +91,14 @@ void IRInstr::gen_asm(ostream &o)
 		case CMP_LT:
 			o << "\tmovq " + offset(regs[0]) + "(%rbp),\t%rax\n";
 			o << "\tcmp " + offset(regs[1]) + "(%rbp),\t%rax\n";
-			o << "\tjl " + regs[2] +"\n";
+			o << "\tjge " + regs[2] +"\n";
 			break;
 
 		//var1<=var2
 		case CMP_LE:
 			o << "\tmovq " + offset(regs[0]) + "(%rbp),\t%rax\n";
 			o << "\tcmp " + offset(regs[1]) + "(%rbp),\t%rax\n";
-			o << "\tjle " + regs[2] +"\n";
+			o << "\tjg " + regs[2] +"\n";
 			break;
 
 		//fin d'un if + début else
