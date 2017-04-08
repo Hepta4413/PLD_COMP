@@ -1,5 +1,5 @@
 #include<inttypes.h>
-void main(void){
+void main(){
   int64_t i;
   i=0;
   

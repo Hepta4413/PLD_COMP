@@ -1,5 +1,5 @@
 
-void main(void){
+void main(){
   char a;
   char b;
   char c;

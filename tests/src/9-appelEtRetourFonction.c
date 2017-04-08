@@ -1,14 +1,13 @@
 #include <inttypes.h>
 void main() {
-	int64_t i;
-	i=0;
 	char a;
-	a = toto('a','b');
+	a = toto('o','k');
 	putchar(a);
 }
 
 char toto(char c,char d)
 {
-	putchar('a');
-	return 'y';
+	putchar(c);
+	putchar(d);
+	return 33;
 }

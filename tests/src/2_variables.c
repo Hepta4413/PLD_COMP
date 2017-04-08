@@ -1,4 +1,4 @@
-void main(void) {
+void main() {
   char a, b, c;
   a='O';
   b=a;

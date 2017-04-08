@@ -1,5 +1,5 @@
 #include<inttypes.h>
-void main(void){
+void main(){
 	char i;
 	i='A';
 	
