@@ -27,15 +27,15 @@ Simplement executer `make` dans le dossier racine
 ## Execution
 
 Un fichier script est disponible pour compiler simplement un programme. Il suffit de lui donner en paramètre le programme C à compiler.
-`./Compiler_H4413.sh source.c`
+    ./Compiler_H4413.sh source.c
 
 Sinon, voici comment faire pas-à-pas :
 Passer le fichier source C à compiler au programme grâce à un pipe
-`./Compiler_H4413 < source.c`
+    ./Compiler_H4413 < source.c
 Un ficher *main.s* est généré dans le même dossier contenant le code assembleur généré. *gcc* peut être utilisé pour l'assembler.
-`gcc main.s`
+    gcc main.s
 L'executable peut ensuite être executé.
-`./a.out`
+    ./a.out
 
 ## Execution des tests
 **TODO**
