@@ -46,4 +46,11 @@ L'executable peut ensuite être executé.
 ```
 
 ## Execution des tests
-**TODO**
+
+Le dossier `tests/src/` contient un jeu de 9 tests pour le compilateur
+Pour les compiler et les executer, executer le script dédié à cet usage
+```
+cd tests
+./executeTests.sh
+```
+Les sorties sont dans le dossier `out` et le script les affiche.
