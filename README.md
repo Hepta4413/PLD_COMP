@@ -28,7 +28,7 @@ Simplement executer `make` dans le dossier racine
 
 Un fichier script est disponible pour compiler simplement un programme. Il suffit de lui donner en paramètre le programme C à compiler.
 ```
-./Compiler_H4413.sh source.c
+./Compiler_H4413.sh < source.c
 ```
 
 Sinon, voici comment faire pas-à-pas :
