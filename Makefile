@@ -66,6 +66,10 @@ BISONC = flexbison/comp.tab.c
 BISONREPORT = flexbison/comp.output
 BISONOBJ = obj/comp.tab.o
 
+COMPOBJ = \
+			main.s \
+			a.out
+
 BISONFLAGS += --defines=$(BISONH) -r state --report-file=$(BISONREPORT) -o $(BISONC)
 CPPFLAGS += $(INCDIR)
 CFLAGS += $(INCDIR)
@@ -82,7 +86,7 @@ all: $(EXE)
 
 .PHONY: clean
 clean:
-	$(RM) -fv $(OBJ) $(EXE) $(FLEXC) $(BISONC) $(BISONH) $(BISONREPORT) $(FLEXOBJ) $(BISONOBJ)
+	$(RM) -fv $(OBJ) $(EXE) $(FLEXC) $(BISONC) $(BISONH) $(BISONREPORT) $(FLEXOBJ) $(BISONOBJ) $(COMPOBJ)
 
 .PHONY: flexbison
 flexbison : $(FLEXOBJ) $(BISONOBJ)

@@ -6,3 +6,5 @@ flexbison/comp.tab.h
 flexbison/lex.yy.c
 Compiler_H4413
 .vscode/*
+main.s
+*/main.s
