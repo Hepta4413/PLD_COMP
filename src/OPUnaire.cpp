@@ -88,6 +88,8 @@ string OPUnaire::buildIR(CFG * cfg) {
 		case NOT_OU :
 			
 		break;
+		default:
+		break;
 		
 	}
 	return "";

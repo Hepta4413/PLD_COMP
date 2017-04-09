@@ -129,6 +129,8 @@ string Affectation::buildIR(CFG * cfg)
 			regs.push_back(right);
 			cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
 		break;
+		default:
+		break;
 		/*
 		case DIVEQUAL_OB:
 		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::MUL, calculType(), regs);
