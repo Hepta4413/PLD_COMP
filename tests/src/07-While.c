@@ -7,5 +7,4 @@ void main(){
       putchar('V');
       i=i+1;
     } 
-  putchar('\n');
 }

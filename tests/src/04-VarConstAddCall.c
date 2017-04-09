@@ -8,5 +8,4 @@ void main(){
   c=b+1;
   putchar(b);
   putchar(c);
-  putchar('\n');
 }

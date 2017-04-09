@@ -3,7 +3,7 @@ void main() {
   a='O';
   b=a;
   c='K';
-  a='\n';
+  a=33;
   putchar(b);
   putchar(c);
   putchar(a);

@@ -6,6 +6,8 @@ echo -e "\t\t|        Execution des tests               |"
 echo -e "\t\t|                                          |"
 echo -e "\t\t|******************************************|\n"
 
+mkdir out
+
 for i in src/*.c
 
 do
