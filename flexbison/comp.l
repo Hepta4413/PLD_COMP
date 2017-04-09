@@ -20,9 +20,17 @@ digit [0-9]+
 char [a-zA-Z]
 %%
 "'"{char}"'" { yylval.ival = yytext[1]; return ENTIER; }
-"'\\"."'" { yylval.ival = yytext[1]; return ENTIER; }
+"'\\a'"       { yylval.ival = '\t'; return ENTIER; }
+"'\\b'"       { yylval.ival = '\n'; return ENTIER; }
+"'\\t'"       { yylval.ival = '\t'; return ENTIER; }
+"'\\n'"       { yylval.ival = '\n'; return ENTIER; }
+"'\\v'"       { yylval.ival = '\t'; return ENTIER; }
+"'\\f'"       { yylval.ival = '\n'; return ENTIER; }
+"'\\r'"       { yylval.ival = '\n'; return ENTIER; }
+"'\\"."'"    { yylval.ival = yytext[1]; return ENTIER; }
+'[ -°]'      { yylval.ival = yytext[1]; return ENTIER; }
 "/*"(.|\n)*"*/" { /* ignore */ }
-"//".*$ 	{ /* ignore */ }
+"//".*$ 	   { /* ignore */ }
 [ \n\t\r] 	{ /* ignore */ }
 "#".*$  	{ /* ignore */ }
 "<="         { return LOWEROREQUALTHAN; }
@@ -75,11 +83,5 @@ char [a-zA-Z]
 "return"     { return RETURN; }
 [_a-zA-Z][_a-zA-Z0-9]*      {yylval.stringval = new string(yytext); return NOM; }
 {digit}      { yylval.ival = atoi(yytext); return ENTIER; }
-.			 {printf(" Erreur caractère innatendu : %c",*yytext); 
+.			 {printf(" Erreur caractère innatendu : %c",*yytext);
 				printf(" At line %d : %d Nous allons ignorer ce caractère\n ",yylloc.first_line,yylloc.first_column);}
-
-    
-    
-    
-    
-    
