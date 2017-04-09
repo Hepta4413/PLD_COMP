@@ -3,16 +3,6 @@
 
 using namespace std;
 
-/*DeclAffect::DeclAffect()
-{
-	#ifdef MAP
-		cout << "Appel au constructeur de DeclAffect()" << endl;
-	#endif
-	typeContenu = _DECLARATION;
-  decl = NULL;
-  affect = NULL;
-}*/
-
 DeclAffect::DeclAffect(Declaration * d)
 {
 	#ifdef MAP

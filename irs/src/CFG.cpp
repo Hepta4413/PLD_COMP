@@ -37,7 +37,7 @@ void CFG::gen_asm_prologue(ostream &o)
 {
 	int size = -(nextFreeSymbolIndex+8);
 	string param_registers[6] = {"%rdi","%rsi","%rdx","%rcx","%r8","%r9"};
-	
+
 	cout << "--------------Size : " << to_string(size) << endl;
 
 	string code = "";
@@ -54,7 +54,7 @@ void CFG::gen_asm_prologue(ostream &o)
 		code += to_string(size);
 		code += ", %rsp\n";
 	}
-	
+
 	for(int i=0;i<ast->getNbArg();i++)
 	{
 		int index = symbolIndex[ast->getNameParam().at(i)];
@@ -104,11 +104,6 @@ int CFG::get_var_index(string name)
 	#ifdef MAP
 	cout << "Appel a la fonction get_var_index de CFG " << endl;
 	#endif
-	/*cout<<"afficher map"<<endl;
-	for(auto i=symbolIndex.begin(); i!=symbolIndex.end() ; i++)
-	{
-	cout<<i->first<<endl;
-}*/
 return symbolIndex.at(name);
 
 }

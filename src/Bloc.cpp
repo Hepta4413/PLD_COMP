@@ -33,16 +33,7 @@ void Bloc::AddContenu(Contenu* c)
 		cout << "Appel a la fonction AddContenu de bloc " << this<<endl;
 		cout << "Ajout du contenu "<<c<<" de type "<<c->getTypeContenu()<<" dans le bloc "<<this<<endl;
 	#endif
-	/*if(c->getTypeContenu()==_DECLARATION){
-		vector<Declaration*>* listedecl = ((ListeDeclaration*) c)->getListeDeclaration();
-		while (!listedecl->empty()){
-			Declaration* declTmp = listedecl->back();
-			declTmp->setBloc(this);
-			cont->push_back(declTmp);
-			AddDeclaration(declTmp);
-			listedecl->pop_back();
-		}
-	}else */if(c->getTypeContenu()==_DECLARATIONAFFECTATION){
+	if(c->getTypeContenu()==_DECLARATIONAFFECTATION){
 		vector<DeclAffect*>* listedecl = ((ListeDeclaration*) c)->getListeDeclaration();
 		while (!listedecl->empty()){
 			DeclAffect* declAffectTmp = listedecl->back();

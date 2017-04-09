@@ -9,6 +9,7 @@
 * Gestion du typage des noeuds
 * Possibilité de déclarer des variables n'importe où dans le code
 * Affichage d'erreurs lors de l'affectation du variable non déclarée ou la déclaration d'une variable non utilisée
+* Support des caractères spéciaux
 
 ## Fonctionnalités Back-end
 

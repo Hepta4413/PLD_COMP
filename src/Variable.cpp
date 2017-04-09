@@ -98,26 +98,6 @@ string Variable::buildIR(CFG * cfg) {
 	#ifdef MAP
 		cout << "Appel a la fonction calculType de variable" << endl;
 	#endif
-	/*if(lvalue) {
-		cout<<"SALUT"<<endl;
-		string reg = cfg->create_new_tempvar(type);
-		cout<<"SALUT"<<endl;
-		int offset = cfg->get_var_index(reg);
-		cout<<"SALUT"<<endl;
-		vector<string> regs;
-		regs.push_back(to_string(offset));
-		cout<<"SALUT"<<endl;
-		regs.push_back(reg);
-		cout<<"SALUT"<<endl;
-		cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LDCONST, type, regs);
-		cout<<"SALUT"<<endl;
-		// reg <- !bp + reg
-		//cfg->current_bb->add_IRInstr(IRInstr::Mnemo::LDCONST, calculType(), regs);
-		return reg;
-	}
-	else {
-		return "";
-	}*/
 	cout<<"AJOUT DE "<<*nom<<endl;
 	cfg->add_to_symbol_table(*nom, type);
 	return *nom;

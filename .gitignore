@@ -12,3 +12,4 @@ tests/a.out
 main.s
 */main.s
 tests/out/*
+*/*.*.autosave
