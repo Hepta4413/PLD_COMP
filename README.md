@@ -13,9 +13,11 @@
 ## Fonctionnalités Back-end
 
 * Déclaration et l'affectation des variables
+* Déclaration et affectation multiple sur la même ligne
 * Opérations d'addition, multiplication et soustraction
 * Boucles *for* et *while*
 * *If* et *else*
+* Opérateurs && et ||
 * Appel de fonction avec passage de paramètres et retour
 * Gestion de *putchar*
 * Appels récursifs fonctionnels
@@ -47,10 +49,24 @@ L'executable peut ensuite être executé.
 
 ## Execution des tests
 
-Le dossier `tests/src/` contient un jeu de 9 tests pour le compilateur
+Le dossier `tests/src/` contient un jeu de 11 tests pour le compilateur.
+
 Pour les compiler et les executer, executer le script dédié à cet usage
 ```
 cd tests
 ./executeTests.sh
 ```
-Les sorties sont dans le dossier `out` et le script les affiche.
+Les sorties sont dans le dossier `out`. Le script les affiche, les compare avec les sorties du dossier `expected` et affiche le nombre de tests echoués.
+
+### Liste des tests
+* 01-putchar.c : simple utilisation de putchar
+* 02-variables.c : déclaration, affectation et affichage de variables de type `char`
+* 03-multiDeclaration.c : déclaration et affectation de plusieurs variable sur la même ligne puis affichage de ces variables
+* 04-VarConstAddCall.c : Opération sur des variables `char` puis affichage
+* 05-IfThenElse.c : Tests de condition et affichage selon le resultat du test
+* 06-AndOrOperator.c : Tests de conditions avec des opérateurs && et || et affichage selon le résultat
+* 07-While.c : Boucle while simple
+* 08-doubleBoucleWhileFor.c : Affichage multiple de l'alphabet à l'aide d'une boucle For dans une boucle While
+* 09-testWhileAndVariables.c : Affichage de l'alphabet a l'aide d'une boucle While 
+* 10-AlphabetRecursif.c : Affichage de l'alphabet à l'aide d'un appel récursif de fonction
+* 11-appelEtRetourFonction : Appel d'une fonction avec plusieurs paramètres et retour de fonction dans une variable
