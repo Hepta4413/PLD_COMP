@@ -8,15 +8,15 @@ ListeDeclaration::ListeDeclaration()
 	#ifdef MAP
 		cout << "Appel au constructeur de ListeDeclaration()" << endl;
 	#endif
-	typeContenu = _DECLARATION;
-    listeDeclarations = new vector<Declaration*>();
+	typeContenu = _DECLARATIONAFFECTATION;
+  listeDeclarations = new vector<DeclAffect*>();
 }
 
-ListeDeclaration::ListeDeclaration(vector<Declaration*>* l)
+ListeDeclaration::ListeDeclaration(vector<DeclAffect*>* l)
 {
 	#ifdef MAP
 		cout << "Appel au constructeur de ListeDeclaration(vector<Declaration*>* l)" << endl;
 	#endif
-	typeContenu = _DECLARATION;
-    listeDeclarations = l;
+	typeContenu = _DECLARATIONAFFECTATION;
+  listeDeclarations = l;
 }

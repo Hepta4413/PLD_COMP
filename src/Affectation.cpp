@@ -20,10 +20,12 @@ Affectation::Affectation(Variable* var, Expression* value, Opbinaire op)
 	#ifdef MAP
 		cout << "Appel au constructeur de Affectation(Variable* var, Expression* value, Opbinaire op)" << endl;
 	#endif
-	var->setLvalue(true);
-	if(op==EQUAL_OB)
-	{
-		var->setRvalue(false);
+	if(var != NULL){
+		var->setLvalue(true);
+		if(op==EQUAL_OB)
+		{
+			var->setRvalue(false);
+		}
 	}
 	vars = var;
 	valuei = value;
@@ -136,4 +138,22 @@ string Affectation::buildIR(CFG * cfg)
 	return right;
 
 
+}
+
+void Affectation::addVariable(string* n) {
+	#ifdef MAP
+		cout << "Appel a la fonction addVariable de Affectation" << endl;
+	#endif
+
+	vars = (Variable*) new VarS(n);
+	vars->setLvalue(true);
+	if(operateur==EQUAL_OB)
+	{
+		vars->setRvalue(false);
+	}
+
+	#ifdef MAP
+		cout << "Variable infos added : " << endl;
+		cout << "variableS: " << vars->getNom() << endl;
+	#endif
 }

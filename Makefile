@@ -50,6 +50,7 @@ OBJ = \
 		obj/VarS.o \
 		obj/VarTab.o \
 		obj/ListeDeclaration.o \
+		obj/DeclAffect.o \
 		irs/obj/BasicBlock.o \
 		irs/obj/CFG.o \
 		irs/obj/IRInstr.o

@@ -10,6 +10,7 @@
 #include "Programme.h"
 #include "Enums.h"
 #include "Return.h"
+#include "DeclAffect.h"
 #include <iostream>
 #include <typeinfo>
 #include <vector>
@@ -32,13 +33,28 @@ void Bloc::AddContenu(Contenu* c)
 		cout << "Appel a la fonction AddContenu de bloc " << this<<endl;
 		cout << "Ajout du contenu "<<c<<" de type "<<c->getTypeContenu()<<" dans le bloc "<<this<<endl;
 	#endif
-	if(c->getTypeContenu()==_DECLARATION){
+	/*if(c->getTypeContenu()==_DECLARATION){
 		vector<Declaration*>* listedecl = ((ListeDeclaration*) c)->getListeDeclaration();
 		while (!listedecl->empty()){
 			Declaration* declTmp = listedecl->back();
 			declTmp->setBloc(this);
 			cont->push_back(declTmp);
 			AddDeclaration(declTmp);
+			listedecl->pop_back();
+		}
+	}else */if(c->getTypeContenu()==_DECLARATIONAFFECTATION){
+		vector<DeclAffect*>* listedecl = ((ListeDeclaration*) c)->getListeDeclaration();
+		while (!listedecl->empty()){
+			DeclAffect* declAffectTmp = listedecl->back();
+			Declaration* declTmp = declAffectTmp->getDeclaration();
+			declTmp->setBloc(this);
+			cont->push_back(declTmp);
+			AddDeclaration(declTmp);
+			if(declAffectTmp->getTypeContenu() == _DECLARATIONAFFECTATION){ // Si jamais on a declaration avec initialisation directement derriere
+				Affectation* affectTmp = declAffectTmp->getAffectation();
+				affectTmp->setBloc(this);
+				cont->push_back(affectTmp);
+			}
 			listedecl->pop_back();
 		}
 	}else
@@ -192,7 +208,7 @@ void Bloc::analyseExpression(Contenu* contenu)
 		 nom = (*var)->getNom();
 		 declarat=RechercherDeclaration(nom);
 		 ligne = ((Ligne*)contenu);
-		 
+
 		if(declarat != NULL && (declarat->getLigne()< ligne->getLigne() ||
 		(declarat->getLigne()== ligne->getLigne() &&
 		declarat->getColonne()< ligne->getColonne())))
@@ -247,7 +263,7 @@ int Bloc::getSize()
 	#ifdef MAP
 		cout << "Appel a la fonction getSize de bloc" << endl;
 	#endif
-	
+
 	int size = varbloc->size();
 	for(unsigned int i=0; i<cont->size(); i++)
 	{
@@ -261,11 +277,11 @@ string Bloc::buildIR(CFG* cfg)
 	#ifdef MAP
 		cout << "Appel a la fonction buildIR de bloc" << endl;
 	#endif
-	
+
 	for(unsigned int i = 0 ; i< cont->size() ; i ++)
 	{
 		cont->at(i)->buildIR(cfg);
 	}
-	
+
 	return "ok";
 }

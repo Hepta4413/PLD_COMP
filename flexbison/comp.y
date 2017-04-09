@@ -19,6 +19,7 @@
 	#include "../include/VarTab.h"
 	#include "../include/Const.h"
 	#include "../include/ListeDeclaration.h"
+	#include "../include/DeclAffect.h"
 	#include "Affectation.h"
 	#include "Return.h"
 	#include "BlocIf.h"
@@ -35,11 +36,11 @@
 %locations
 %define parse.error verbose
 %union {
-    	int ival;
+  int ival;
 	string* stringval;
 	Affectation* affectation;
 	Bloc* bloc;
-	Declaration* declaration;
+	DeclAffect* declaffect;
 	Ligne* ligne;
 	Return* retour;
 	AppelFonct* appelfonct;
@@ -57,7 +58,7 @@
 	Fonction* fonction;
 	Programme* programme;
 	VarTab* vartab;
-	ListeDeclaration* listedeclarationstmp;
+	vector<DeclAffect*>* declaffectliste;
 	vector<Declaration*>* declarationsliste;
 	vector<Expression*>* expressionsliste;
 	bool boolean;
@@ -73,13 +74,14 @@
 %type <blocif> else
 %type <type> typenombre typechar typebase typefonction typereturnfonction
 %type <variable> var
-%type <declaration> declarationopt
+%type <declaffect> declarationopt
 %type <bloccontrole> bloccontrole
 %type <expression> expr operation condition option val
 %type <contenu> contenu
 %type <fonction> fonction
 %type <programme> prog
-%type <declarationsliste> arg argbis multdeclaration declaration
+%type <declaffectliste> multdeclaration declaration
+%type <declarationsliste> arg argbis
 %type <expressionsliste> args argsbis
 %type <boolean> typebases
 
@@ -109,14 +111,14 @@ fonction : typereturnfonction NOM OPEN arg CLOSE OPENCURLYBRACKET bloc CLOSECURL
 arg : 	argbis {$$=$1;}
 	| %empty {$$= NULL;}
 	;
-argbis :  typebase NOM typebases {  	
+argbis :  typebase NOM typebases {
 					$$=new vector<Declaration*>();
-					$3?($1==INT32_T?INT32TAB_T:($1==INT64_T?INT64TAB_T:CHARTAB_T)):$1; 
+					$3?($1==INT32_T?INT32TAB_T:($1==INT64_T?INT64TAB_T:CHARTAB_T)):$1;
 					$3?($1==INT32_T?INT32TAB_T:($1==INT64_T?INT64TAB_T:CHARTAB_T)):$1;
 					$$->push_back(new Declaration($1,$2));
 				 }
-	| argbis COMA typebase NOM typebases {  
-						$$=$1; 
+	| argbis COMA typebase NOM typebases {
+						$$=$1;
 						$5?($3==INT32_T?INT32TAB_T:($3==INT64_T?INT64TAB_T:CHARTAB_T)):$3;
 						$1->push_back(new Declaration($3,$4));
 					     }
@@ -135,24 +137,40 @@ ligne : operation {$$=$1; $1->AddLigneColonne(@1.first_line,@1.first_column);}
 return : RETURN expr {$$ = new Return($2);}
 	| RETURN {$$ = new Return();}
 	;
-declaration : typebase NOM declarationopt multdeclaration{ for (vector<Declaration*>::iterator it = $4->begin() ; it != $4->end(); ++it){
-																(*it)->AddInfos($1, (*it)->getName());
-															}
-															$3->AddInfos($1,$2);
-															$4->push_back($3);
-															$$ = $4;
-														}
+declaration : typebase NOM declarationopt multdeclaration{ for (vector<DeclAffect*>::iterator it = $4->begin() ; it != $4->end(); ++it){
+																															(*it)->getDeclaration()->AddInfos($1, (*it)->getDeclaration()->getName());
+																														}
+																														$3->getDeclaration()->AddInfos($1,$2);
+																														if($3->getAffectation() !=NULL){
+																															$3->getAffectation()->addVariable($2);
+																														}
+																														$4->push_back($3);
+																														$$ = $4;
+																													}
 			;
 multdeclaration: COMA NOM declarationopt multdeclaration {
-															$3->AddName($2);
+															$3->getDeclaration()->AddName($2);
+															if($3->getAffectation() != NULL){
+																$3->getAffectation()->addVariable($2);
+															}
 															$4->push_back($3);
 															$$ = $4;
 														}
-				| %empty { $$ = new vector<Declaration*>();}
+				| %empty { $$ = new vector<DeclAffect*>();}
 				;
-declarationopt : OPENBRACKET expr CLOSEBRACKET {$$= new Declaration($2);}
-		 | EQUAL expr { $$ = new Declaration($2);}
-		 | %empty {$$ = new Declaration();}
+declarationopt : OPENBRACKET expr CLOSEBRACKET {
+																									Declaration* d = new Declaration($2);
+																									$$= new DeclAffect(d);
+																								}
+		 | EQUAL expr {
+			 							Declaration* d = new Declaration();
+										Affectation* a = new Affectation(NULL, $2, EQUAL_OB);
+			 							$$ = new DeclAffect(d, a);
+									}
+		 | %empty {
+			 					Declaration* d = new Declaration();
+			 					$$ = new DeclAffect(d);
+							}
 		 ;
 operation : expr {$$=$1;}
 	| %empty {$$= NULL;}
@@ -174,7 +192,7 @@ expr :    expr MUL expr {$$ = new OPBinaire($1, $3, MULT_OB); $$->AddLigneColonn
 	| expr AND expr {$$ = new OPBinaire($1, $3, AND_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
 	| expr OR expr {$$ = new OPBinaire($1, $3, OR_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
 	| expr ANDBIT expr {$$ = new OPBinaire($1, $3, ANDBIT_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
-	| expr ORBIT expr {$$ = new OPBinaire($1, $3, ORBIT_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}	
+	| expr ORBIT expr {$$ = new OPBinaire($1, $3, ORBIT_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
 	| expr LSHIFT expr {$$ = new OPBinaire($1, $3, LSHIFT_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
 	| expr RSHIFT expr {$$ = new OPBinaire($1, $3, RSHIFT_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
 	| expr XOR expr {$$ = new OPBinaire($1, $3, XOR_OB); $$->AddLigneColonne(@1.first_line,@1.first_column);}
@@ -249,15 +267,15 @@ int main(void) {
    {
 		pro->verifVariable();
 	   printf("Résutlat : %d\n",res);
-	   
+
 	   map<string,Fonction *> * fonctions = pro->getFonctions();
-	   
+
 	   vector<CFG*> cfgs;
-	   
+
 	   for (map<string,Fonction *>::iterator it=fonctions->begin(); it!=fonctions->end(); ++it)
 	   {
 			Fonction* f = it->second;
-			
+
 			if(it->first != "putchar" && it->first != "getchar")
 			{
 				CFG* c = new CFG(f);
@@ -265,20 +283,20 @@ int main(void) {
 				cfgs.push_back(c);
 				cout << "CFG de la fonction " + it->first + " généré " <<cfgs.size()<< endl;
 			}
-	   } 
-	   
+	   }
+
 	   ofstream codeAs("main.s", ios::out | ios::trunc);
-		
+
 		if(codeAs)
-		{	
+		{
 			codeAs << "\t.globl	main\n\n";
-			
+
 			for(unsigned int i = 0 ; i < cfgs.size() ; i++)
 			{
 				cfgs[i]->gen_asm(codeAs);
 				printf("Corps fonction %ui généré\n",i);
 			}
-			
+
 			codeAs.close();
 		}
 		else

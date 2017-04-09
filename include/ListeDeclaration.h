@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "Ligne.h"
-#include "Declaration.h"
+#include "DeclAffect.h"
 
 using namespace std;
 
@@ -11,11 +11,11 @@ class ListeDeclaration : public Ligne
 {
 	public:
 	ListeDeclaration();
-	ListeDeclaration(vector<Declaration*>* liste);
-    vector<Declaration*>* getListeDeclaration() const { return listeDeclarations;};
+	ListeDeclaration(vector<DeclAffect*>* liste);
+    vector<DeclAffect*>* getListeDeclaration() const { return listeDeclarations;};
 
 	protected:
-    vector<Declaration*>* listeDeclarations;
+    vector<DeclAffect*>* listeDeclarations;
 
 };
 

@@ -19,6 +19,7 @@ class Affectation : public Expression
 	Type calculType ();
 	string buildIR(CFG * cfg);
 	void setBloc(Bloc* blc);
+	void addVariable(string* n);
 
 	protected:
 	Variable* vars;
